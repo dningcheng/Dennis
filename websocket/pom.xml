@@ -12,6 +12,7 @@
 		<spring.version>4.3.10.RELEASE</spring.version>
 	</properties>
 	<dependencies>
+		<!-- 单元测试依赖 -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>

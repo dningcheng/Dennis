@@ -89,6 +89,10 @@
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="allMethods" order="2"/><!-- order="2" 设置在日志aop之前执行 -->
 	</aop:config>
 	
+	<bean id="testWService" class="com.seally.service.impl.TestWService">
+    	<!-- <property name="myBean" ref="myBean"/> -->
+  	</bean>
+	
 	<!-- 按照包路径扫描容com/seally/下所有添加了各种spring注解的bean，自动纳入容器管理 -->
     <context:component-scan base-package="com.seally.*">
     	<!-- 在spring容器中排开扫描控制器类，单独在mvc配置文件中进行扫描 -->
