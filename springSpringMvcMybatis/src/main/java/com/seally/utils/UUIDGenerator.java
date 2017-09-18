@@ -1,10 +1,7 @@
 package com.seally.utils;
 
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.Writer;
 import java.util.Properties;
 import java.util.UUID;
 
@@ -25,22 +22,5 @@ public class UUIDGenerator {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
-	
-	public static void updateProperties(String key,String value){
-		properties.setProperty(key, value);
-		try {
-			Writer out = new FileWriter(new File(UUIDGenerator.class.getResource("/").getPath()+"test.properties"));
-			properties.store(out , "test update");
-			out.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
-	
-	public static void main(String[] args) {
-		UUIDGenerator.updateProperties("test", "nihao");
 	}
 }
