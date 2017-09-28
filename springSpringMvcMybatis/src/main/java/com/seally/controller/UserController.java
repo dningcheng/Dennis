@@ -4,23 +4,30 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
+import com.seally.entity.User;
 import com.seally.service.UserServive;
-import com.seally.utils.ClientResult;
+import com.seally.utils.PageModule;
 
-@RestController
+@Controller
 public class UserController {
 	
 	@Resource
 	UserServive userServive;
 	
-	@RequestMapping(value="/upimg")
-	public String upImg(HttpServletRequest request,HttpServletResponse response){
+	@Resource
+	HttpServletRequest request;
+	
+	@Resource
+	HttpServletResponse response;
+	
+	@RequestMapping(value="/finduser")
+	public String finduser(PageModule<User> pm,Integer curPage){
+		userServive.findUser(pm);
+		request.setAttribute("pm", pm);
 		
-		ClientResult result = userServive.handRequest(request,response);
-		
-		return "success";
+		return "user_index";
 	}
 }

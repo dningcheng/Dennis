@@ -1,12 +1,12 @@
 package com.seally.service;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
-import com.seally.utils.ClientResult;
+import com.seally.entity.User;
+import com.seally.utils.PageModule;
 
 public interface UserServive {
 
-	ClientResult handRequest(HttpServletRequest request, HttpServletResponse response);
+	void findUser(PageModule<User> pm);
 
 }

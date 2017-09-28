@@ -1,3 +1,5 @@
 eclipse.preferences.version=1
 encoding//src/main/java/com/seally/service/impl/UserServiceImpl.java=UTF-8
 encoding//src/main/resources/log4j.properties=utf-8
+encoding//src/main/webapp/WEB-INF/page/user_index.jsp=UTF-8
+encoding/<project>=UTF-8
