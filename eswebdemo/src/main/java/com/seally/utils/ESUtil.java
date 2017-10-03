@@ -187,52 +187,51 @@ public class ESUtil {
 	 */
 	public static boolean createIndexWithSettingsAndMapping(Client client, String index,int shards,int replicas,XContentBuilder sourceWithMapping){
 		boolean result = false;
-		// settings
-        Settings settings = Settings.builder()
-        		                    .put("index.number_of_shards",shards)
-        							.put("index.number_of_replicas",replicas)
-                                    .build();
-        // mapping example
-        XContentBuilder mappingBuilder=null;
-        try {
-        	 mappingBuilder = XContentFactory.jsonBuilder()
-                    .startObject()
-                        .startObject(index)
-                            .startObject("properties")
-                                //store属性设置是否存储  ,使用 ignore_malformed属性对于畸形无法转换为数字型的丢弃而不是抛出异常而放弃整个文档
-                                .startObject("orgId").field("type", "integer").field("store", false).field("ignore_malformed", true).endObject()
-                                .startObject("userId").field("type", "integer").field("store", false).endObject()
-                                .startObject("unitId").field("type", "integer").field("store", false).endObject()
-                                //对于string类型可以分为两种：全文本、关键字
-                                //全文本通常用于基于文本的相关性搜索，全文本字段可用于分词
-                                .startObject("moduleCode").field("type", "string").field("store", false).endObject()
-                                .startObject("apiCode").field("type", "string").field("store", false).endObject()
-                                .startObject("userAccount").field("type", "string").field("store", false).field("analyzer", "english").field("search_analyzer", "english").endObject()
-                                .startObject("unitNname").field("type", "string").field("store", false).endObject()
-                                //设置该字段为string类型中的关键字，关键字字段通常用于过滤但是不用于分词，关键字使用属性：index : "not_analyzed"进行修饰，该属性还有analyzed（默认）、no两个值
-                                .startObject("opMethod").field("type", "string").field("store", false).field("index", "not_analyzed").endObject()
-                                //用search_analyzer属性设置搜索时用在该字段上的分析器
-                                .startObject("opContent").field("type", "string").field("store", false).field("analyzer", "ik_smart").field("search_analyzer", "ik_smart").endObject()
-                                //用search_quote_analyzer属性设置搜索短语时用在该字段上的分析器
-                                .startObject("opResult").field("type", "string").field("store", false).endObject()
-                                .startObject("opTime").field("type", "string").field("store", false).endObject()
-                                .startObject("moduleParkPlate").field("type", "string").field("store", false).field("index", "not_analyzed").endObject()
-                            .endObject()
-                        .endObject()
-                   .endObject();
-        } catch (Exception e) {
-            logger.error("create index with setting and mapping error :",e);
-            return false;
-        }
-        
-        IndicesAdminClient indicesAdminClient = client.admin().indices();
-        CreateIndexResponse response = indicesAdminClient.prepareCreate(index)
-        		.setSettings(settings)
-        		//.addMapping(index, sourceWithMapping)
-        		.addMapping(index, mappingBuilder)
-        		.execute().actionGet(); //.get()
-        
-        result = response.isAcknowledged();
+		try {
+			// settings
+	        Settings settings = Settings.builder()
+	        		                    .put("index.number_of_shards",shards)
+	        							.put("index.number_of_replicas",replicas)
+	                                    .build();
+	        // mapping example
+	        XContentBuilder mappingBuilder = XContentFactory.jsonBuilder()
+	                    .startObject()
+	                        .startObject(index)
+	                            .startObject("properties")
+	                                //store属性设置是否存储  ,使用 ignore_malformed属性对于畸形无法转换为数字型的丢弃而不是抛出异常而放弃整个文档
+	                                .startObject("orgId").field("type", "integer").field("store", false).field("ignore_malformed", true).endObject()
+	                                .startObject("userId").field("type", "integer").field("store", false).endObject()
+	                                .startObject("unitId").field("type", "integer").field("store", false).endObject()
+	                                //对于string类型可以分为两种：全文本、关键字
+	                                //全文本通常用于基于文本的相关性搜索，全文本字段可用于分词
+	                                .startObject("moduleCode").field("type", "string").field("store", false).endObject()
+	                                .startObject("apiCode").field("type", "string").field("store", false).endObject()
+	                                .startObject("userAccount").field("type", "string").field("store", false).field("analyzer", "english").field("search_analyzer", "english").endObject()
+	                                .startObject("unitNname").field("type", "string").field("store", false).endObject()
+	                                //设置该字段为string类型中的关键字，关键字字段通常用于过滤但是不用于分词，关键字使用属性：index : "not_analyzed"进行修饰，该属性还有analyzed（默认）、no两个值
+	                                .startObject("opMethod").field("type", "string").field("store", false).field("index", "not_analyzed").endObject()
+	                                //用search_analyzer属性设置搜索时用在该字段上的分析器
+	                                .startObject("opContent").field("type", "string").field("store", false).field("analyzer", "ik_smart").field("search_analyzer", "ik_smart").endObject()
+	                                //用search_quote_analyzer属性设置搜索短语时用在该字段上的分析器
+	                                .startObject("opResult").field("type", "string").field("store", false).endObject()
+	                                .startObject("opTime").field("type", "string").field("store", false).endObject()
+	                                .startObject("moduleParkPlate").field("type", "string").field("store", false).field("index", "not_analyzed").endObject()
+	                            .endObject()
+	                        .endObject()
+	                   .endObject();
+	        client.admin().indices();
+	        
+	        CreateIndexResponse response = client.admin().indices().prepareCreate(index)
+	        		.setSettings(settings)
+	        		//.addMapping(index, sourceWithMapping)
+	        		.addMapping(index, mappingBuilder)
+	        		.execute().actionGet(); //.get()
+	        
+	        result = response.isAcknowledged();
+		} catch (Exception e) {
+			logger.error("create index with setting and mapping error :",e);
+			return false;
+		}
         return result;
     }
 	
