@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<!-- 全局参数设置 -->
+	<settings>
+        <!--指定MyBatis用于延迟对象加载的动态代理工具 可取值：CGLIB|JAVASSIST 默认值：CGLIB -->
+		<setting name="proxyFactory" value="CGLIB"/>
+        <!-- 设置全局的映射器启用或禁用缓存 可取值：true|false  默认值：true -->
+		<setting name="cacheEnabled" value="true" />
+        <!--设置全局启用或禁用延迟加载。当禁用时，所有关联对象都会被即时加载 可取值：true|false  默认值：true -->  
+        <setting name="lazyLoadingEnabled" value="true" /> 
+        <!--启用的时候，将会加载对象的所有懒属性，否则，按需加载 可取值：true|false  默认值：true -->  
+        <setting name="aggressiveLazyLoading" value="true"/> 
+	</settings>
+	<!-- 配置自动扫面该包下的实体类，注册实体类的别名为开头字母小写的类名，简化mapper文件中实体类的引用不需要全类名 -->
+	<typeAliases>
+  		<package name="com.seally.entity"/>
+	</typeAliases>
+	<!-- 注册自定义类型处理器 -->  
+    <!-- <typeHandlers>  
+        <typeHandler handler="com.huey.mybatis.typehandlers.TelTypeHandler" />  
+    </typeHandlers>  -->
+</configuration>

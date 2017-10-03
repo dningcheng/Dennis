@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Configuration status="warn" monitorInterval="5">
+	<Properties>
+		<!-- 日志记录的目录 -->
+		<Property name="LOG_HOME" >logs</Property>
+		<!-- 日志记录格式 -->
+		<Property name="DEFAULT_PATTERN">%d %-5p [%t] %m (%c:%F:%L) %n</Property>
+		<!-- 第三方框架日志级别 -->
+		<Property name="FRAMEWORK_LEVEL">info</Property>
+		<!-- 数据库日志级别  -->
+		<Property name="SQL_LEVEL">debug</Property>
+	</Properties>
+	
+	<Appenders>
+		<!-- 控制台打印日志  -->
+		<Console name="console">
+			<PatternLayout pattern="${DEFAULT_PATTERN}"/>
+			<ThresholdFilter level="debug" onMatch="ACCEPT" onMismatch="DENY"/>
+		</Console>
+		
+		<!-- 工程师找问题的日志文件，可以每个星期清一次 -->
+		<RollingRandomAccessFile name="allFile" fileName="${LOG_HOME}/all.log" filePattern="${LOG_HOME}/all.%d{yyyy-MM-dd}_%i.log" immediateFlush="true">
+			<Policies>
+				<TimeBasedTriggeringPolicy />
+				<SizeBasedTriggeringPolicy size="50 MB" />
+			</Policies>
+			<PatternLayout pattern="${DEFAULT_PATTERN}" />
+			<ThresholdFilter level="debug" onMatch="ACCEPT" onMismatch="DENY"/>
+		</RollingRandomAccessFile>
+		
+		<!-- 调试日志 -->
+		<File name="tempDebug" fileName="${LOG_HOME}/tmpdebug.log" append="false">  
+      		<PatternLayout pattern="${DEFAULT_PATTERN}"/>  
+    	</File>
+	</Appenders>
+	
+	<Loggers>
+		
+		<!-- <Logger name="net.sf.ehcache.store.disk" level="${FRAMEWORK_LEVEL}" /> -->
+		<Root level="trace" includeLocation="true">
+			<AppenderRef ref="allFile" />
+			<AppenderRef ref="console" />
+			调试的时候打开这个日志
+			<AppenderRef ref="tempDebug" />
+		</Root>
+	</Loggers>
+</Configuration>
