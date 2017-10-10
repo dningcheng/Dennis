@@ -24,6 +24,8 @@ import org.elasticsearch.action.get.MultiGetRequestBuilder;
 import org.elasticsearch.action.get.MultiGetResponse;
 import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.action.index.IndexResponse;
+import org.elasticsearch.action.search.MultiSearchResponse;
+import org.elasticsearch.action.search.MultiSearchResponse.Item;
 import org.elasticsearch.action.search.SearchRequestBuilder;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.search.SearchType;
@@ -44,13 +46,17 @@ import org.elasticsearch.index.query.ExistsQueryBuilder;
 import org.elasticsearch.index.query.MatchPhraseQueryBuilder;
 import org.elasticsearch.index.query.MultiMatchQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.index.query.QueryStringQueryBuilder;
 import org.elasticsearch.index.query.RangeQueryBuilder;
 import org.elasticsearch.index.reindex.BulkByScrollResponse;
 import org.elasticsearch.index.reindex.DeleteByQueryAction;
 import org.elasticsearch.index.reindex.DeleteByQueryRequestBuilder;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
+import org.elasticsearch.search.fetch.subphase.highlight.HighlightBuilder;
 import org.elasticsearch.transport.client.PreBuiltTransportClient;
+
+import com.seally.entity.Plog;
 
 public class ESUtil {
 	
@@ -198,24 +204,24 @@ public class ESUtil {
 	                    .startObject()
 	                        .startObject(index)
 	                            .startObject("properties")
-	                                //store属性设置是否存储  ,使用 ignore_malformed属性对于畸形无法转换为数字型的丢弃而不是抛出异常而放弃整个文档
-	                                .startObject("orgId").field("type", "integer").field("store", false).field("ignore_malformed", true).endObject()
-	                                .startObject("userId").field("type", "integer").field("store", false).endObject()
-	                                .startObject("unitId").field("type", "integer").field("store", false).endObject()
+	                                //ignore_malformed属性:对于畸形无法转换为数字型的字段直接丢弃而不抛出异常导致放弃整个文档的结果
+	                                .startObject("orgId").field("type", "integer").field("ignore_malformed", true).endObject()
+	                                .startObject("userId").field("type", "integer").endObject()
+	                                .startObject("unitId").field("type", "integer").endObject()
 	                                //对于string类型可以分为两种：全文本、关键字
 	                                //全文本通常用于基于文本的相关性搜索，全文本字段可用于分词
-	                                .startObject("moduleCode").field("type", "string").field("store", false).endObject()
-	                                .startObject("apiCode").field("type", "string").field("store", false).endObject()
-	                                .startObject("userAccount").field("type", "string").field("store", false).field("analyzer", "english").field("search_analyzer", "english").endObject()
-	                                .startObject("unitNname").field("type", "string").field("store", false).endObject()
+	                                .startObject("moduleCode").field("type", "string").endObject()
+	                                .startObject("apiCode").field("type", "string").endObject()
+	                                .startObject("userAccount").field("type", "string").field("analyzer", "english").field("search_analyzer", "english").endObject()
+	                                .startObject("unitNname").field("type", "string").endObject()
 	                                //设置该字段为string类型中的关键字，关键字字段通常用于过滤但是不用于分词，关键字使用属性：index : "not_analyzed"进行修饰，该属性还有analyzed（默认）、no两个值
-	                                .startObject("opMethod").field("type", "string").field("store", false).field("index", "not_analyzed").endObject()
+	                                .startObject("opMethod").field("type", "string").field("index", "not_analyzed").endObject()
 	                                //用search_analyzer属性设置搜索时用在该字段上的分析器
-	                                .startObject("opContent").field("type", "string").field("store", false).field("analyzer", "ik_smart").field("search_analyzer", "ik_smart").endObject()
+	                                .startObject("opContent").field("type", "string").field("analyzer", "ik_max_word").field("search_analyzer", "ik_max_word").endObject()
 	                                //用search_quote_analyzer属性设置搜索短语时用在该字段上的分析器
-	                                .startObject("opResult").field("type", "string").field("store", false).endObject()
+	                                .startObject("opResult").field("type", "string").endObject()
 	                                .startObject("opTime").field("type", "string").field("store", false).endObject()
-	                                .startObject("moduleParkPlate").field("type", "string").field("store", false).field("index", "not_analyzed").endObject()
+	                                .startObject("moduleParkPlate").field("type", "string").field("index", "not_analyzed").endObject()
 	                            .endObject()
 	                        .endObject()
 	                   .endObject();
@@ -227,6 +233,145 @@ public class ESUtil {
 	        		.addMapping(index, mappingBuilder)
 	        		.execute().actionGet(); //.get()
 	        
+	        result = response.isAcknowledged();
+		} catch (Exception e) {
+			logger.error("create index with setting and mapping error :",e);
+			return false;
+		}
+        return result;
+    }
+	
+	public static boolean createIndexWithSettingsAndMapping(Client client, String index,String type,int shards,int replicas){
+		boolean result = false;
+		
+		//检测创建的索引库是否已经存在
+		if(ESUtil.existIndex(client, index)){
+			return result;
+		}
+		
+		try {
+			// 
+	        /*Settings settings = Settings.builder()
+	        		                    .put("index.number_of_shards",shards)
+	        							.put("index.number_of_replicas",replicas)
+	                                    .build();*/
+	        //settings映射结构
+			XContentBuilder settingBuilder = XContentFactory.jsonBuilder()
+				.startObject()	
+					//.startObject("settings") //因为该构建出的json配置要交给Settings类处理，其会自动在外层加上此属性包装，因此这里不能有
+						.field("number_of_shards", shards) //指定分片属性(关键字)
+						.field("number_of_replicas", replicas) //指定副本属性(关键字)
+						.startObject("analysis") //配置分析器属性(关键字)
+							.startObject("analyzer") //具体分析器组装域(关键字)
+								.startObject("pinyin_analyzer")  //分析器1名称(自定义)
+									.field("type", "custom") //分析器1的类型(关键字，类型值custom)
+									.field("tokenizer", "tokenizer_01") //分析器1的分词器(关键字，引用系统或是安装的名称)
+									.array("filter", "word_delimiter") //分析器1的词元过滤器(关键字,引用系统或是安装的名称),值的类型为String...args
+									.field("char_filter", "char_filter_02") //分析器1的字符过滤器(关键字，引用系统或是安装的名称)
+								.endObject()
+								.startObject("ik_analyzer") //分析器2名称(自定义)
+									.field("type", "custom") //分析器2的类型(关键字，类型值custom)
+									.field("tokenizer", "ik_max_word") //分析器2的分词器(关键字，引用系统或是安装的名称)
+									.array("filter", new String[]{"filter_01"}) //分析器2的词元过滤器(关键字,引用系统或是安装的名称),值的类型为String...args
+									.field("char_filter", "char_filter_02") //分析器2的字符过滤器(关键字，引用系统或是安装的名称)
+								.endObject()
+							.endObject()
+							.startObject("char_filter") //具体字符过滤器配置域(关键字)
+								.startObject("char_filter_02") //字符过滤器1名称(自定义)
+									.field("type", "html_strip") //字符过滤器1类型(关键字，引用系统或是安装的名称)
+									.array("escaped_tags", "b") //字符过滤器1的特殊属性(属性名称，标签名称)，针对不同的字符过滤器有不同的属性值配置
+								.endObject()
+							.endObject()
+							.startObject("tokenizer") //具体分词器配置域(关键字)
+								.startObject("tokenizer_01") //分词器1名称(自定义)
+									.field("type", "pinyin") //特定于分词器1的各属性配置
+									.field("first_letter", "prefix") //特定于分词器1的各属性配置
+									.field("padding_char", " ") //特定于分词器1的各属性配置
+								.endObject()
+							.endObject()
+							.startObject("filter") //具体词元过滤器配置域(关键字)
+								.startObject("filter_01") //词元过滤器1名称(自定义)
+									.field("type", "stop") //特定于词元过滤器1的各属性配置
+									.array("stopwords", "的", "我", "吧") //特定于词元过滤器1的各属性配置
+								.endObject()
+							.endObject()
+						.endObject()
+					//.endObject()
+				.endObject();
+			Settings settings = Settings.builder().loadFromSource(settingBuilder.string(), XContentType.JSON).build();
+			
+			//mapping映射结构
+	        XContentBuilder mappingBuilder = XContentFactory.jsonBuilder()
+	                    .startObject()
+	                        //.startObject(type) //映射的索引类型名封装到了最终的addMapping方法中处理，因此这里不能有
+	                            .startObject("properties") //映射的文档域配置（关键字）
+	                                .startObject("orgId") //文档属性orgId（自定义名称），ignore_malformed属性:对于畸形无法转换为数字型的字段直接丢弃而不抛出异常导致放弃整个文档的结果
+	                                	.field("type", "integer") //属性修饰配置
+	                                	.field("ignore_malformed", true) //属性修饰配置
+	                                .endObject()
+	                                .startObject("userId") //文档属性userId（自定义名称）
+	                                	.field("type", "integer") //属性修饰配置
+	                                .endObject()
+	                                .startObject("unitId") //文档属性unitId（自定义名称）
+	                                	.field("type", "integer") //属性修饰配置
+	                                .endObject()
+	                                //设置该字段设置为string类型中的全文本，全文本可用于分词，使用属性：index : "analyzed"进行修饰，该属性还有not_analyzed、no两个值
+	                                .startObject("userAccount") //文档属性userAccount（自定义名称）
+	                                	.field("type", "string") //属性修饰配置，配置其为string类型
+	                                	.field("index", "analyzed") //配置该字段为string类型中的可分词全文本，默认是analyzed，因此这里省略也可以
+	                                	.field("analyzer", "english") //配置器索引该字段时的分词器，可来源于es内置，也可来源于setting中配置的
+	                                	.field("search_analyzer", "english") //配置搜索该字段时的分词器，可来源于es内置，也可来源于setting中配置的
+	                                .endObject()
+	                                //设置该字段设置为string类型中的关键字，关键字字段通常用于过滤但是不用于分词，关键字使用属性：index : "not_analyzed"进行修饰，该属性还有analyzed（默认）、no两个值
+	                                .startObject("opMethod") //文档属性opMethod（自定义名称）
+	                                	.field("type", "string") //属性修饰配置，配置其为string类型
+	                                	.field("index", "not_analyzed") //配置该字段为string类型中的关键字not_analyzed，表示索引和搜索时不对该字段进行分词处理
+	                                .endObject()
+	                                //设置该字段设置为string类型中的不可索引
+	                                .startObject("moduleCode") //文档属性moduleCode（自定义名称）
+                                	.field("type", "string") //对于string类型可以分为两种：全文本、关键字，使用index进行修饰，默认为全文本
+                                	.field("index", "no") //配置该字段为string类型中的不可索引no
+                                	.endObject()
+	                                .startObject("apiCode")
+	                                	.field("type", "string")
+	                                .endObject()
+	                                .startObject("unitNname")
+	                                	.field("type", "string")
+	                                	.field("analyzer", "ik_analyzer")
+	                                	.field("search_analyzer", "ik_analyzer")
+	                                .endObject()
+	                                .startObject("unitNname2")
+	                                	.field("type", "string")
+	                                	.field("analyzer", "pinyin_analyzer") 
+	                                	.field("search_analyzer", "pinyin_analyzer")
+	                                .endObject()
+	                                .startObject("opContent")
+	                                	.field("type", "string")
+	                                	.field("analyzer", "ik_analyzer")
+	                                	.field("search_analyzer", "ik_analyzer")
+	                                .endObject()
+	                                .startObject("opResult")
+	                                	.field("type", "string")
+	                                	.field("index", "not_analyzed")
+	                                .endObject()
+	                                .startObject("opTime")
+	                                	.field("type", "string")
+	                                	.field("store", false)
+	                                .endObject()
+	                                .startObject("moduleParkPlate")
+	                                	.field("type", "string")
+	                                	.field("index", "not_analyzed")
+	                                .endObject()
+	                            .endObject()
+	                        //.endObject()
+	                   .endObject();
+	        
+	        CreateIndexResponse response = client.admin().indices()
+	        		.prepareCreate(index)
+	        		//.setIndex(index)
+	        		.setSettings(settings)
+	        		.addMapping(type, mappingBuilder)
+	        		.execute().actionGet(); //.get()
 	        result = response.isAcknowledged();
 		} catch (Exception e) {
 			logger.error("create index with setting and mapping error :",e);
@@ -691,7 +836,7 @@ public class ESUtil {
 	 * @param indices
 	 * @param types
 	 */
-	public static SearchHits fullTextSearch(Client client,String[] indices,String[] types,String keyWords){
+	public static SearchHits fullTextSearch(Client client,String[] indices,String[] types,PageModule<Plog> pm){
 		
 		SearchRequestBuilder searchBuilder = client.prepareSearch();
 		if(indices!=null){
@@ -702,19 +847,15 @@ public class ESUtil {
 			//设置搜索索引库类型
 			searchBuilder.setTypes(types);
 		}
-		
 		//获取源文档
 		searchBuilder.setFetchSource(true);
-		
 		//设置索引类型
 		searchBuilder.setSearchType(SearchType.DFS_QUERY_THEN_FETCH);
-		
 		//设置是否按查询匹配度排序  
 		searchBuilder.setExplain(true); 
-		
 		//深度分页相关
-		searchBuilder.setFrom(0);
-		searchBuilder.setSize(10);
+		searchBuilder.setFrom((pm.getCurPage().intValue()-1)*pm.getPageSize());
+		searchBuilder.setSize(pm.getPageSize());
 		
 		//设置排序字段
 		/*searchBuilder.addSort("age",SortOrder.DESC);
@@ -723,18 +864,23 @@ public class ESUtil {
 		//使用bool查询包装
 		//BoolQueryBuilder boolQuery = QueryBuilders.boolQuery();
 		
-		MultiMatchQueryBuilder multiMatchQuery = QueryBuilders.multiMatchQuery(keyWords);
+		if(pm.getKeyWords()==null || "".equals(pm.getKeyWords().trim())){
+			searchBuilder.setQuery(QueryBuilders.matchAllQuery());
+		}else{
+			MultiMatchQueryBuilder multiMatchQuery = QueryBuilders.multiMatchQuery(pm.getKeyWords(),new String[]{"userAccount","opMethod","opCotent","apiCode","moduleParkPlate","opResult","unitNname","userAccount.userAccountKW","opResult.opResultKW"});
+			searchBuilder.setQuery(multiMatchQuery);
+		}
 		
-		searchBuilder.setQuery(multiMatchQuery);
-		//设置精确匹配字段
-		//searchBuilder.setQuery(QueryBuilders.termQuery("multi", "test"));
+		//MultiMatchQueryBuilder multiMatchQuery = QueryBuilders.multiMatchQuery(pm.getKeyWords(),new String[]{"_all"});
 		
-		//设置范围匹配字段
-		//searchBuilder.setQuery(QueryBuilders.rangeQuery("age").from(12).to(18));
+		
+		HighlightBuilder highlightBuilder = new HighlightBuilder().field("*").requireFieldMatch(false);
+		highlightBuilder.preTags("<span style=\"background-color:red\">");
+		highlightBuilder.postTags("</span>");
+		searchBuilder.highlighter(highlightBuilder);
+		
 		System.out.println(searchBuilder.toString());
-		
-		SearchResponse response = searchBuilder.execute().actionGet();
-		
+		SearchResponse response = searchBuilder.get();
 		return response.getHits();
 	}
 	
@@ -867,23 +1013,23 @@ public class ESUtil {
 	
 
 	public static void main(String[] args) {
-		Client client = ESUtil.openClient("escluster", "192.168.174.128", null);
+		Client client = ESUtil.openClient("escluster", "192.168.31.164", null);
 		/*try {
 			ESUtil.xContentBuilderTest();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}*/
-		Map<String,Object> user = new HashMap<String,Object>();
+		/*Map<String,Object> user = new HashMap<String,Object>();
 		user.put("name", "sdsd");
-		String mapDocument="{\"name\":\"赵六sdd\",\"age\":25,\"gender\":\"fomale\"}";
+		String mapDocument="{\"name\":\"赵六sdd\",\"age\":25,\"gender\":\"fomale\"}";*/
 		//System.out.println(ESUtil.insertDocument(client, "index02", "type02", 1+"", mapDocument));
 		
-		//System.out.println(ESUtil.deleteIndex(client, "eswuye"));
+		//System.out.println(ESUtil.deleteIndex(client, "wuye1"));
 		
 		//System.out.println(ESUtil.createIndex(client, "eswuye"));
 		
-		//System.out.println(ESUtil.insertDocument(client, "index01", "user", 6+"", mapDocument));
+		//System.out.println(ESUtil.insertDocument(client, "wuye", "pblog", 6+"", mapDocument));
 		
 		//ESUtil.deleteDocument(client, "index01", "user", 2+"");
 		
@@ -903,14 +1049,14 @@ public class ESUtil {
 		
 		//SearchHits termSearch = ESUtil.rangeSearch(client, "moduleCode", 2,6, null, null);
 		
-		SearchHits termSearch = ESUtil.fullTextSearch(client, new String[]{"eswuye"}, new String[]{"pblog"}, "发卡");
+		//SearchHits termSearch = ESUtil.fullTextSearch(client, new String[]{"wuye1"}, null, "szlyydhl");
 		
-		SearchHit[] hits = termSearch.getHits();
+		/*SearchHit[] hits = termSearch.getHits();
 		System.out.println(hits.length);
 		for(SearchHit s:hits){
 			System.out.println(s.getSourceAsString());
-		}
+		}*/
 		
-		//ESUtil.createIndexWithSettingsAndMapping(client, "pblog", 5, 1, null);
+		//ESUtil.createIndexWithSettingsAndMapping(client, "wuye1","pblog", 5, 1);
 	}
 }

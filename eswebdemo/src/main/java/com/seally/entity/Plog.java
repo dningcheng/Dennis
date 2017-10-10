@@ -1,22 +1,45 @@
 package com.seally.entity;
 
-public class User {
+import com.seally.annotation.EsField;
+
+public class Plog {
 	
+	@EsField(esField="orgId")
 	private String orgId;
+	
+	@EsField(esField="userId")
 	private String userId;
+	
+	@EsField(esField="unitId")
 	private String unitId;
+	
+	@EsField(esField="moduleCode")
 	private String moduleCode;
+	
+	@EsField(esField="apiCode")
 	private String apiCode;
+	
+	@EsField(esField="userAccount")
 	private String userAccount;
+	
+	@EsField(esField="unitNname")
 	private String unitNname;
+	
+	@EsField(esField="opMethod")
 	private String opMethod;
+	
+	@EsField(esField="opContent")
 	private String opContent;
+	
+	@EsField(esField="opResult")
 	private String opResult;
+	
+	@EsField(esField="opTime")
 	private String opTime;
 	
-	public User(){}
+	public Plog(){}
 	
-	public User(String userId, String moduleCode, String apiCode, String userAccount, String opMethod, String opContent,
+	public Plog(String userId, String moduleCode, String apiCode, String userAccount, String opMethod, String opContent,
 			String opResult, String opTime) {
 		this.userId = userId;
 		this.moduleCode = moduleCode;

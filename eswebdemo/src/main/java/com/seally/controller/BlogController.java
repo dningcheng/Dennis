@@ -7,12 +7,12 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.seally.entity.User;
+import com.seally.entity.Plog;
 import com.seally.service.UserServive;
 import com.seally.utils.PageModule;
 
 @Controller
-public class UserController {
+public class BlogController {
 	
 	@Resource
 	UserServive userServive;
@@ -23,11 +23,19 @@ public class UserController {
 	@Resource
 	HttpServletResponse response;
 	
-	@RequestMapping(value="/finduser")
-	public String finduser(PageModule<User> pm,Integer curPage){
-		userServive.findUser(pm);
+	@RequestMapping(value="/login")
+	public String login(PageModule<Plog> pm){
+		userServive.findPlog(pm);
 		request.setAttribute("pm", pm);
 		
-		return "user_index";
+		return "blog_index";
+	}
+	
+	@RequestMapping(value="/findblog")
+	public String findblog(PageModule<Plog> pm){
+		userServive.findPlog(pm);
+		request.setAttribute("pm", pm);
+		
+		return "blog_index";
 	}
 }
