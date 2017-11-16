@@ -1,0 +1,25 @@
+[seally][ERROR] [2017-10-03 23:06:26] com.seally.utils.ESUtil.createIndexWithSettingsAndMapping(326) | create index with setting and mapping error :
+com.fasterxml.jackson.core.JsonGenerationException: Can not write a field name, expecting a value
+	at com.fasterxml.jackson.core.JsonGenerator._reportError(JsonGenerator.java:1897)
+	at com.fasterxml.jackson.core.json.UTF8JsonGenerator.writeFieldName(UTF8JsonGenerator.java:185)
+	at org.elasticsearch.common.xcontent.json.JsonXContentGenerator.writeFieldName(JsonXContentGenerator.java:183)
+	at org.elasticsearch.common.xcontent.XContentBuilder.field(XContentBuilder.java:246)
+	at org.elasticsearch.common.xcontent.XContentBuilder.startObject(XContentBuilder.java:222)
+	at com.seally.utils.ESUtil.createIndexWithSettingsAndMapping(ESUtil.java:248)
+	at com.seally.utils.ESUtil.main(ESUtil.java:1008)
+[seally][ERROR] [2017-10-03 23:08:02] com.seally.utils.ESUtil.createIndexWithSettingsAndMapping(327) | create index with setting and mapping error :
+com.fasterxml.jackson.core.JsonGenerationException: Current context not Array but Object
+	at com.fasterxml.jackson.core.JsonGenerator._reportError(JsonGenerator.java:1897)
+	at com.fasterxml.jackson.core.json.UTF8JsonGenerator.writeEndArray(UTF8JsonGenerator.java:297)
+	at org.elasticsearch.common.xcontent.json.JsonXContentGenerator.writeEndArray(JsonXContentGenerator.java:178)
+	at org.elasticsearch.common.xcontent.XContentBuilder.endArray(XContentBuilder.java:240)
+	at com.seally.utils.ESUtil.createIndexWithSettingsAndMapping(ESUtil.java:257)
+	at com.seally.utils.ESUtil.main(ESUtil.java:1009)
+[seally][ERROR] [2017-10-03 23:09:03] com.seally.utils.ESUtil.createIndexWithSettingsAndMapping(327) | create index with setting and mapping error :
+com.fasterxml.jackson.core.JsonGenerationException: Current context not Array but Object
+	at com.fasterxml.jackson.core.JsonGenerator._reportError(JsonGenerator.java:1897)
+	at com.fasterxml.jackson.core.json.UTF8JsonGenerator.writeEndArray(UTF8JsonGenerator.java:297)
+	at org.elasticsearch.common.xcontent.json.JsonXContentGenerator.writeEndArray(JsonXContentGenerator.java:178)
+	at org.elasticsearch.common.xcontent.XContentBuilder.endArray(XContentBuilder.java:240)
+	at com.seally.utils.ESUtil.createIndexWithSettingsAndMapping(ESUtil.java:257)
+	at com.seally.utils.ESUtil.main(ESUtil.java:1009)

@@ -1,0 +1,188 @@
+[seally][ERROR] [2017-10-04 08:19:27] com.seally.utils.ESUtil.createIndexWithSettingsAndMapping(330) | create index with setting and mapping error :
+com.fasterxml.jackson.core.JsonGenerationException: Current context not Array but Object
+	at com.fasterxml.jackson.core.JsonGenerator._reportError(JsonGenerator.java:1897)
+	at com.fasterxml.jackson.core.json.UTF8JsonGenerator.writeEndArray(UTF8JsonGenerator.java:297)
+	at org.elasticsearch.common.xcontent.json.JsonXContentGenerator.writeEndArray(JsonXContentGenerator.java:178)
+	at org.elasticsearch.common.xcontent.XContentBuilder.endArray(XContentBuilder.java:240)
+	at com.seally.utils.ESUtil.createIndexWithSettingsAndMapping(ESUtil.java:257)
+	at com.seally.utils.ESUtil.main(ESUtil.java:1012)
+[seally][ERROR] [2017-10-04 08:21:32] com.seally.utils.ESUtil.createIndexWithSettingsAndMapping(332) | create index with setting and mapping error :
+NoNodeAvailableException[None of the configured nodes are available: [{#transport#-1}{XaE5WI6AQMe5Dc9S7tPh3w}{192.168.31.164}{192.168.31.164:9300}]]
+	at org.elasticsearch.client.transport.TransportClientNodesService.ensureNodesAreAvailable(TransportClientNodesService.java:347)
+	at org.elasticsearch.client.transport.TransportClientNodesService.execute(TransportClientNodesService.java:245)
+	at org.elasticsearch.client.transport.TransportProxyClient.execute(TransportProxyClient.java:59)
+	at org.elasticsearch.client.transport.TransportClient.doExecute(TransportClient.java:363)
+	at org.elasticsearch.client.support.AbstractClient.execute(AbstractClient.java:408)
+	at org.elasticsearch.client.support.AbstractClient$IndicesAdmin.execute(AbstractClient.java:1256)
+	at org.elasticsearch.action.ActionRequestBuilder.execute(ActionRequestBuilder.java:80)
+	at org.elasticsearch.action.ActionRequestBuilder.execute(ActionRequestBuilder.java:54)
+	at com.seally.utils.ESUtil.createIndexWithSettingsAndMapping(ESUtil.java:328)
+	at com.seally.utils.ESUtil.main(ESUtil.java:1014)
+[seally][ERROR] [2017-10-04 08:26:21] com.seally.utils.ESUtil.createIndexWithSettingsAndMapping(332) | create index with setting and mapping error :
+NoNodeAvailableException[None of the configured nodes are available: [{#transport#-1}{JdAhj95dQEGQysuHnMD4Rw}{192.168.31.164}{192.168.31.164:9300}]]
+	at org.elasticsearch.client.transport.TransportClientNodesService.ensureNodesAreAvailable(TransportClientNodesService.java:347)
+	at org.elasticsearch.client.transport.TransportClientNodesService.execute(TransportClientNodesService.java:245)
+	at org.elasticsearch.client.transport.TransportProxyClient.execute(TransportProxyClient.java:59)
+	at org.elasticsearch.client.transport.TransportClient.doExecute(TransportClient.java:363)
+	at org.elasticsearch.client.support.AbstractClient.execute(AbstractClient.java:408)
+	at org.elasticsearch.client.support.AbstractClient$IndicesAdmin.execute(AbstractClient.java:1256)
+	at org.elasticsearch.action.ActionRequestBuilder.execute(ActionRequestBuilder.java:80)
+	at org.elasticsearch.action.ActionRequestBuilder.execute(ActionRequestBuilder.java:54)
+	at com.seally.utils.ESUtil.createIndexWithSettingsAndMapping(ESUtil.java:328)
+	at com.seally.utils.ESUtil.main(ESUtil.java:1014)
+[seally][ERROR] [2017-10-04 08:27:12] com.seally.utils.ESUtil.createIndexWithSettingsAndMapping(333) | create index with setting and mapping error :
+NoNodeAvailableException[None of the configured nodes are available: [{#transport#-1}{84LHBubEQIep6ceNgvh_Mg}{192.168.31.164}{192.168.31.164:9300}]]
+	at org.elasticsearch.client.transport.TransportClientNodesService.ensureNodesAreAvailable(TransportClientNodesService.java:347)
+	at org.elasticsearch.client.transport.TransportClientNodesService.execute(TransportClientNodesService.java:245)
+	at org.elasticsearch.client.transport.TransportProxyClient.execute(TransportProxyClient.java:59)
+	at org.elasticsearch.client.transport.TransportClient.doExecute(TransportClient.java:363)
+	at org.elasticsearch.client.support.AbstractClient.execute(AbstractClient.java:408)
+	at org.elasticsearch.client.support.AbstractClient$IndicesAdmin.execute(AbstractClient.java:1256)
+	at org.elasticsearch.action.ActionRequestBuilder.execute(ActionRequestBuilder.java:80)
+	at org.elasticsearch.action.ActionRequestBuilder.execute(ActionRequestBuilder.java:54)
+	at com.seally.utils.ESUtil.createIndexWithSettingsAndMapping(ESUtil.java:329)
+	at com.seally.utils.ESUtil.main(ESUtil.java:1015)
+[seally][ERROR] [2017-10-04 08:30:21] com.seally.utils.ESUtil.createIndexWithSettingsAndMapping(333) | create index with setting and mapping error :
+NoNodeAvailableException[None of the configured nodes are available: [{#transport#-1}{Qpa9Mh-5QDWygSGOWsCvKQ}{192.168.31.164}{192.168.31.164:9300}]]
+	at org.elasticsearch.client.transport.TransportClientNodesService.ensureNodesAreAvailable(TransportClientNodesService.java:347)
+	at org.elasticsearch.client.transport.TransportClientNodesService.execute(TransportClientNodesService.java:245)
+	at org.elasticsearch.client.transport.TransportProxyClient.execute(TransportProxyClient.java:59)
+	at org.elasticsearch.client.transport.TransportClient.doExecute(TransportClient.java:363)
+	at org.elasticsearch.client.support.AbstractClient.execute(AbstractClient.java:408)
+	at org.elasticsearch.client.support.AbstractClient$IndicesAdmin.execute(AbstractClient.java:1256)
+	at org.elasticsearch.action.ActionRequestBuilder.execute(ActionRequestBuilder.java:80)
+	at org.elasticsearch.action.ActionRequestBuilder.execute(ActionRequestBuilder.java:54)
+	at com.seally.utils.ESUtil.createIndexWithSettingsAndMapping(ESUtil.java:329)
+	at com.seally.utils.ESUtil.main(ESUtil.java:1015)
+[seally][ERROR] [2017-10-04 08:31:58] com.seally.utils.ESUtil.createIndexWithSettingsAndMapping(333) | create index with setting and mapping error :
+java.lang.IllegalArgumentException: unknown setting [index.settings.analysis.analyzer.ik_analyzer.char_filter] please check that any required plugins are installed, or check the breaking changes documentation for removed settings
+	at org.elasticsearch.common.settings.AbstractScopedSettings.validate(AbstractScopedSettings.java:293)
+	at org.elasticsearch.common.settings.AbstractScopedSettings.validate(AbstractScopedSettings.java:256)
+	at org.elasticsearch.common.settings.AbstractScopedSettings.validate(AbstractScopedSettings.java:246)
+	at org.elasticsearch.cluster.metadata.MetaDataCreateIndexService.onlyCreateIndex(MetaDataCreateIndexService.java:221)
+	at org.elasticsearch.cluster.metadata.MetaDataCreateIndexService.createIndex(MetaDataCreateIndexService.java:201)
+	at org.elasticsearch.action.admin.indices.create.TransportCreateIndexAction.masterOperation(TransportCreateIndexAction.java:81)
+	at org.elasticsearch.action.admin.indices.create.TransportCreateIndexAction.masterOperation(TransportCreateIndexAction.java:39)
+	at org.elasticsearch.action.support.master.TransportMasterNodeAction.masterOperation(TransportMasterNodeAction.java:87)
+	at org.elasticsearch.action.support.master.TransportMasterNodeAction$AsyncSingleAction$2.doRun(TransportMasterNodeAction.java:166)
+	at org.elasticsearch.common.util.concurrent.AbstractRunnable.run(AbstractRunnable.java:37)
+	at org.elasticsearch.common.util.concurrent.EsExecutors$1.execute(EsExecutors.java:110)
+	at org.elasticsearch.action.support.master.TransportMasterNodeAction$AsyncSingleAction.doStart(TransportMasterNodeAction.java:163)
+	at org.elasticsearch.action.support.master.TransportMasterNodeAction$AsyncSingleAction.start(TransportMasterNodeAction.java:126)
+	at org.elasticsearch.action.support.master.TransportMasterNodeAction.doExecute(TransportMasterNodeAction.java:104)
+	at org.elasticsearch.action.support.master.TransportMasterNodeAction.doExecute(TransportMasterNodeAction.java:54)
+	at org.elasticsearch.action.support.TransportAction$RequestFilterChain.proceed(TransportAction.java:170)
+	at org.elasticsearch.action.support.TransportAction.execute(TransportAction.java:142)
+	at org.elasticsearch.action.support.HandledTransportAction$TransportHandler.messageReceived(HandledTransportAction.java:64)
+	at org.elasticsearch.action.support.HandledTransportAction$TransportHandler.messageReceived(HandledTransportAction.java:54)
+	at org.elasticsearch.transport.RequestHandlerRegistry.processMessageReceived(RequestHandlerRegistry.java:69)
+	at org.elasticsearch.transport.TcpTransport$RequestHandler.doRun(TcpTransport.java:1533)
+	at org.elasticsearch.common.util.concurrent.AbstractRunnable.run(AbstractRunnable.java:37)
+	at org.elasticsearch.common.util.concurrent.EsExecutors$1.execute(EsExecutors.java:110)
+	at org.elasticsearch.transport.TcpTransport.handleRequest(TcpTransport.java:1490)
+	at org.elasticsearch.transport.TcpTransport.messageReceived(TcpTransport.java:1374)
+	at org.elasticsearch.transport.netty4.Netty4MessageChannelHandler.channelRead(Netty4MessageChannelHandler.java:74)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:362)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:348)
+	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:340)
+	at io.netty.handler.codec.ByteToMessageDecoder.fireChannelRead(ByteToMessageDecoder.java:310)
+	at io.netty.handler.codec.ByteToMessageDecoder.fireChannelRead(ByteToMessageDecoder.java:297)
+	at io.netty.handler.codec.ByteToMessageDecoder.callDecode(ByteToMessageDecoder.java:413)
+	at io.netty.handler.codec.ByteToMessageDecoder.channelRead(ByteToMessageDecoder.java:265)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:362)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:348)
+	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:340)
+	at io.netty.channel.ChannelInboundHandlerAdapter.channelRead(ChannelInboundHandlerAdapter.java:86)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:362)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:348)
+	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:340)
+	at io.netty.channel.DefaultChannelPipeline$HeadContext.channelRead(DefaultChannelPipeline.java:1334)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:362)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:348)
+	at io.netty.channel.DefaultChannelPipeline.fireChannelRead(DefaultChannelPipeline.java:926)
+	at io.netty.channel.nio.AbstractNioByteChannel$NioByteUnsafe.read(AbstractNioByteChannel.java:134)
+	at io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:644)
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeysPlain(NioEventLoop.java:544)
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:498)
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:458)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:858)
+	at java.lang.Thread.run(Thread.java:748)
+	Suppressed: java.lang.IllegalArgumentException: unknown setting [index.settings.analysis.analyzer.ik_analyzer.filter.0] please check that any required plugins are installed, or check the breaking changes documentation for removed settings
+		... 51 more
+	Suppressed: java.lang.IllegalArgumentException: unknown setting [index.settings.analysis.analyzer.ik_analyzer.tokenizer] please check that any required plugins are installed, or check the breaking changes documentation for removed settings
+		... 51 more
+	Suppressed: java.lang.IllegalArgumentException: unknown setting [index.settings.analysis.analyzer.ik_analyzer.type] please check that any required plugins are installed, or check the breaking changes documentation for removed settings
+		... 51 more
+	Suppressed: java.lang.IllegalArgumentException: unknown setting [index.settings.analysis.analyzer.pinyin_analyzer.char_filter] please check that any required plugins are installed, or check the breaking changes documentation for removed settings
+		... 51 more
+	Suppressed: java.lang.IllegalArgumentException: unknown setting [index.settings.analysis.analyzer.pinyin_analyzer.filter.0] please check that any required plugins are installed, or check the breaking changes documentation for removed settings
+		... 51 more
+	Suppressed: java.lang.IllegalArgumentException: unknown setting [index.settings.analysis.analyzer.pinyin_analyzer.tokenizer] please check that any required plugins are installed, or check the breaking changes documentation for removed settings
+		... 51 more
+	Suppressed: java.lang.IllegalArgumentException: unknown setting [index.settings.analysis.analyzer.pinyin_analyzer.type] please check that any required plugins are installed, or check the breaking changes documentation for removed settings
+		... 51 more
+	Suppressed: java.lang.IllegalArgumentException: unknown setting [index.settings.analysis.char_filter.char_filter_02.escaped_tags.0] please check that any required plugins are installed, or check the breaking changes documentation for removed settings
+		... 51 more
+	Suppressed: java.lang.IllegalArgumentException: unknown setting [index.settings.analysis.char_filter.char_filter_02.type] please check that any required plugins are installed, or check the breaking changes documentation for removed settings
+		... 51 more
+	Suppressed: java.lang.IllegalArgumentException: unknown setting [index.settings.analysis.filter.filter_01.stopwords.0] please check that any required plugins are installed, or check the breaking changes documentation for removed settings
+		... 51 more
+	Suppressed: java.lang.IllegalArgumentException: unknown setting [index.settings.analysis.filter.filter_01.stopwords.1] please check that any required plugins are installed, or check the breaking changes documentation for removed settings
+		... 51 more
+	Suppressed: java.lang.IllegalArgumentException: unknown setting [index.settings.analysis.filter.filter_01.stopwords.2] please check that any required plugins are installed, or check the breaking changes documentation for removed settings
+		... 51 more
+	Suppressed: java.lang.IllegalArgumentException: unknown setting [index.settings.analysis.filter.filter_01.type] please check that any required plugins are installed, or check the breaking changes documentation for removed settings
+		... 51 more
+	Suppressed: java.lang.IllegalArgumentException: unknown setting [index.settings.analysis.tokenizer.tokenizer_01.first_letter] please check that any required plugins are installed, or check the breaking changes documentation for removed settings
+		... 51 more
+	Suppressed: java.lang.IllegalArgumentException: unknown setting [index.settings.analysis.tokenizer.tokenizer_01.padding_char] please check that any required plugins are installed, or check the breaking changes documentation for removed settings
+		... 51 more
+	Suppressed: java.lang.IllegalArgumentException: unknown setting [index.settings.analysis.tokenizer.tokenizer_01.type] please check that any required plugins are installed, or check the breaking changes documentation for removed settings
+		... 51 more
+	Suppressed: java.lang.IllegalArgumentException: unknown setting [index.settings.number_of_replicas] did you mean [index.number_of_replicas]?
+		... 51 more
+	Suppressed: java.lang.IllegalArgumentException: unknown setting [index.settings.number_of_shards] did you mean [index.number_of_shards]?
+		... 51 more
+[seally][ERROR] [2017-10-04 09:14:57] com.seally.utils.ESUtil.createIndexWithSettingsAndMapping(365) | create index with setting and mapping error :
+MapperParsingException[Failed to parse mapping [wuye4]: Root mapping definition has unsupported parameters:  [pblog : {properties={unitNname2={search_analyzer=pinyin, analyzer=pinyin, type=string}, moduleCode={index=no, type=string}, opMethod={index=not_analyzed, type=string}, apiCode={type=string}, opContent={search_analyzer=ik_max_word, analyzer=ik_max_word, type=string}, userId={type=integer}, orgId={ignore_malformed=true, type=integer}, opResult={type=string}, unitNname={search_analyzer=ik_max_word, analyzer=ik_max_word, type=string}, opTime={store=false, type=string}, moduleParkPlate={index=not_analyzed, type=string}, userAccount={search_analyzer=english, analyzer=english, index=analyzed, type=string}, unitId={type=integer}}}]]; nested: MapperParsingException[Root mapping definition has unsupported parameters:  [pblog : {properties={unitNname2={search_analyzer=pinyin, analyzer=pinyin, type=string}, moduleCode={index=no, type=string}, opMethod={index=not_analyzed, type=string}, apiCode={type=string}, opContent={search_analyzer=ik_max_word, analyzer=ik_max_word, type=string}, userId={type=integer}, orgId={ignore_malformed=true, type=integer}, opResult={type=string}, unitNname={search_analyzer=ik_max_word, analyzer=ik_max_word, type=string}, opTime={store=false, type=string}, moduleParkPlate={index=not_analyzed, type=string}, userAccount={search_analyzer=english, analyzer=english, index=analyzed, type=string}, unitId={type=integer}}}]];
+	at org.elasticsearch.index.mapper.MapperService.internalMerge(MapperService.java:332)
+	at org.elasticsearch.index.mapper.MapperService.merge(MapperService.java:260)
+	at org.elasticsearch.cluster.metadata.MetaDataCreateIndexService$1.execute(MetaDataCreateIndexService.java:383)
+	at org.elasticsearch.cluster.ClusterStateUpdateTask.execute(ClusterStateUpdateTask.java:45)
+	at org.elasticsearch.cluster.service.ClusterService.executeTasks(ClusterService.java:634)
+	at org.elasticsearch.cluster.service.ClusterService.calculateTaskOutputs(ClusterService.java:612)
+	at org.elasticsearch.cluster.service.ClusterService.runTasks(ClusterService.java:571)
+	at org.elasticsearch.cluster.service.ClusterService$ClusterServiceTaskBatcher.run(ClusterService.java:263)
+	at org.elasticsearch.cluster.service.TaskBatcher.runIfNotProcessed(TaskBatcher.java:150)
+	at org.elasticsearch.cluster.service.TaskBatcher$BatchedTask.run(TaskBatcher.java:188)
+	at org.elasticsearch.common.util.concurrent.ThreadContext$ContextPreservingRunnable.run(ThreadContext.java:569)
+	at org.elasticsearch.common.util.concurrent.PrioritizedEsThreadPoolExecutor$TieBreakingPrioritizedRunnable.runAndClean(PrioritizedEsThreadPoolExecutor.java:247)
+	at org.elasticsearch.common.util.concurrent.PrioritizedEsThreadPoolExecutor$TieBreakingPrioritizedRunnable.run(PrioritizedEsThreadPoolExecutor.java:210)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+Caused by: MapperParsingException[Root mapping definition has unsupported parameters:  [pblog : {properties={unitNname2={search_analyzer=pinyin, analyzer=pinyin, type=string}, moduleCode={index=no, type=string}, opMethod={index=not_analyzed, type=string}, apiCode={type=string}, opContent={search_analyzer=ik_max_word, analyzer=ik_max_word, type=string}, userId={type=integer}, orgId={ignore_malformed=true, type=integer}, opResult={type=string}, unitNname={search_analyzer=ik_max_word, analyzer=ik_max_word, type=string}, opTime={store=false, type=string}, moduleParkPlate={index=not_analyzed, type=string}, userAccount={search_analyzer=english, analyzer=english, index=analyzed, type=string}, unitId={type=integer}}}]]
+	at org.elasticsearch.index.mapper.DocumentMapperParser.checkNoRemainingFields(DocumentMapperParser.java:151)
+	at org.elasticsearch.index.mapper.DocumentMapperParser.parse(DocumentMapperParser.java:139)
+	at org.elasticsearch.index.mapper.DocumentMapperParser.parse(DocumentMapperParser.java:91)
+	at org.elasticsearch.index.mapper.MapperService.internalMerge(MapperService.java:329)
+	... 15 more
+[seally][ERROR] [2017-10-04 09:33:10] com.seally.utils.ESUtil.createIndexWithSettingsAndMapping(364) | create index with setting and mapping error :
+[wuye5/N8meaS3bSo2bY_dDCgikIA] ResourceAlreadyExistsException[index [wuye5/N8meaS3bSo2bY_dDCgikIA] already exists]
+	at org.elasticsearch.cluster.metadata.MetaDataCreateIndexService.validateIndexName(MetaDataCreateIndexService.java:147)
+	at org.elasticsearch.cluster.metadata.MetaDataCreateIndexService.validate(MetaDataCreateIndexService.java:512)
+	at org.elasticsearch.cluster.metadata.MetaDataCreateIndexService.access$000(MetaDataCreateIndexService.java:106)
+	at org.elasticsearch.cluster.metadata.MetaDataCreateIndexService$1.execute(MetaDataCreateIndexService.java:239)
+	at org.elasticsearch.cluster.ClusterStateUpdateTask.execute(ClusterStateUpdateTask.java:45)
+	at org.elasticsearch.cluster.service.ClusterService.executeTasks(ClusterService.java:634)
+	at org.elasticsearch.cluster.service.ClusterService.calculateTaskOutputs(ClusterService.java:612)
+	at org.elasticsearch.cluster.service.ClusterService.runTasks(ClusterService.java:571)
+	at org.elasticsearch.cluster.service.ClusterService$ClusterServiceTaskBatcher.run(ClusterService.java:263)
+	at org.elasticsearch.cluster.service.TaskBatcher.runIfNotProcessed(TaskBatcher.java:150)
+	at org.elasticsearch.cluster.service.TaskBatcher$BatchedTask.run(TaskBatcher.java:188)
+	at org.elasticsearch.common.util.concurrent.ThreadContext$ContextPreservingRunnable.run(ThreadContext.java:569)
+	at org.elasticsearch.common.util.concurrent.PrioritizedEsThreadPoolExecutor$TieBreakingPrioritizedRunnable.runAndClean(PrioritizedEsThreadPoolExecutor.java:247)
+	at org.elasticsearch.common.util.concurrent.PrioritizedEsThreadPoolExecutor$TieBreakingPrioritizedRunnable.run(PrioritizedEsThreadPoolExecutor.java:210)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
