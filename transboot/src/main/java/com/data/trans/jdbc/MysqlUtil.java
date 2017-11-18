@@ -19,7 +19,7 @@ public class MysqlUtil {
 	
 	public void test() throws SQLException{
 		DruidPooledConnection connection = dataSource.getConnection();
-		PreparedStatement prepareStatement = connection.prepareStatement("select * from t_pb_log limit 0,10");
+		PreparedStatement prepareStatement = connection.prepareStatement("select * from t_pb_log limit 0,10000");
 		
 		ResultSet executeQuery = prepareStatement.executeQuery();
     	long start = new Date().getTime();
@@ -30,9 +30,4 @@ public class MysqlUtil {
     	System.out.println(new Date().getTime()-start);
 		
 	}
-	
-	public static void main(String[] args) {
-		
-	}
-	
 }

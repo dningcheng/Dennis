@@ -2,8 +2,6 @@ package com.data.trans.config;
 
 import java.sql.SQLException;
 
-import javax.sql.DataSource;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -74,10 +72,10 @@ public class DruidDBConfig {
       
     @Bean     //声明其为Bean实例  
     @Primary  //在同样的DataSource中，首先使用被标注的DataSource  
-    public DataSource dataSource(){  
+    public DruidDataSource dataSource(){  
         DruidDataSource datasource = new DruidDataSource();  
           
-        datasource.setUrl(this.dbUrl);  
+        datasource.setUrl(dbUrl);  
         datasource.setUsername(username);  
         datasource.setPassword(password);  
         datasource.setDriverClassName(driverClassName);  
@@ -101,7 +99,7 @@ public class DruidDBConfig {
             logger.error("druid configuration initialization filter", e);  
         }  
         datasource.setConnectionProperties(connectionProperties);  
-          
+        logger.info("druid连接池注入完毕......"); 
         return datasource;  
     }  
 }
