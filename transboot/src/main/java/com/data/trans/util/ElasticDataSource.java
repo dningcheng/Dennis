@@ -31,8 +31,6 @@ public class ElasticDataSource {
 	
 	private static LinkedList<Client> pool = new LinkedList<Client>();
 	
-	//private static Settings  settings = Settings.builder().put("cluster.name", clusterName).put("client.transport.sniff", true).build();
-	
 	public ElasticDataSource() { }
 	
 	@SuppressWarnings("resource")

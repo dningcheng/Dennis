@@ -1,27 +1,20 @@
 package com.data.trans.controller;
 
-import java.sql.SQLException;
-
 import javax.annotation.Resource;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.data.trans.util.MysqlUtil;
+import com.data.trans.util.TransManager;
 
 @RestController
 public class ComControlller {
 	
 	@Resource
-	MysqlUtil sqlutil;
+	TransManager transManager;
 	
 	@RequestMapping("/start")
 	public void start(){
-		try {
-			sqlutil.test();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		transManager.startTrans();
 	}
 }
