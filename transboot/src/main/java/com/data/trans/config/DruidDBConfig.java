@@ -14,7 +14,7 @@ import com.alibaba.druid.pool.DruidDataSource;
 @Configuration
 public class DruidDBConfig {
 	
-	private Logger logger = LoggerFactory.getLogger(DruidDBConfig.class);  
+	private static Logger logger = LoggerFactory.getLogger(DruidDBConfig.class);  
      
     @Value("${spring.datasource.url}")  
     private String dbUrl;  
@@ -99,7 +99,7 @@ public class DruidDBConfig {
             logger.error("druid configuration initialization filter", e);  
         }  
         datasource.setConnectionProperties(connectionProperties);  
-        logger.info("druid连接池注入完毕......"); 
+        logger.info("druid连接池注入完毕..."); 
         return datasource;  
     }  
 }

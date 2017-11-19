@@ -7,7 +7,7 @@ import javax.annotation.Resource;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.data.trans.jdbc.MysqlUtil;
+import com.data.trans.util.MysqlUtil;
 
 @RestController
 public class ComControlller {

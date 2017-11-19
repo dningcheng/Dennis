@@ -9,4 +9,5 @@ public class TransbootApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(TransbootApplication.class, args);
 	}
+	
 }
