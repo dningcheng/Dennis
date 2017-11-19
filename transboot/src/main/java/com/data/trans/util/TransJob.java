@@ -4,7 +4,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.elasticsearch.action.bulk.BulkRequestBuilder;
@@ -63,9 +62,6 @@ public class TransJob implements Runnable{
 	public void trans(Integer beginId,Integer endId){
 		try {
 			DruidPooledConnection connection = dataSource.getConnection();
-		
-			//logger.info("读取mysql数据...");
-			//long start = new Date().getTime();
 			
 			PreparedStatement prepareStatement = connection.prepareStatement(String.format("select * from %s where id >= ? and id < ?",fetchTableName));
 			prepareStatement.setInt(1,beginId);
@@ -91,23 +87,21 @@ public class TransJob implements Runnable{
 	    		logs.add(log);
 			}
 	    	connection.close();
-	    	logger.info(Thread.currentThread().getName()+"----获取数据："+(logs.size()-1)+" 条，id区间为：["+beginId+" , "+endId+" )");
-	    	//logger.info(Thread.currentThread().getName()+"mysql数据封装结束："+(new Date().getTime()-start));
 	    	
-	    	//logger.info(Thread.currentThread().getName()+"准备提交到es...");
+	    	logger.info(Thread.currentThread().getName()+" 获取id区间为：[ "+beginId+" , "+endId+" ) 的数据 [ "+(logs.size()-1)+" ] 条转移到ES!");
+	    	
 	    	Client client = esSource.getClient();
 	    	BulkRequestBuilder bulkRequest = client.prepareBulk();
 	    	for (int i = 1; i < logs.size(); i++) {
 	    	    bulkRequest.add(client.prepareIndex(index, type).setSource(JSON.toJSONString(logs.get(i)), XContentType.JSON));
-	    	    // 每10000条提交一次
+	    	    // 每bulkSize条提交一次
 	    	    if (i % bulkSize == 0 || i == (logs.size()-1)) {
 	    	        bulkRequest.execute().actionGet();
-	    	        //logger.info(Thread.currentThread().getName()+"提交一批到es...");
 	    	        bulkRequest = client.prepareBulk();//新开一个批次
 	    	    }
 	    	}
 	    	esSource.releaseClient(client);
-	    	//logger.info("提交到es结束："+(new Date().getTime()-start));
+	    	
 		} catch (SQLException e) {
 			logger.error("执行任务出错："+e);
 		}

@@ -58,16 +58,18 @@ public class TransManager {
 		//获取数据转移总记录数
 		try {
 			DruidPooledConnection connection = dataSource.getConnection();
-			PreparedStatement prepareStatement = connection.prepareStatement(String.format("select max(id) as maxId from %s", tableName));
+			PreparedStatement prepareStatement = connection.prepareStatement(String.format("select max(id) as maxId,count(*) as totalNum from %s", tableName));
 			//prepareStatement.setString(1, tableName);
 			
 			ResultSet executeQuery = prepareStatement.executeQuery();
 			int maxId = 0;
+			int totalNum = 0;
 			while (executeQuery.next()) {
 				maxId = executeQuery.getInt("maxId");
+				totalNum = executeQuery.getInt("totalNum");
 			}
 			
-			logger.info("数据转移目标总数为 [ "+maxId+" ] 共分给 [ "+threads+" ] 个job执行！");
+			logger.info("数据转移主键ID区间为 [ "+1+" , "+(maxId+1)+" ) 目标总数为 [ "+totalNum+" ] 条,共分给 [ "+threads+" ] 个job执行！");
 			
 			//划分任务
 			int jobAvegeCount =  maxId / threads;
