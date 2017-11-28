@@ -49,7 +49,7 @@ public class ElasticConfig {
     	dataSource.setMinSize(minSize);
     	dataSource.setMaxWait(maxWait);
     	logger.info("开始初始化es连接池...");
-    	dataSource.initDataSource();
+    	//dataSource.initDataSource();
     	
 		return dataSource;
     }

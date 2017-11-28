@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>主页</title>
+<script th:src="@{js/sockjs.min.js}"></script>
+<script th:src="@{js/stomp.min.js}"></script>
+<script th:src="@{js/jquery-3.2.1.min.js}"></script>
+</head>
+<body>
+	<noscript><h2 style="color: #e80b0a;">Sorry，浏览器不支持WebSocket</h2></noscript>
+	<p th:text="${tip}"></p>
+	<div>
+    <div>
+        <button id="connect" onclick="connect();">连接</button>
+        <button id="disconnect" disabled="disabled" onclick="disconnect();">断开连接</button>
+    </div>
+
+    <div id="conversationDiv">
+        <label>输入你的命令</label><input type="text" id="cmd"/>
+        <button id="sendCmd" onclick="sendCmd();">发送</button>
+        <p id="response"></p>
+    </div>
+</div>
+<!-- 脚本 -->
+<script type="text/javascript">
+var stompClient = null;
+function setConnected(connected) {
+    document.getElementById("connect").disabled = connected;
+    document.getElementById("disconnect").disabled = !connected;
+    document.getElementById("conversationDiv").style.visibility = connected ? 'visible' : 'hidden';
+    $("#response").html("");
+}
+/* client.connect(login, passcode, connectCallback);
+client.connect(login, passcode, connectCallback, errorCallback);
+client.connect(login, passcode, connectCallback, errorCallback, host);
+var headers = {
+	    login: 'mylogin',
+	    passcode: 'mypasscode',
+	    'client-id': 'my-client-id'
+};
+client.connect(headers, connectCallback);
+client.connect(headers, connectCallback, errorCallback); */
+function connect() {
+    var socket = new SockJS('/myCmdEndpoint');
+    stompClient = Stomp.over(socket);
+    stompClient.connect({},
+    	//在连接成功的回调函数里面订阅服务器端的主体
+    	function () {
+	        setConnected(true);
+	        //var subscription = client.subscribe("/queue/test", callback);
+	        stompClient.subscribe('/myTopic/myCmdInter', function (message) {
+	            showResponse(JSON.parse(message.body));
+	        });
+	    },
+	    function(err){
+	    	alert(err);
+	    }
+    );
+}
+function disconnect() {
+    if (stompClient != null) {
+        stompClient.disconnect();
+    }
+    setConnected(false);
+    console.log('Disconnected');
+}
+//发送消息
+function sendCmd() {
+    var cmd = $('#cmd').val();
+    stompClient.send("/myCmd", {}, JSON.stringify({'cmd': cmd,'data':'test'}));
+}
+function showResponse(message) {
+    $("#response").html(message.code);
+}
+
+</script>
+</body>
+</html>

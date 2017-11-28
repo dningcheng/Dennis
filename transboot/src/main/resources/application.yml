@@ -1,0 +1,63 @@
+#---------自身配置---------
+server: 
+    port: 8080
+  
+#---------驱动配置信息---------
+spring: 
+    datasource:
+        type: com.alibaba.druid.pool.DruidDataSource  
+        url: jdbc:mysql://localhost:3306/yc_test?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull
+        username: root
+        password: root
+        driverClassName: com.mysql.jdbc.Driver
+#---------连接池的配置信息 ---------
+        initialSize: 50  
+        minIdle: 50  
+        maxActive: 50  
+        maxWait: 60000  
+        timeBetweenEvictionRunsMillis: 60000  
+        minEvictableIdleTimeMillis: 300000  
+        validationQuery: SELECT 1 FROM DUAL  
+        testWhileIdle: true  
+        testOnBorrow: false  
+        testOnReturn: false  
+        poolPreparedStatements: true  
+        maxPoolPreparedStatementPerConnectionSize: 20  
+        filters: stat,wall,log4j  
+        connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+#模板引擎
+    thymeleaf:
+    cache: false
+    prefix: classpath:/templates/
+    suffix: .html
+    encoding: UTF-8
+    content-type: text/html
+    mode: HTML5
+#---------Elastic的配置信息-----------
+elastic:
+    server:
+        host: 192.168.31.119
+        port: 9300
+        clusterName: escluster
+    client:
+        pool: 
+            initialSize: 10
+            maxSize: 20
+            minSize: 8
+            maxWait: 60000
+        import:
+            index: logindex
+            type: systemlog
+#每批导入的文档数
+            bulkSize: 2000
+#---------数据迁移线程池信息-----------
+#mysql数据库迁移数据表
+trans:
+    datasource:
+        table:
+            name: t_pb_log
+#每次数据库抓取数目
+            fetchSize: 10000
+    thread:
+        pool:
+            size: 10

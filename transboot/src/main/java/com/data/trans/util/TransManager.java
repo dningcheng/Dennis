@@ -51,7 +51,7 @@ public class TransManager {
 	
 	
 	//数据迁移启动方法
-	public void startTrans(){
+	public Integer startTrans(){
 		//初始化线程池
 		ExecutorService fixedThreadPool = Executors.newFixedThreadPool(threads);
 		
@@ -84,9 +84,10 @@ public class TransManager {
 				TransJob transJob = new TransJob(dataSource, esSource, index, type, bulkSize, fetchIdMin, fetchIdMax, fetchSize, tableName);
 				fixedThreadPool.submit(transJob);
 			}
-			
+			return CmdUtil.SUCCESS;
 		} catch (SQLException e) {
 			logger.error("数据转移job生成失败："+e);
+			return CmdUtil.ERR;
 		}
 		
 	}
