@@ -1,5 +1,8 @@
 package com.data.trans.config;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.slf4j.Logger;
@@ -10,6 +13,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 
 import com.alibaba.druid.pool.DruidDataSource;
+import com.alibaba.druid.pool.DruidPooledConnection;
 
 @Configuration
 public class DruidDBConfig {
@@ -72,7 +76,7 @@ public class DruidDBConfig {
       
     @Bean     //声明其为Bean实例  
     @Primary  //在同样的DataSource中，首先使用被标注的DataSource  
-    public DruidDataSource dataSource(){  
+    public DruidDataSource dataSource() throws Exception{  
         DruidDataSource datasource = new DruidDataSource();  
           
         datasource.setUrl(dbUrl);  
@@ -93,13 +97,18 @@ public class DruidDBConfig {
         datasource.setTestOnReturn(testOnReturn);  
         datasource.setPoolPreparedStatements(poolPreparedStatements);  
         datasource.setMaxPoolPreparedStatementPerConnectionSize(maxPoolPreparedStatementPerConnectionSize);  
-        try {  
-            datasource.setFilters(filters);  
-        } catch (SQLException e) {  
-            logger.error("druid configuration initialization filter", e);  
-        }  
+        datasource.setFilters(filters);   
         datasource.setConnectionProperties(connectionProperties);  
-        logger.info("druid连接池注入完毕..."); 
+        
+        //测试连接并判断是否存在记录表
+        DruidPooledConnection connectCount = datasource.getConnection();
+        Connection connection = connectCount.getConnection();
+        PreparedStatement prepareStatement = connection.prepareStatement("SELECT table_name FROM information_schema.TABLES WHERE table_name ='translog'");
+		ResultSet executeQuery = prepareStatement.executeQuery();
+		if(!executeQuery.next()){
+			throw new Exception("数据迁移记录表 [translog] 未找到，请先在目标库创建该表！");
+		}
+		logger.info("druid连接池初始化完毕!");
         return datasource;  
     }  
 }

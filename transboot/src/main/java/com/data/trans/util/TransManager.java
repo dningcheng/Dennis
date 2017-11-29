@@ -1,5 +1,6 @@
 package com.data.trans.util;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -49,12 +50,11 @@ public class TransManager {
 	@Value("${trans.datasource.table.fetchSize}")  
 	private Integer fetchSize;//每次加载到内存中的表中记录数
 	
+	//线程池
+	private ExecutorService fixedThreadPool = Executors.newFixedThreadPool(threads);
 	
 	//数据迁移启动方法
 	public Integer startTrans(){
-		//初始化线程池
-		ExecutorService fixedThreadPool = Executors.newFixedThreadPool(threads);
-		
 		//获取数据转移总记录数
 		try {
 			DruidPooledConnection connection = dataSource.getConnection();
@@ -80,7 +80,7 @@ public class TransManager {
 				if(i==(threads-1)){//最后一个job
 					fetchIdMax = fetchIdMax+leaveCount+1;
 				}
-				TransJob transJob = new TransJob(dataSource, esSource, index, type, bulkSize, fetchIdMin, fetchIdMax, fetchSize, tableName);
+				TransJob transJob = new TransJob(dataSource, esSource, index, type, bulkSize, fetchIdMin, fetchIdMax, fetchSize, tableName,null);
 				fixedThreadPool.submit(transJob);
 			}
 			return CmdUtil.SUCCESS;
@@ -88,7 +88,22 @@ public class TransManager {
 			logger.error("数据转移job生成失败："+e);
 			return CmdUtil.ERR;
 		}
-		
 	}
 	
+	//数据迁移启动方法
+	public Integer startTrans(String jobName){
+		
+		try {
+			Connection connection = dataSource.getConnection().getConnection();
+			
+			connection.tr
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return CmdUtil.SUCCESS;
+	}
 }
