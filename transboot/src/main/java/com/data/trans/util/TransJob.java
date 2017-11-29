@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.elasticsearch.action.bulk.BulkRequestBuilder;
+import org.elasticsearch.action.bulk.BulkResponse;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.common.xcontent.XContentType;
 import org.slf4j.Logger;
@@ -89,20 +90,24 @@ public class TransJob implements Runnable{
 	    	connection.close();
 	    	
 	    	logger.info(Thread.currentThread().getName()+" 获取id区间为：[ "+beginId+" , "+endId+" ) 的数据 [ "+(logs.size()-1)+" ] 条转移到ES!");
-	    	
+	    	if(logs.size()<=1){
+	    		return ;
+	    	}
 	    	Client client = esSource.getClient();
 	    	BulkRequestBuilder bulkRequest = client.prepareBulk();
 	    	for (int i = 1; i < logs.size(); i++) {
 	    	    bulkRequest.add(client.prepareIndex(index, type).setSource(JSON.toJSONString(logs.get(i)), XContentType.JSON));
 	    	    // 每bulkSize条提交一次
 	    	    if (i % bulkSize == 0 || i == (logs.size()-1)) {
-	    	        bulkRequest.execute().actionGet();
+	    	        BulkResponse actionGet = bulkRequest.execute().actionGet();
+	    	        System.out.println(actionGet.isFragment());
 	    	        bulkRequest = client.prepareBulk();//新开一个批次
 	    	    }
 	    	}
 	    	esSource.releaseClient(client);
 	    	
-		} catch (SQLException e) {
+		} catch (Exception e) {
+			e.printStackTrace();
 			logger.error("执行任务出错："+e);
 		}
 		

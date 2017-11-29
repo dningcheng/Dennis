@@ -3,14 +3,18 @@ package com.data.trans.util;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.LinkedList;
+import java.util.concurrent.ExecutionException;
 
 import org.elasticsearch.client.Client;
+import org.elasticsearch.client.transport.NoNodeAvailableException;
 import org.elasticsearch.client.transport.TransportClient;
+import org.elasticsearch.cluster.health.ClusterHealthStatus;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.transport.InetSocketTransportAddress;
 import org.elasticsearch.transport.client.PreBuiltTransportClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.SpringApplication;
 
 /**
  * @author dnc
@@ -27,22 +31,24 @@ public class ElasticDataSource {
 	private  Integer initialSize=50;             //初始化大小
 	private  Integer maxSize=50;                 //最大数目
 	private  Integer minSize=50;                 //最小数目
-	private  Integer maxWait=60000;              //最大等待时间 
+	private  Integer maxWait=6000;               //最大等待时间 
 	
 	private static LinkedList<Client> pool = new LinkedList<Client>();
 	
 	public ElasticDataSource() { }
 	
 	@SuppressWarnings("resource")
-	public void initDataSource(){
+	public void initDataSource() throws Exception{
 		Settings  settings = Settings.builder().put("cluster.name", clusterName).put("client.transport.sniff", true).build();
+		boolean checkHealth =false;
 		for(int index=0;index<initialSize;index++){
-			try {
-				TransportClient client = new PreBuiltTransportClient(settings).addTransportAddress( new InetSocketTransportAddress(InetAddress.getByName(host), port));
-				ElasticDataSource.pool.add(client);
-			} catch (UnknownHostException e) {
-				logger.error("初始化es连接池失败....", e);
+			TransportClient client = new PreBuiltTransportClient(settings).addTransportAddress( new InetSocketTransportAddress(InetAddress.getByName(host), port));
+			if(!checkHealth){
+				checkHealth=true;
+				client.admin().cluster().prepareClusterStats().execute().get().getStatus();
 			}
+			logger.info("put into espool client"+index);
+			ElasticDataSource.pool.add(client);
 		}
 		logger.info("初始化es连接池:"+ElasticDataSource.pool.size());
 	}
@@ -123,6 +129,7 @@ public class ElasticDataSource {
 	//扩容连接池
 	@SuppressWarnings("resource")
 	private void poolExpend(){
+		logger.info("开始扩容es连接池");
 		Settings  settings = Settings.builder().put("cluster.name", clusterName).put("client.transport.sniff", true).build();
 		for(int index=pool.size();index<maxSize;index++){
 			try {

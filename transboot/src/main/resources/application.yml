@@ -44,7 +44,7 @@ elastic:
             initialSize: 10
             maxSize: 20
             minSize: 8
-            maxWait: 60000
+            maxWait: 6000
         import:
             index: logindex
             type: systemlog
@@ -55,7 +55,7 @@ elastic:
 trans:
     datasource:
         table:
-            name: t_pb_log
+            name: test_log
 #每次数据库抓取数目
             fetchSize: 10000
     thread:

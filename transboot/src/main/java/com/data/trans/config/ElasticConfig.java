@@ -37,7 +37,7 @@ public class ElasticConfig {
     
 	@Bean     //声明其为Bean实例  
     @Primary  //在同样的DataSource中，首先使用被标注的DataSource  
-    public ElasticDataSource EsDataSource(){  
+    public ElasticDataSource EsDataSource() throws Exception{  
     	
 		ElasticDataSource dataSource = new ElasticDataSource();
 		
@@ -49,8 +49,8 @@ public class ElasticConfig {
     	dataSource.setMinSize(minSize);
     	dataSource.setMaxWait(maxWait);
     	logger.info("开始初始化es连接池...");
-    	//dataSource.initDataSource();
-    	
+    	dataSource.initDataSource();
+    	logger.info("初始化es连接池结束！");
 		return dataSource;
     }
     
