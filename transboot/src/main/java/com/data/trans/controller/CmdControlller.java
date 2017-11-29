@@ -25,7 +25,9 @@ public class CmdControlller {
 	@MessageMapping("/myCmd") 
     @SendTo("/myTopic/myCmdInter")
     public CmdUtil cmdInter(CmdUtil message) throws Exception {
-		
+		if(message.getCmd()==null){
+			return CmdUtil.getError();
+		}
 		switch (message.getCmd()) {
 			case CmdUtil.CMD_START_TRANCE:
 				return CmdUtil.getNormal(transManager.startTrans());

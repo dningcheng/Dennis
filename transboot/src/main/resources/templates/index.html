@@ -53,8 +53,10 @@ function connect() {
 	            showResponse(JSON.parse(message.body));
 	        });
 	    },
+	    //异常断开连接后的回调
 	    function(err){
-	    	alert(err);
+	    	//这里可以做断开后的处理逻辑
+	    	setConnected(false);
 	    }
     );
 }
@@ -63,7 +65,6 @@ function disconnect() {
         stompClient.disconnect();
     }
     setConnected(false);
-    console.log('Disconnected');
 }
 //发送消息
 function sendCmd() {
