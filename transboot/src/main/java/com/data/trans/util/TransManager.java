@@ -59,7 +59,6 @@ public class TransManager {
 		try {
 			DruidPooledConnection connection = dataSource.getConnection();
 			PreparedStatement prepareStatement = connection.prepareStatement(String.format("select max(id) as maxId,count(*) as totalNum from %s", tableName));
-			//prepareStatement.setString(1, tableName);
 			
 			ResultSet executeQuery = prepareStatement.executeQuery();
 			int maxId = 0;
