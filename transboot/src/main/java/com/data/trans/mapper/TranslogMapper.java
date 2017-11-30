@@ -1,5 +1,7 @@
 package com.data.trans.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
 import com.data.trans.model.Translog;
@@ -23,6 +25,6 @@ public interface TranslogMapper {
 	
 	Translog getTranslogById(@Param("id") Integer id);
 	
-	Translog getTranslogList(Translog log);
+	List<Translog> getTranslogList(Translog log);
 	
 }

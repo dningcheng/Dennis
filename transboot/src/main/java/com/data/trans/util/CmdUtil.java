@@ -19,7 +19,7 @@ public class CmdUtil {
 	
 	public static final int CMD_STOP_TRANCE = 2;//停止转换
 	
-	public final int CMD_GET_PROGRESS = 3;//获取处理进度
+	public static final int CMD_GET_PROGRESS = 3;//获取处理进度
 	
 	private Integer cmd;//客户端请求代码
 	
@@ -29,37 +29,40 @@ public class CmdUtil {
 
 	public CmdUtil(){}
 	
-	public CmdUtil(Integer code){
+	public CmdUtil(Integer code,Integer cmd){
 		this.code = code;
+		this.cmd = cmd;
 	}
 	
-	public CmdUtil(Object data){
+	public CmdUtil(Object data,Integer cmd){
 		this.data = data;
+		this.cmd = cmd;
 	}
 	
-	public CmdUtil(Integer code,Object data){
+	public CmdUtil(Integer code,Object data,Integer cmd){
 		this.code = code;
 		this.data = data;
+		this.cmd = cmd;
 	}
 	
-	public static CmdUtil getNormal(Integer code){
-		return new CmdUtil(code);
+	public static CmdUtil getNormal(Integer code,Integer cmd){
+		return new CmdUtil(code,cmd);
 	}
 	
 	public static CmdUtil getSuccess(){
 		return new CmdUtil();
 	}
 	
-	public static CmdUtil getSuccess(Object data){
-		return new CmdUtil(data);
+	public static CmdUtil getSuccess(Object data,Integer cmd){
+		return new CmdUtil(data,cmd);
 	}
 	
-	public static CmdUtil getError(){
-		return new CmdUtil(CmdUtil.ERR);
+	public static CmdUtil getError(Integer cmd){
+		return new CmdUtil(CmdUtil.ERR,cmd);
 	}
 	
-	public static CmdUtil getError(Object data){
-		return new CmdUtil(CmdUtil.ERR,data);
+	public static CmdUtil getError(Object data,Integer cmd){
+		return new CmdUtil(CmdUtil.ERR,data,cmd);
 	}
 	
 	public Integer getCmd() {

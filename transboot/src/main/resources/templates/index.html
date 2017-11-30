@@ -6,26 +6,137 @@
 <script th:src="@{js/sockjs.min.js}"></script>
 <script th:src="@{js/stomp.min.js}"></script>
 <script th:src="@{js/jquery-3.2.1.min.js}"></script>
-<!-- 引入 ECharts 文件 -->
+<script th:src="@{js/bootstrap.js}"></script>
 <script th:src="@{js/echarts.min.js}"></script>
+<link rel="stylesheet" th:href="@{css/bootstrap.min.css}" />
+<style type="text/css">
+	body{margin: 0px;padding: 0px;}
+	.chart{width: 100%;height:500px;}
+</style>
 </head>
 <body>
-	<noscript><h2 style="color: #e80b0a;">Sorry，浏览器不支持WebSocket</h2></noscript>
-	<p th:text="${tip}"></p>
-	<div>
-    <div>
-        <button id="connect" onclick="connect();">连接</button>
-        <button id="disconnect" disabled="disabled" onclick="disconnect();">断开连接</button>
-    </div>
-
-    <div id="conversationDiv">
-        <label>输入你的命令</label><input type="text" id="cmd"/>
-        <button id="sendCmd" onclick="sendCmd();">发送</button>
-        <p id="response"></p>
-    </div>
+<div class="container-fluid">
+<nav class="navbar navbar-inverse">
+  <a class="navbar-brand" href="#" onclick="refreshChart();">开始启动</a>
+</nav>
+<div class="row">
+  <!-- 左侧图表开始 -->
+  <div class="col-md-12">
+  	<!-- 图标容器 -->
+  	<div class="chart" id="chart-container"></div>
+  </div>
+  <!-- 左侧图表结束 -->
+  <!-- 右侧表格开始 -->
+  <div class="col-md-12">
+  	<div class="table-responsive">
+	  <table class="table table-bordered">
+	    <tr>
+			<th>序号</th>
+			<th>任务名称</th>
+			<th>转移ID区间</th>
+			<th>区间记录数</th>
+			<th>已转移/条</th>
+			<th>失败/条</th>
+			<th>操作</th>
+		</tr>
+		<tr th:each="log: ${logs}">
+			<td th:text="${log.id}">主键</td>
+			<td th:text="${log.transName}">name</td>
+			<td th:text="${log.allBetween}">name</td>
+			<td th:text="${log.allCount}">name</td>
+			<td th:text="${log.allCount - log.failCount}">name</td>
+			<td th:text="${log.failCount}">name</td>
+			<td>
+				<a href="details.html" th:href="@{/order/details(orderId=${log.id})}">重启</a>
+			</td>
+		</tr>
+	  </table>
+	</div>
+  </div>
+  <!-- 左侧表格结束 -->
+</div>
 </div>
 <!-- 脚本 -->
-<script type="text/javascript">
+<script th:inline="javascript">
+
+//初始化echarts实例
+var myChart = echarts.init(document.getElementById('chart-container'));
+
+// 指定图表的配置项和数据
+option = {
+	title: {
+	    text: '         MySQ -> Elasticssearch 数据迁移'
+	},
+    tooltip : {
+        trigger: 'axis',
+        axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+            type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+        }
+    },
+    legend: {
+        data:['失败', '成功', '总计']
+    },
+    grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true
+    },
+    xAxis : [
+        {
+            type : 'value'
+        }
+    ],
+    yAxis : [
+        {
+            type : 'category',
+            axisTick : {show: false},
+            data : []
+        }
+    ],
+    series : [
+        {
+            name:'成功',
+            type:'bar',
+            label: {
+                normal: {
+                    show: true,
+                    position: 'inside'
+                }
+            },
+            data:[]
+        },
+        {
+            name:'总计',
+            type:'bar',
+            stack: '总计',
+            label: {
+                normal: {
+                    show: true
+                }
+            },
+            data:[2323]
+        },
+        {
+            name:'失败',
+            type:'bar',
+            stack: '总计',
+            label: {
+                normal: {
+                    show: true,
+                    position: 'left'
+                }
+            },
+            data:[]
+        }
+    ]
+};
+
+//使用刚指定的配置项和数据显示图表。
+myChart.setOption(option);
+
+/* websocket相关开始 */
+
 var stompClient = null;
 function setConnected(connected) {
     document.getElementById("connect").disabled = connected;
@@ -33,27 +144,24 @@ function setConnected(connected) {
     document.getElementById("conversationDiv").style.visibility = connected ? 'visible' : 'hidden';
     $("#response").html("");
 }
-/* client.connect(login, passcode, connectCallback);
-client.connect(login, passcode, connectCallback, errorCallback);
-client.connect(login, passcode, connectCallback, errorCallback, host);
-var headers = {
-	    login: 'mylogin',
-	    passcode: 'mypasscode',
-	    'client-id': 'my-client-id'
-};
-client.connect(headers, connectCallback);
-client.connect(headers, connectCallback, errorCallback); */
+
+//发送命令
+function sendCmd(cmd,data) {
+    stompClient.send("/myCmd", {}, JSON.stringify({'cmd': cmd,'data':data}));
+}
+
 function connect() {
     var socket = new SockJS('/myCmdEndpoint');
     stompClient = Stomp.over(socket);
     stompClient.connect({},
     	//在连接成功的回调函数里面订阅服务器端的主体
     	function () {
-	        setConnected(true);
-	        //var subscription = client.subscribe("/queue/test", callback);
+	        //订阅 var subscription = client.subscribe("/queue/test", callback);
 	        stompClient.subscribe('/myTopic/myCmdInter', function (message) {
-	            showResponse(JSON.parse(message.body));
+	            useResponse(JSON.parse(message.body));
 	        });
+	        //发送一次数据请求
+	        sendCmd(3,"");
 	    },
 	    //异常断开连接后的回调
 	    function(err){
@@ -62,20 +170,50 @@ function connect() {
 	    }
     );
 }
+//断开连接
 function disconnect() {
     if (stompClient != null) {
         stompClient.disconnect();
     }
     setConnected(false);
 }
-//发送消息
-function sendCmd() {
-    var cmd = $('#cmd').val();
-    stompClient.send("/myCmd", {}, JSON.stringify({'cmd': cmd,'data':'test'}));
+
+
+//服务器结果处理
+function useResponse(message) {
+	//数据刷新请求回复
+	if(message.code==200 && message.cmd==3){
+		refreshChart(message.data);
+	}
 }
-function showResponse(message) {
-    $("#response").html(message.code);
+/* websocket相关结束 */
+
+
+//刷新图标
+function refreshChart(echartsModel){
+	
+	option.yAxis[0].data = echartsModel.yAxisData;
+	
+	$.each( option.series, function(i, element){
+		if(element.name == "总计"){
+			element.data = echartsModel.seriesDataTotal;
+		}else if(element.name == "成功"){
+			element.data = echartsModel.seriesDataSuccess;
+		}else if(element.name == "失败"){
+			element.data = echartsModel.seriesDataFail;
+		}
+	});
+	
+	myChart.setOption(option);
 }
+
+//页面加载
+$(function(){
+	//自动建立连接
+	connect();
+	
+});
+
 
 </script>
 </body>

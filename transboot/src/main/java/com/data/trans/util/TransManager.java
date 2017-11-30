@@ -4,17 +4,20 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import javax.sql.DataSource;
 
+import org.apache.lucene.codecs.CodecUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import com.data.trans.model.Translog;
 import com.data.trans.service.SourceTableService;
 import com.data.trans.service.TranslogService;
 
@@ -63,6 +66,12 @@ public class TransManager {
 	
 	//数据迁移启动方法
 	public Integer startTrans(){
+		
+		List<Translog> logs = translogService.getTranslogList(null);
+		if(logs != null && logs.size() > 0){
+			return CmdUtil.ERR;
+		}
+		
 		if(fixedThreadPool == null){
 			fixedThreadPool = Executors.newFixedThreadPool(threads);
 		}

@@ -1,5 +1,8 @@
 package com.data.trans.service;
 
+import java.util.List;
+
+import com.data.trans.model.EchartsModel;
 import com.data.trans.model.Translog;
 
 /**
@@ -21,6 +24,8 @@ public interface TranslogService {
 	
 	Translog getTranslogById(Integer id);
 	
-	Translog getTranslogList(Translog log);
+	List<Translog> getTranslogList(Translog log);
+
+	EchartsModel getCurTransEchartsOption();
 	
 }

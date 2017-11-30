@@ -27,13 +27,13 @@ spring:
         filters: stat,wall,log4j  
         connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
 #模板引擎
-    thymeleaf:
-    cache: false
-    prefix: classpath:/templates/
-    suffix: .html
-    encoding: UTF-8
-    content-type: text/html
-    mode: HTML5
+    thymeleaf: 
+        cache: false
+        prefix: classpath:/templates/
+        suffix: .html
+        encoding: UTF-8
+        content-type: text/html
+        mode: HTML5
 #---------Elastic的配置信息-----------
 elastic:
     server:
