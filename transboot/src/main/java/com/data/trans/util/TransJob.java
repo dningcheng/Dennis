@@ -165,9 +165,11 @@ public class TransJob implements Runnable{
 		if(updateType==Translog.NONE_TRANCE){//没有数据的记录
 			String oldNonBetween = translog.getNoneBetween();
 			if(StringUtils.hasText(oldNonBetween)){
+				if(oldNonBetween.contains(nowBetween)){//不用更新
+					return ;
+				}
 				nowBetween += ("*"+oldNonBetween);
 			}
-			translog.setNoneBetween(nowBetween);
 		}else if(updateType==Translog.SUCCE_TRANCE){//成功记录
 			String failBetween = translog.getFailBetween();
 			if(StringUtils.hasText(failBetween)){
@@ -176,6 +178,9 @@ public class TransJob implements Runnable{
 			translog.setFailCount(translog.getFailCount()-count);
 		}else if(updateType==Translog.FAIL_TRANCE){//失败记录
 			if(StringUtils.hasText(oldFailBetween)){
+				if(oldFailBetween.contains(nowBetween)){//无需更新
+					return ;
+				}
 				nowBetween += ("*"+oldFailBetween);
 			}
 			translog.setFailBetween(nowBetween);
