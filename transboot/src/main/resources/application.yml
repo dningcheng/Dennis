@@ -5,6 +5,7 @@ server:
 #---------驱动配置信息---------
 spring: 
     datasource:
+        name: myDataSource
         type: com.alibaba.druid.pool.DruidDataSource  
         url: jdbc:mysql://localhost:3306/yc_test?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull
         username: root
@@ -61,3 +62,8 @@ trans:
     thread:
         pool:
             size: 10
+#mybatis集成配置
+mybatis: 
+    mapperLocations: classpath:mapper/*.xml
+    typeAliasesPackage: com.data.trans.model
+    config: mybatis-config.xml配置文件的路径

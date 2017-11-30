@@ -7,14 +7,16 @@ import java.sql.SQLException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import javax.sql.DataSource;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import com.alibaba.druid.pool.DruidDataSource;
-import com.alibaba.druid.pool.DruidPooledConnection;
+import com.data.trans.service.SourceTableService;
+import com.data.trans.service.TranslogService;
 
 /**
  * @author dnc
@@ -27,10 +29,16 @@ public class TransManager {
 	private static final Logger logger = LoggerFactory.getLogger(TransJob.class);
 	
 	@Autowired
-	DruidDataSource dataSource;
+	DataSource dataSource;//需要直接使用dataSource进行jdbc操作因此这里注入过来
 	
 	@Autowired
 	ElasticDataSource esSource;
+	
+	@Autowired
+	TranslogService translogService;
+	
+	@Autowired
+	SourceTableService sourceTableService;
 	
 	@Value("${elastic.client.import.index}")  
 	private String index;//es数据导入索引库
@@ -51,13 +59,16 @@ public class TransManager {
 	private Integer fetchSize;//每次加载到内存中的表中记录数
 	
 	//线程池
-	private ExecutorService fixedThreadPool = Executors.newFixedThreadPool(threads);
+	private ExecutorService fixedThreadPool = null;
 	
 	//数据迁移启动方法
 	public Integer startTrans(){
+		if(fixedThreadPool == null){
+			fixedThreadPool = Executors.newFixedThreadPool(threads);
+		}
 		//获取数据转移总记录数
 		try {
-			DruidPooledConnection connection = dataSource.getConnection();
+			Connection connection = dataSource.getConnection();
 			PreparedStatement prepareStatement = connection.prepareStatement(String.format("select max(id) as maxId,count(*) as totalNum from %s", tableName));
 			
 			ResultSet executeQuery = prepareStatement.executeQuery();
@@ -80,7 +91,7 @@ public class TransManager {
 				if(i==(threads-1)){//最后一个job
 					fetchIdMax = fetchIdMax+leaveCount+1;
 				}
-				TransJob transJob = new TransJob(dataSource, esSource, index, type, bulkSize, fetchIdMin, fetchIdMax, fetchSize, tableName,null);
+				TransJob transJob = new TransJob(dataSource, esSource, index, type, bulkSize, fetchIdMin, fetchIdMax, fetchSize, tableName,null,translogService,sourceTableService);
 				fixedThreadPool.submit(transJob);
 			}
 			return CmdUtil.SUCCESS;
@@ -91,19 +102,12 @@ public class TransManager {
 	}
 	
 	//数据迁移启动方法
-	public Integer startTrans(String jobName){
-		
-		try {
-			Connection connection = dataSource.getConnection().getConnection();
-			
-			connection.tr
-			
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+	public Integer startTrans(Integer translogId){
+		if(fixedThreadPool == null){
+			fixedThreadPool = Executors.newFixedThreadPool(threads);
 		}
-		
+		TransJob transJob = new TransJob(dataSource, esSource, index, type, bulkSize, null, null, fetchSize, tableName,null,translogService,sourceTableService);
+		fixedThreadPool.submit(transJob);
 		return CmdUtil.SUCCESS;
 	}
 }

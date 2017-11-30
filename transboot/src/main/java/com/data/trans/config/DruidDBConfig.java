@@ -3,7 +3,6 @@ package com.data.trans.config;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +14,11 @@ import org.springframework.context.annotation.Primary;
 import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.pool.DruidPooledConnection;
 
+/**
+ * @author dnc
+ * 2017年11月30日
+ * Druid数据源
+ */
 @Configuration
 public class DruidDBConfig {
 	
@@ -74,8 +78,8 @@ public class DruidDBConfig {
     @Value("{spring.datasource.connectionProperties}")  
     private String connectionProperties;  
       
-    @Bean     //声明其为Bean实例  
-    @Primary  //在同样的DataSource中，首先使用被标注的DataSource  
+    @Primary//默认数据源  
+    @Bean(name = "dataSource",destroyMethod = "close")//声明其为Bean实例  
     public DruidDataSource dataSource() throws Exception{  
         DruidDataSource datasource = new DruidDataSource();  
           
@@ -83,7 +87,7 @@ public class DruidDBConfig {
         datasource.setUsername(username);  
         datasource.setPassword(password);  
         datasource.setDriverClassName(driverClassName);  
-          
+        
         //configuration  
         datasource.setInitialSize(initialSize);  
         datasource.setMinIdle(minIdle);  

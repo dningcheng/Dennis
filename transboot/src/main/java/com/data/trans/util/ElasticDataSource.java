@@ -3,18 +3,14 @@ package com.data.trans.util;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.LinkedList;
-import java.util.concurrent.ExecutionException;
 
 import org.elasticsearch.client.Client;
-import org.elasticsearch.client.transport.NoNodeAvailableException;
 import org.elasticsearch.client.transport.TransportClient;
-import org.elasticsearch.cluster.health.ClusterHealthStatus;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.transport.InetSocketTransportAddress;
 import org.elasticsearch.transport.client.PreBuiltTransportClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.SpringApplication;
 
 /**
  * @author dnc
@@ -110,7 +106,7 @@ public class ElasticDataSource {
 	}
 
 	//取出连接池客户端
-	public synchronized Client getClient(){
+	public synchronized Client getClient() throws Exception{
 		if(pool.size()>0){
 			return pool.removeFirst();
 		}else{
@@ -128,16 +124,17 @@ public class ElasticDataSource {
 	
 	//扩容连接池
 	@SuppressWarnings("resource")
-	private void poolExpend(){
+	private void poolExpend() throws Exception{
 		logger.info("开始扩容es连接池");
+		boolean checkService = false;
 		Settings  settings = Settings.builder().put("cluster.name", clusterName).put("client.transport.sniff", true).build();
 		for(int index=pool.size();index<maxSize;index++){
-			try {
-				TransportClient client = new PreBuiltTransportClient(settings).addTransportAddress( new InetSocketTransportAddress(InetAddress.getByName(host), port));
-				ElasticDataSource.pool.add(client);
-			} catch (UnknownHostException e) {
-				logger.error("扩容es连接池失败....", e);
+			TransportClient client = new PreBuiltTransportClient(settings).addTransportAddress( new InetSocketTransportAddress(InetAddress.getByName(host), port));
+			if(!checkService){
+				checkService = true;
+				client.admin().cluster().prepareState().execute().actionGet();
 			}
+			ElasticDataSource.pool.add(client);
 		}
 		logger.info("扩容es连接池完成");
 	}
