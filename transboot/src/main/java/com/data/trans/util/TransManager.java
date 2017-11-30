@@ -91,6 +91,9 @@ public class TransManager {
 				if(i==(threads-1)){//最后一个job
 					fetchIdMax = fetchIdMax+leaveCount+1;
 				}
+				if(fetchIdMin == 0){//id最小从1开始
+					fetchIdMin = 1;
+				}
 				TransJob transJob = new TransJob(dataSource, esSource, index, type, bulkSize, fetchIdMin, fetchIdMax, fetchSize, tableName,null,translogService,sourceTableService);
 				fixedThreadPool.submit(transJob);
 			}

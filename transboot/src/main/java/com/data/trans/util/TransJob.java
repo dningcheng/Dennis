@@ -163,17 +163,16 @@ public class TransJob implements Runnable{
 		String oldFailBetween = translog.getFailBetween();
 		String nowBetween = beginId+"-"+endId;
 		if(updateType==Translog.NONE_TRANCE){//没有数据的记录
-			String oldNonBetween = translog.getNonBetween();
+			String oldNonBetween = translog.getNoneBetween();
 			if(StringUtils.hasText(oldNonBetween)){
 				nowBetween += ("*"+oldNonBetween);
 			}
-			translog.setNonBetween(nowBetween);
+			translog.setNoneBetween(nowBetween);
 		}else if(updateType==Translog.SUCCE_TRANCE){//成功记录
 			String failBetween = translog.getFailBetween();
 			if(StringUtils.hasText(failBetween)){
 				translog.setFailBetween(failBetween.replace(nowBetween, ""));//失败记录中去除现在成功的记录
 			}
-			translog.setSucCount(translog.getSucCount()+count);
 			translog.setFailCount(translog.getFailCount()-count);
 		}else if(updateType==Translog.FAIL_TRANCE){//失败记录
 			if(StringUtils.hasText(oldFailBetween)){

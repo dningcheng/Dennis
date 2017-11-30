@@ -17,8 +17,7 @@
 			<if test="null != transTable and transTable != ''">trans_table=#{transTable},</if>
 			<if test="null != allBetween and allBetween != ''">all_between=#{allBetween},</if>
 			<if test="null != allCount and allCount != ''">all_count=#{allCount},</if>
-			<!-- <if test="null != sucBetween and sucBetween != ''">suc_between=#{sucBetween},</if> -->
-			<if test="null != sucCount and sucCount != ''">suc_count=#{sucCount},</if>
+			<if test="null != noneBetween and noneBetween != ''">none_between=#{noneBetween},</if>
 			<if test="null != failBetween and failBetween != ''">fail_between=#{failBetween},</if>
 			<if test="null != failCount and failCount != ''">fail_count=#{failCount}</if>
 		</set>
@@ -42,8 +41,7 @@
 		<result column="trans_table" property="transTable"/>
 		<result column="all_between" property="allBetween"/>
 		<result column="all_count" property="allCount"/>
-		<!-- <result column="suc_between" property="sucBetween"/> -->
-		<result column="suc_count" property="sucCount"/>
+		<result column="none_between" property="noneBetween"/>
 		<result column="fail_between" property="failBetween"/>
 		<result column="fail_count" property="failCount"/>
 	</resultMap>
@@ -59,7 +57,6 @@
 			<if test="null != transTable and transTable != ''">and trans_table = #{transTable}</if>
 			<if test="null != allBetween and allBetween != ''">and all_between = #{allBetween}</if>
 			<if test="null != allCount and allCount != ''">and all_count = #{allCount}</if>
-			<if test="null != sucCount and sucCount != ''">and suc_count = #{sucCount}</if>
 			<if test="null != failCount and failCount != ''">and fail_count = #{failCount}</if>
 		</where>
 	</select>

@@ -17,8 +17,7 @@ public class Translog {
 	private String transTable;  //转移表名
 	private String allBetween;  //该任务转移的id总区间
 	private Integer allCount;   //该任务转移的实际存在记录数
-	private String nonBetween;  //该任务转移没有实际记录的id区间
-	private Integer sucCount;   //该任务转移成功实际记录数
+	private String noneBetween;  //该任务转移没有实际记录的id区间
 	private String failBetween; //该任务转移失败的id区间
 	private Integer failCount;  //该任务转移失败实际记录数
 	
@@ -63,17 +62,11 @@ public class Translog {
 	public void setAllCount(Integer allCount) {
 		this.allCount = allCount;
 	}
-	public String getNonBetween() {
-		return nonBetween;
+	public String getNoneBetween() {
+		return noneBetween;
 	}
-	public void setNonBetween(String nonBetween) {
-		this.nonBetween = nonBetween;
-	}
-	public Integer getSucCount() {
-		return sucCount;
-	}
-	public void setSucCount(Integer sucCount) {
-		this.sucCount = sucCount;
+	public void setNoneBetween(String noneBetween) {
+		this.noneBetween = noneBetween;
 	}
 	public String getFailBetween() {
 		return failBetween;
