@@ -143,9 +143,6 @@ myChart.setOption(option);
 var stompClient = null;
 //发送命令（连接建立成功后才可用）
 function sendCmd(cmd,data) {
-	if(cmd != 3){
-		alert(cmd+"  "+data);
-	}
     stompClient.send("/myCmd", {}, JSON.stringify({'cmd': cmd,'data':data}));
 }
 //建立连接方法
