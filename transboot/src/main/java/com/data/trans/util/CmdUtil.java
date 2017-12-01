@@ -21,6 +21,8 @@ public class CmdUtil {
 	
 	public static final int CMD_GET_PROGRESS = 3;//获取处理进度
 	
+	public static final int CMD_RESTART_TRANCE = 4;//重新开始单个启动
+	
 	private Integer cmd;//客户端请求代码
 	
 	private Integer code = SUCCESS;//服务端响应

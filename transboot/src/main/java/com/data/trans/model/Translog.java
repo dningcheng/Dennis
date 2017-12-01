@@ -9,7 +9,7 @@ public class Translog {
 	
 	public static final Integer NONE_TRANCE  = 0; //无数据转移
 	public static final Integer SUCCE_TRANCE = 1; //转移成功
-	public static final Integer FAIL_TRANCE  = 2; //转移失败
+	public static final Integer FAIL_TRANCE  = 2; //转移失败 (弃用)
 	
 	
 	private Integer id;         //主键
@@ -18,8 +18,8 @@ public class Translog {
 	private String allBetween;  //该任务转移的id总区间
 	private Integer allCount;   //该任务转移的实际存在记录数
 	private String noneBetween;  //该任务转移没有实际记录的id区间
-	private String failBetween; //该任务转移失败的id区间
-	private Integer failCount;  //该任务转移失败实际记录数
+	private String sucBetween; //该任务转移成功的id区间
+	private Integer sucCount;  //该任务转移成功实际记录数
 	
 	public Translog(){}
 	
@@ -29,7 +29,6 @@ public class Translog {
 		this.transTable = transTable;
 		this.allBetween = allBetween;
 		this.allCount = allCount;
-		this.failCount = allCount;
 	}
 
 	public Integer getId() {
@@ -68,17 +67,17 @@ public class Translog {
 	public void setNoneBetween(String noneBetween) {
 		this.noneBetween = noneBetween;
 	}
-	public String getFailBetween() {
-		return failBetween;
+	public String getSucBetween() {
+		return sucBetween;
 	}
-	public void setFailBetween(String failBetween) {
-		this.failBetween = failBetween;
+	public void setSucBetween(String sucBetween) {
+		this.sucBetween = sucBetween;
 	}
-	public Integer getFailCount() {
-		return failCount;
+	public Integer getSucCount() {
+		return sucCount;
 	}
-	public void setFailCount(Integer failCount) {
-		this.failCount = failCount;
+	public void setSucCount(Integer sucCount) {
+		this.sucCount = sucCount;
 	}
 	
 }

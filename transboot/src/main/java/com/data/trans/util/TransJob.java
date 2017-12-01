@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -52,13 +53,15 @@ public class TransJob implements Runnable{
 	
 	private String fetchTableName;//抓取表名
 	
-	private Integer translogId;//指定执行记录id,根据此值判断执行模式
+	private Integer translogId;//转移执行记录主键id,根据此值进行转移记录
+	
+	private boolean firstTrans;//是否首次进行转移 true： 是        false： 否
 	
 	public TransJob(){};
 	
 	public TransJob(DataSource dataSource, ElasticDataSource esSource, String index, String type,
 			Integer bulkSize, Integer fetchIdMin, Integer fetchIdMax, Integer fetchSize, String fetchTableName,
-			Integer translogId,TranslogService translogService,SourceTableService sourceTableService) {
+			Integer translogId,TranslogService translogService,SourceTableService sourceTableService,boolean firstTrans) {
 		this.dataSource = dataSource;
 		this.esSource = esSource;
 		this.index = index;
@@ -71,9 +74,10 @@ public class TransJob implements Runnable{
 		this.translogId = translogId;
 		this.translogService = translogService;
 		this.sourceTableService = sourceTableService;
+		this.firstTrans = firstTrans;
 	}
 
-	public void trans(Integer beginId,Integer endId,Connection connection,Integer translogId){
+	public void beginTrans(Integer beginId,Integer endId,Connection connection,Integer translogId){
 		List<SystemLog> logs = new ArrayList<SystemLog>();
     	logs.add(new SystemLog());//占位
 		
@@ -160,7 +164,7 @@ public class TransJob implements Runnable{
 		
 		Translog translog = translogService.getTranslogById(translogId);
 		
-		String oldFailBetween = translog.getFailBetween();
+		String oldSucBetween = translog.getSucBetween();
 		String nowBetween = beginId+"-"+endId;
 		if(updateType==Translog.NONE_TRANCE){//没有数据的记录
 			String oldNonBetween = translog.getNoneBetween();
@@ -170,20 +174,13 @@ public class TransJob implements Runnable{
 				}
 				nowBetween += ("*"+oldNonBetween);
 			}
+			translog.setNoneBetween(nowBetween);
 		}else if(updateType==Translog.SUCCE_TRANCE){//成功记录
-			String failBetween = translog.getFailBetween();
-			if(StringUtils.hasText(failBetween)){
-				translog.setFailBetween(failBetween.replace(nowBetween, ""));//失败记录中去除现在成功的记录
+			if(StringUtils.hasText(oldSucBetween)){
+				nowBetween += ("*"+oldSucBetween);
 			}
-			translog.setFailCount(translog.getFailCount()-count);
-		}else if(updateType==Translog.FAIL_TRANCE){//失败记录
-			if(StringUtils.hasText(oldFailBetween)){
-				if(oldFailBetween.contains(nowBetween)){//无需更新
-					return ;
-				}
-				nowBetween += ("*"+oldFailBetween);
-			}
-			translog.setFailBetween(nowBetween);
+			translog.setSucBetween(nowBetween);
+			translog.setSucCount(translog.getSucCount()+count);
 		}
 		translogService.updateTranslogById(translog);
 	}
@@ -192,32 +189,60 @@ public class TransJob implements Runnable{
 	public void run() {
 		try {
 			Connection connection = dataSource.getConnection();
-			if(translogId != null){
+			if(!firstTrans){ //对已存在的进行再次转移
+				//根据总区间以及成功区间计算出失败区间再次执行
 				Translog translog = translogService.getTranslogById(translogId);
-				String failBetween = translog.getFailBetween();//失败区间 格式：  1000-4000*6000-8000
-				if(StringUtils.hasText(failBetween)){
-					//解析failBetween
-					String[] split = failBetween.split("*");
+				String allBetween = translog.getAllBetween();//总共转移的区间集合   元素格式：1-20000
+				if(!StringUtils.hasText(allBetween)){
+					return ;
+				}
+				List<String> needTransBetween = new ArrayList<String>();//需要重新转移的区间集合   元素格式：1000-2000
+				String[] allSplit = allBetween.split("-");
+				Integer allBeginId = Integer.valueOf(allSplit[0]);
+				Integer allEndId = Integer.valueOf(allSplit[1]);
+				
+				String sucBetween = translog.getSucBetween();//已经成功转移的区间字符串      格式：  1000-2000*2000-3000
+				if(StringUtils.hasText(sucBetween)){//有曾经成功过的记录
+					List<Integer> sucBenginIDPoints = new ArrayList<>();//记录成功开始端点数据
+					List<Integer> sucEndIDPoints = new ArrayList<>();//记录成功结束端点数据
+					String[] split = sucBetween.split("*");
 					for(String between:split){
 						if(StringUtils.hasText(between)){
 							String[] split2 = between.split("-");
-							trans(Integer.valueOf(split2[0]),Integer.valueOf(split2[1]),connection,translog.getId());
+							sucBenginIDPoints.add(Integer.valueOf(split2[0]));
+							sucEndIDPoints.add(Integer.valueOf(split2[1]));
 						}
 					}
+					//排序成功记录切入点
+					Collections.sort(sucBenginIDPoints);
+					Collections.sort(sucEndIDPoints);
+					//计算并重新规划失败区间
+					Integer newBegin = allBeginId;
+					for(int id=allBeginId;id<=allEndId;id++){
+						if(sucBenginIDPoints.contains(id)){//碰到成功起始点
+							needTransBetween.add(newBegin+"-"+id);//记录该区间
+							int indexOf = sucBenginIDPoints.indexOf(id);//查询起始点索引位置
+							newBegin = sucEndIDPoints.get(indexOf);//修改起始点位置到原本转移成功的结束位置
+						}
+					}
+				}else{
+					needTransBetween.add(allBetween);
 				}
-			}else{
+				
+				//对最终结果进行重新转移
+				needTransBetween.forEach(between ->{
+					if(StringUtils.hasText(between)){
+						String[] split = between.split("-");
+						int begin = Integer.valueOf(split[0]);
+						int end = Integer.valueOf(split[1]);
+						//分配任务并执行
+						calcTrans(begin,end,translogId,connection);
+					}
+				});
+			}else{//首次创建任务并转移
+				calcTrans(fetchIdMin,fetchIdMax,translogId,connection);
 				//计算一共需要抓取多少趟（可能有余）
-				Integer num = (fetchIdMax-fetchIdMin)%fetchSize==0?(fetchIdMax-fetchIdMin)/fetchSize:(fetchIdMax-fetchIdMin)/fetchSize+1;
-				
-				//查询记录是否存在并传递主键
-				String transName = Thread.currentThread().getName();
-				Integer allCount = sourceTableService.countRealNumByBetween(fetchIdMin, fetchIdMax, fetchTableName);
-				Translog translog = new Translog(transName,fetchTableName,fetchIdMin+"-"+fetchIdMax,allCount);
-				Integer count = translogService.addTranslog(translog);
-				if(count!=1){
-					throw new Exception("初始化转移记录表translog失败");
-				}
-				
+				/*Integer num = (fetchIdMax-fetchIdMin)%fetchSize==0?(fetchIdMax-fetchIdMin)/fetchSize:(fetchIdMax-fetchIdMin)/fetchSize+1;
 				for(int i=0;i<num;i++){//自动计算区间
 					int beginId = i*fetchSize;
 					int endId = beginId+fetchSize;
@@ -226,12 +251,33 @@ public class TransJob implements Runnable{
 					}else{
 						trans(fetchIdMin+beginId,fetchIdMax,connection,translog.getId());
 					}
-				}
+				}*/
 			}
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.error(e.getMessage(), e);
 		}
 	}
+	
+	/**
+	 * 根据上下限参数计算并执行转移
+	 * @param minId
+	 * @param MaxId
+	 * @param logId
+	 * @param connection
+	 */
+	private void calcTrans(Integer minId,Integer MaxId,Integer logId,Connection connection){
+		if(minId > MaxId ) return;
+		Integer num = (MaxId-minId)%fetchSize==0?(MaxId-minId)/fetchSize:(MaxId-minId)/fetchSize+1;
+		for(int i=0;i<num;i++){//自动计算区间
+			int beginId = i*fetchSize;
+			int endId = beginId+fetchSize;
+			if(i!=(num-1)){
+				beginTrans(minId+beginId,minId+endId,connection,logId);
+			}else{
+				beginTrans(minId+beginId,MaxId,connection,logId);
+			}
+		}
+	}
+	
 }

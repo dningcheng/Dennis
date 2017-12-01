@@ -27,5 +27,7 @@ public interface TranslogService {
 	List<Translog> getTranslogList(Translog log);
 
 	EchartsModel getCurTransEchartsOption();
+
+	void clearTranslog();
 	
 }

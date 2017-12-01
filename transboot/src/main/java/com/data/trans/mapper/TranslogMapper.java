@@ -26,5 +26,7 @@ public interface TranslogMapper {
 	Translog getTranslogById(@Param("id") Integer id);
 	
 	List<Translog> getTranslogList(Translog log);
+
+	void clearTranslog();
 	
 }

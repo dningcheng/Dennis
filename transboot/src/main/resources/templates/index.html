@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>主页</title>
+<title>控制台</title>
 <script th:src="@{js/sockjs.min.js}"></script>
 <script th:src="@{js/stomp.min.js}"></script>
 <script th:src="@{js/jquery-3.2.1.min.js}"></script>
@@ -11,13 +11,15 @@
 <link rel="stylesheet" th:href="@{css/bootstrap.min.css}" />
 <style type="text/css">
 	body{margin: 0px;padding: 0px;}
-	.chart{width: 100%;height:500px;}
+	.chart{width: 100%;height:500px;border: 2px solid gray;margin: 10px 0px;}
+	.success{background: green;}
+	.fail{background: gray;}
 </style>
 </head>
 <body>
 <div class="container-fluid">
 <nav class="navbar navbar-inverse">
-  <a class="navbar-brand" href="#" onclick="refreshChart();">开始启动</a>
+  <a id="connect" class="navbar-brand" href="#" onclick="connect();">请求连接</a><a id="startTrans" class="navbar-brand" href="#" onclick="sendCmd(1,'');">开始启动</a>
 </nav>
 <div class="row">
   <!-- 左侧图表开始 -->
@@ -36,18 +38,18 @@
 			<th>转移ID区间</th>
 			<th>区间记录数</th>
 			<th>已转移/条</th>
-			<th>失败/条</th>
+			<th>剩余/条</th>
 			<th>操作</th>
 		</tr>
 		<tr th:each="log: ${logs}">
 			<td th:text="${log.id}">主键</td>
-			<td th:text="${log.transName}">name</td>
-			<td th:text="${log.allBetween}">name</td>
-			<td th:text="${log.allCount}">name</td>
-			<td th:text="${log.allCount - log.failCount}">name</td>
-			<td th:text="${log.failCount}">name</td>
+			<td th:text="${log.transName}">0</td>
+			<td th:text="${log.allBetween}">0</td>
+			<td th:text="${log.allCount}">0</td>
+			<td th:text="${log.sucCount}">0</td>
+			<td th:text="${log.allCount - log.sucCount}">0</td>
 			<td>
-				<a href="details.html" th:href="@{/order/details(orderId=${log.id})}">重启</a>
+				<a href="#" th:onclick="'javascript:sendCmd(4,\''+${log.id}+'\')'">重启</a>
 			</td>
 		</tr>
 	  </table>
@@ -59,9 +61,9 @@
 <!-- 脚本 -->
 <script th:inline="javascript">
 
-//初始化echarts实例
+/* 初始化echarts实例开始 */
 var myChart = echarts.init(document.getElementById('chart-container'));
-
+var timer;//定时器
 // 指定图表的配置项和数据
 option = {
 	title: {
@@ -101,7 +103,7 @@ option = {
             label: {
                 normal: {
                     show: true,
-                    position: 'inside'
+                    position: 'right'
                 }
             },
             data:[]
@@ -112,10 +114,11 @@ option = {
             stack: '总计',
             label: {
                 normal: {
-                    show: true
+                    show: true,
+                    position: 'right'
                 }
             },
-            data:[2323]
+            data:[]
         },
         {
             name:'失败',
@@ -124,32 +127,28 @@ option = {
             label: {
                 normal: {
                     show: true,
-                    position: 'left'
+                    position: 'left' //还可以配置：inside（内部显示）
                 }
             },
             data:[]
         }
     ]
 };
-
 //使用刚指定的配置项和数据显示图表。
 myChart.setOption(option);
+/* 初始化echarts实例结束 */
 
 /* websocket相关开始 */
-
+//客户端
 var stompClient = null;
-function setConnected(connected) {
-    document.getElementById("connect").disabled = connected;
-    document.getElementById("disconnect").disabled = !connected;
-    document.getElementById("conversationDiv").style.visibility = connected ? 'visible' : 'hidden';
-    $("#response").html("");
-}
-
-//发送命令
+//发送命令（连接建立成功后才可用）
 function sendCmd(cmd,data) {
+	if(cmd != 3){
+		alert(cmd+"  "+data);
+	}
     stompClient.send("/myCmd", {}, JSON.stringify({'cmd': cmd,'data':data}));
 }
-
+//建立连接方法
 function connect() {
     var socket = new SockJS('/myCmdEndpoint');
     stompClient = Stomp.over(socket);
@@ -160,40 +159,63 @@ function connect() {
 	        stompClient.subscribe('/myTopic/myCmdInter', function (message) {
 	            useResponse(JSON.parse(message.body));
 	        });
-	        //发送一次数据请求
-	        sendCmd(3,"");
+	        
+	        //连接成功的处理函数
+	        sucConnect();
+	        
 	    },
 	    //异常断开连接后的回调
 	    function(err){
 	    	//这里可以做断开后的处理逻辑
-	    	setConnected(false);
+	    	closeConnect();
 	    }
     );
 }
-//断开连接
+//主动断开连接
 function disconnect() {
     if (stompClient != null) {
         stompClient.disconnect();
+        closeConnect();
     }
-    setConnected(false);
+}
+/* websocket相关结束 */
+
+//连接成功后的业务处理
+function sucConnect(){
+	timer = window.setInterval(function(){
+   	 //发送数据刷新请求
+       sendCmd(3,"");
+   },3000);
+   
+   //更新连接a标签值
+   $("#connect").html("连接成功");
+   $("#connect").addClass("success");
+   $("#connect").attr("disabled","disabled");
+   $("#connect").removeClass("fail");
 }
 
+//连接断开后的业务处理
+function closeConnect(){
+	//更新连接a标签值
+	$("#connect").html("请求连接");
+	$("#connect").removeAttr("disabled");
+	$("#connect").removeClass("success");
+	$("#connect").addClass("fail");
+	window.clearInterval(timer);
+}
 
-//服务器结果处理
+//收到服务器消息处理
 function useResponse(message) {
 	//数据刷新请求回复
 	if(message.code==200 && message.cmd==3){
 		refreshChart(message.data);
 	}
 }
-/* websocket相关结束 */
 
-
-//刷新图标
+//刷新图表
 function refreshChart(echartsModel){
-	
+	//修改必要显示数据项
 	option.yAxis[0].data = echartsModel.yAxisData;
-	
 	$.each( option.series, function(i, element){
 		if(element.name == "总计"){
 			element.data = echartsModel.seriesDataTotal;
@@ -203,13 +225,13 @@ function refreshChart(echartsModel){
 			element.data = echartsModel.seriesDataFail;
 		}
 	});
-	
+	//设置数据项刷新图表
 	myChart.setOption(option);
 }
 
-//页面加载
+//页面加载完成
 $(function(){
-	//自动建立连接
+	//开始建立连接
 	connect();
 	
 });

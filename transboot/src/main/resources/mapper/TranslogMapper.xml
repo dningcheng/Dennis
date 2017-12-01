@@ -3,12 +3,16 @@
 <mapper namespace="com.data.trans.mapper.TranslogMapper">
 	
 	<insert id="addTranslog" parameterType="com.data.trans.model.Translog" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
-		insert into yc_test.translog(trans_name,trans_table,all_between,all_count,fail_count)
-		values(#{transName},#{transTable},#{allBetween},#{allCount},#{allCount})
+		insert into yc_test.translog(trans_name,trans_table,all_between,all_count)
+		values(#{transName},#{transTable},#{allBetween},#{allCount})
 	</insert>
 	
 	<delete id="deleteTranslog" parameterType="com.data.trans.model.Translog">
 		delete from yc_test.translog where id = #{id}
+	</delete>
+	
+	<delete id="clearTranslog">
+		delete from yc_test.translog
 	</delete>
 	
 	<sql id="update_body">
@@ -18,8 +22,8 @@
 			<if test="null != allBetween and allBetween != ''">all_between=#{allBetween},</if>
 			<if test="null != allCount and allCount != ''">all_count=#{allCount},</if>
 			<if test="null != noneBetween and noneBetween != ''">none_between=#{noneBetween},</if>
-			<if test="null != failBetween and failBetween != ''">fail_between=#{failBetween},</if>
-			<if test="null != failCount and failCount != ''">fail_count=#{failCount}</if>
+			<if test="null != sucBetween and sucBetween != ''">suc_between=#{sucBetween},</if>
+			<if test="null != sucCount and sucCount != ''">suc_count=#{sucCount}</if>
 		</set>
 	</sql>
 	
@@ -42,8 +46,8 @@
 		<result column="all_between" property="allBetween"/>
 		<result column="all_count" property="allCount"/>
 		<result column="none_between" property="noneBetween"/>
-		<result column="fail_between" property="failBetween"/>
-		<result column="fail_count" property="failCount"/>
+		<result column="suc_between" property="sucBetween"/>
+		<result column="suc_count" property="sucCount"/>
 	</resultMap>
 	
 	<select id="getTranslogById" resultMap="translog_map">
@@ -57,7 +61,7 @@
 			<if test="null != transTable and transTable != ''">and trans_table = #{transTable}</if>
 			<if test="null != allBetween and allBetween != ''">and all_between = #{allBetween}</if>
 			<if test="null != allCount and allCount != ''">and all_count = #{allCount}</if>
-			<if test="null != failCount and failCount != ''">and fail_count = #{failCount}</if>
+			<if test="null != sucCount and sucCount != ''">and suc_count = #{sucCount}</if>
 		</where>
 	</select>
 	

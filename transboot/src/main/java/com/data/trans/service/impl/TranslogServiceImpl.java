@@ -71,11 +71,16 @@ public class TranslogServiceImpl implements TranslogService {
 		logs.forEach(log -> {
 			optionData.putyAxisData(log.getTransName());
 			optionData.putSeriesDataTotal(log.getAllCount());
-			optionData.putSeriesDataSuccess(log.getAllCount()-log.getFailCount());
-			optionData.putSeriesDataFail(0-log.getFailCount());
+			optionData.putSeriesDataSuccess(log.getSucCount());
+			optionData.putSeriesDataFail(log.getSucCount()-log.getAllCount());
 		});
 		
 		return optionData;
+	}
+
+	@Override
+	public void clearTranslog() {
+		translogMapper.clearTranslog();
 	}
 	
 	

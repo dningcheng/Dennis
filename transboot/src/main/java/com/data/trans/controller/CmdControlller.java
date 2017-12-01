@@ -35,14 +35,13 @@ public class CmdControlller {
 		switch (message.getCmd()) {
 			case CmdUtil.CMD_START_TRANCE:
 				return CmdUtil.getNormal(transManager.startTrans(),message.getCmd());
-			case CmdUtil.CMD_STOP_TRANCE:
-				return CmdUtil.getSuccess();
+			case CmdUtil.CMD_RESTART_TRANCE:
+				return CmdUtil.getSuccess(transManager.startTrans(Integer.valueOf(message.getData().toString())),message.getCmd());
 			case CmdUtil.CMD_GET_PROGRESS:
 				return CmdUtil.getSuccess(translogService.getCurTransEchartsOption(),message.getCmd());
 			default:
 				return CmdUtil.getError(message.getCmd());
 		}
-		
     }
 	
 }
