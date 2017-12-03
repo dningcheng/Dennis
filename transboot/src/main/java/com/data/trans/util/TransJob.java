@@ -217,14 +217,18 @@ public class TransJob implements Runnable{
 					Collections.sort(sucBenginIDPoints);
 					Collections.sort(sucEndIDPoints);
 					//计算并重新规划失败区间
-					allBeginId=(allBeginId==sucBenginIDPoints.get(0)?sucEndIDPoints.get(0):allBeginId);
+					//allBeginId=(allBeginId==sucBenginIDPoints.get(0)?sucEndIDPoints.get(0):allBeginId);
 					Integer newBegin = allBeginId;
-					
 					for(int id=allBeginId;id<=allEndId;id++){
 						if(sucBenginIDPoints.contains(id)){//碰到成功起始点
-							needTransBetween.add(newBegin+"-"+id);//记录该区间
+							if(newBegin != id){
+								needTransBetween.add(newBegin.intValue()+"-"+id);//记录该区间
+							}
 							int indexOf = sucBenginIDPoints.indexOf(id);//查询起始点索引位置
 							newBegin = sucEndIDPoints.get(indexOf);//修改起始点位置到原本转移成功的结束位置
+						}
+						if(id==allEndId){
+							needTransBetween.add(newBegin.intValue()+"-"+id);//记录该区间
 						}
 					}
 				}else{
