@@ -205,7 +205,7 @@ public class TransJob implements Runnable{
 				if(StringUtils.hasText(sucBetween)){//有曾经成功过的记录
 					List<Integer> sucBenginIDPoints = new ArrayList<>();//记录成功开始端点数据
 					List<Integer> sucEndIDPoints = new ArrayList<>();//记录成功结束端点数据
-					String[] split = sucBetween.split("*");
+					String[] split = sucBetween.split("\\*");
 					for(String between:split){
 						if(StringUtils.hasText(between)){
 							String[] split2 = between.split("-");
@@ -217,7 +217,9 @@ public class TransJob implements Runnable{
 					Collections.sort(sucBenginIDPoints);
 					Collections.sort(sucEndIDPoints);
 					//计算并重新规划失败区间
+					allBeginId=(allBeginId==sucBenginIDPoints.get(0)?sucEndIDPoints.get(0):allBeginId);
 					Integer newBegin = allBeginId;
+					
 					for(int id=allBeginId;id<=allEndId;id++){
 						if(sucBenginIDPoints.contains(id)){//碰到成功起始点
 							needTransBetween.add(newBegin+"-"+id);//记录该区间

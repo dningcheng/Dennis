@@ -37,7 +37,7 @@ spring:
 #---------Elastic的配置信息-----------
 elastic:
     server:
-        host: 192.168.31.119
+        host: 192.168.31.164
         port: 9300
         clusterName: escluster
     client:

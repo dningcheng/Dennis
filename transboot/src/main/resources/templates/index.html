@@ -11,16 +11,20 @@
 <link rel="stylesheet" th:href="@{css/bootstrap.min.css}" />
 <style type="text/css">
 	body{margin: 0px;padding: 0px;}
-	.chart{width: 100%;height:500px;border: 2px solid gray;margin: 10px 0px;}
-	.success{background: green;}
+	.chart{width: 100%;height:500px;border: 1px solid #C4C4C4;margin: 10px 0px;}
+	/* .connect-suc{background: url("images/active.gif");background-repeat: no-repeat;background-size: 32px 32px;}  */
 	.fail{background: gray;}
 </style>
 </head>
 <body>
 <div class="container-fluid">
-<nav class="navbar navbar-inverse">
-  <a id="connect" class="navbar-brand" href="#" onclick="connect();">请求连接</a><a id="startTrans" class="navbar-brand" href="#" onclick="sendCmd(1,'');">开始启动</a>
-</nav>
+<div>
+	<img id="con0" alt="" th:src="@{images/active0.png}">
+	<img id="con1" alt="" th:src="@{images/active1.gif}" style="display: none;">
+	<a id="connect" href="#" onclick="connect();">手动连接</a>
+	<a id="disconnect" href="#" onclick="disconnect();">断开连接</a>
+	<a id="startTrans"  href="#" onclick="sendCmd(1,'');">启动迁移</a>
+</div>
 <div class="row">
   <!-- 左侧图表开始 -->
   <div class="col-md-12">
@@ -33,21 +37,21 @@
   	<div class="table-responsive">
 	  <table class="table table-bordered">
 	    <tr>
-			<th>序号</th>
+			<!-- <th>序号</th> -->
 			<th>任务名称</th>
 			<th>转移ID区间</th>
-			<th>区间记录数</th>
-			<th>已转移/条</th>
-			<th>剩余/条</th>
+			<th>区间实际记录数</th>
+			<!-- <th>已转移/条</th>
+			<th>剩余/条</th> -->
 			<th>操作</th>
 		</tr>
 		<tr th:each="log: ${logs}">
-			<td th:text="${log.id}">主键</td>
+			<!-- <td th:text="${log.id}">主键</td> -->
 			<td th:text="${log.transName}">0</td>
 			<td th:text="${log.allBetween}">0</td>
 			<td th:text="${log.allCount}">0</td>
-			<td th:text="${log.sucCount}">0</td>
-			<td th:text="${log.allCount - log.sucCount}">0</td>
+			<!-- <td th:text="${log.sucCount}">0</td>
+			<td th:text="${log.allCount - log.sucCount}">0</td> -->
 			<td>
 				<a href="#" th:onclick="'javascript:sendCmd(4,\''+${log.id}+'\')'">重启</a>
 			</td>
@@ -143,9 +147,6 @@ myChart.setOption(option);
 var stompClient = null;
 //发送命令（连接建立成功后才可用）
 function sendCmd(cmd,data) {
-	if(cmd != 3){
-		alert(cmd+"  "+data);
-	}
     stompClient.send("/myCmd", {}, JSON.stringify({'cmd': cmd,'data':data}));
 }
 //建立连接方法
@@ -188,19 +189,23 @@ function sucConnect(){
    },3000);
    
    //更新连接a标签值
-   $("#connect").html("连接成功");
-   $("#connect").addClass("success");
-   $("#connect").attr("disabled","disabled");
-   $("#connect").removeClass("fail");
+   $("#connect").hide();
+   $("#con1").show();
+   $("#con0").hide();
+   $("#startTrans").show();
+   $("#disconnect").show();
 }
 
 //连接断开后的业务处理
 function closeConnect(){
 	//更新连接a标签值
-	$("#connect").html("请求连接");
-	$("#connect").removeAttr("disabled");
-	$("#connect").removeClass("success");
-	$("#connect").addClass("fail");
+	 //更新连接a标签值
+   $("#connect").show();
+   $("#con0").show();
+   $("#con1").hide();
+   $("#disconnect").hide();
+   $("#startTrans").hide();
+   $("#connect").show();
 	window.clearInterval(timer);
 }
 
