@@ -76,11 +76,15 @@ public class TransManager {
 	private Integer countTransFinished = 0;
 	
 	//数据迁移启动方法
-	public Integer startTrans(){
+	public CmdUtil startTrans(){
 		
 		List<Translog> logs = translogService.getTranslogList(null);
-		if((logs != null && logs.size() > 0) || transState != Constant.STATE_TRANS_UNSTART){
-			return Constant.ERR;
+		if((logs != null && logs.size() > 0)){
+			return CmdUtil.getError("已经启动过任务，请执行重新启动单个子任务完成余下数据转移！");
+		}
+		
+		if(transState == Constant.STATE_TRANS_STARTING){
+			return CmdUtil.getError("转移任务正在进行中，请勿重复提交！");
 		}
 		
 		if(fixedThreadPool == null){
@@ -127,13 +131,15 @@ public class TransManager {
 					translogService.clearTranslog();
 					//清空任务记录
 					jobs.clear();
-					return Constant.ERR;
+					return CmdUtil.getError("转移记录表保存记录失败，请检查网络或数据库能否正常连接！");
 				}
 				TransJob transJob = new TransJob(dataSource, esSource, index, type, bulkSize, fetchIdMin, fetchIdMax, fetchSize, tableName,translog.getId(),translogService,sourceTableService,true);
 				jobs.add(transJob);
 			}
+			//任务记录表记录生成完毕
+			socketTemplate.convertAndSend("/myTopic/myCmdInter", CmdUtil.getResponse(Constant.CODE_SUCCESS, Constant.CMD_PUSH_FINISHED_TRANS_TABLE_RECORDS));
 			jobs.forEach(job -> futures.add(fixedThreadPool.submit(job)));
-			socketTemplate.convertAndSend("/myTopic/myCmdInter", CmdUtil.getSuccess("转移处理统计中", 10));
+			transState = Constant.STATE_TRANS_STARTING;//修改状态为正在执行中
 			//统计任务执行状态
 			new Thread(new Runnable() {
 				@Override
@@ -146,24 +152,20 @@ public class TransManager {
 						});
 					}
 					transState = Constant.STATE_TRANS_FINISHED;
-					socketTemplate.convertAndSend("/myTopic/myCmdInter", CmdUtil.getSuccess("转移处理结束", 11));
-					logger.info("任务执行状态------------------------------------------"+transState);
+					//任务执行完毕，推送客户端进行相关处理
+					socketTemplate.convertAndSend("/myTopic/myCmdInter", CmdUtil.getResponse(Constant.CODE_SUCCESS, Constant.CMD_PUSH_FINISHED_TRANS_GLOBAL));
 				}
 			}).start();
 			
-			return Constant.SUCCESS;
-		} catch (SQLException e) {
+			return CmdUtil.getSuccess();
+		} catch (Exception e) {
 			logger.error("数据转移job生成失败："+e);
-			return Constant.ERR;
+			return CmdUtil.getError("任务启动失败，请检查网络或数据库能否正常连接！");
 		}
 	}
 	
 	//数据迁移启动方法
-	public Integer startTrans(Integer translogId){
-		
-		if(countTransFinished == Constant.STATE_TRANS_STARTING){
-			return Constant.ERR;
-		}
+	public CmdUtil startTrans(Integer translogId){
 		
 		if(fixedThreadPool == null){
 			fixedThreadPool = Executors.newFixedThreadPool(threads);
@@ -172,9 +174,11 @@ public class TransManager {
 		Future<?> submit = fixedThreadPool.submit(transJob);
 		try {
 			submit.get();
+			//任务执行完毕，推送客户端进行相关处理
+			socketTemplate.convertAndSend("/myTopic/myCmdInter", CmdUtil.getResponse(Constant.CODE_SUCCESS, Constant.CMD_PUSH_FINISHED_TRANS_SUB));
 		} catch (Exception e) {
 			e.printStackTrace();
 		} 
-		return Constant.SUCCESS;
+		return CmdUtil.getSuccess();
 	}
 }

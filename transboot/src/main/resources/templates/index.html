@@ -54,7 +54,7 @@
 			<!-- <td th:text="${log.sucCount}">0</td>
 			<td th:text="${log.allCount - log.sucCount}">0</td> -->
 			<td>
-				<a href="#" th:onclick="'javascript:sendCmd(4,\''+${log.id}+'\')'">重启</a>
+				<a href="#" th:onclick="'javascript:sendCmd(2,\''+${log.id}+'\')'">重启</a>
 			</td>
 		</tr>
 	  </table>
@@ -186,7 +186,7 @@ function disconnect() {
 function sucConnect(){
 	timer = window.setInterval(function(){
    	 //发送数据刷新请求
-       sendCmd(3,"");
+       sendCmd(5,"");
    },3000);
    
    //更新连接a标签值
@@ -212,13 +212,19 @@ function closeConnect(){
 //收到服务器消息处理
 function useResponse(message) {
 	//数据刷新请求回复
-	if(message.code==200 && message.cmd==3){
+	if(message.code==200 && message.cmd==5){
 		refreshChart(message.data);
 	}
-	if(message.code==200 && message.cmd==10){
-		alert("收到服务器命令"+message.data);
+	//全局整体任务转换记录表生成结束
+	if(message.code==200 && message.cmd==100){
+		window.location.reload();
 	}
-	if(message.code==200 && message.cmd==11){
+	//全局整体任务转换已经完成,关闭连接
+	if(message.code==200 && message.cmd==101){
+		disconnect();
+	}
+	//局部手动启动子任务转换完成
+	if(message.code==200 && message.cmd==102){
 		alert("收到服务器命令"+message.data);
 	}
 }

@@ -34,14 +34,14 @@ public class CmdControlller {
 			return CmdUtil.getError(message.getCmd());
 		}
 		switch (message.getCmd()) {
-			case Constant.CMD_START_TRANS:
-				return CmdUtil.getNormal(transManager.startTrans(),message.getCmd());
-			case Constant.CMD_RESTART_TRANS:
-				return CmdUtil.getSuccess(transManager.startTrans(Integer.valueOf(message.getData().toString())),message.getCmd());
+			case Constant.CMD_TRANS_START_GLOBAL:
+				return CmdUtil.getResponse(transManager.startTrans(),message.getCmd());
+			case Constant.CMD_TRANS_RESTART_SUB:
+				return CmdUtil.getResponse(transManager.startTrans(Integer.valueOf(message.getData().toString())),message.getCmd());
 			case Constant.CMD_GET_TRANS_RESULT:
 				return CmdUtil.getSuccess(translogService.getCurTransEchartsOption(),message.getCmd());
 			default:
-				return CmdUtil.getNormal(Constant.UNKNOW,message.getCmd());
+				return CmdUtil.getError("命令未识别",Constant.CODE_UNKNOW,message.getCmd());
 		}
     }
 	

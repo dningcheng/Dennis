@@ -1,17 +1,16 @@
 package com.data.trans.util;
 
 /**
+ * @Date 2017年11月28日
  * @author dnc
- * @since 2017年11月28日 下午10:05:28
  * 
  * 交互命令类
- * 
  */
 public class CmdUtil {
 	
 	private Integer cmd;//客户端请求代码
 	
-	private Integer code = Constant.SUCCESS;//服务端响应
+	private Integer code = Constant.CODE_SUCCESS;//服务端响应
 	
 	private Object data;//交换附加数据
 
@@ -33,7 +32,11 @@ public class CmdUtil {
 		this.cmd = cmd;
 	}
 	
-	public static CmdUtil getNormal(Integer code,Integer cmd){
+	public static CmdUtil getResponse(CmdUtil instance,Integer cmd){
+		return new CmdUtil(instance.getCode(),instance.getData(),cmd);
+	}
+	
+	public static CmdUtil getResponse(Integer code,Integer cmd){
 		return new CmdUtil(code,cmd);
 	}
 	
@@ -46,11 +49,19 @@ public class CmdUtil {
 	}
 	
 	public static CmdUtil getError(Integer cmd){
-		return new CmdUtil(Constant.ERR,cmd);
+		return new CmdUtil(Constant.CODE_ERR,cmd);
+	}
+	
+	public static CmdUtil getError(Object data){
+		return getError(data,null);
+	}
+	
+	public static CmdUtil getError(Object data,Integer code,Integer cmd){
+		return new CmdUtil(code,data,cmd);
 	}
 	
 	public static CmdUtil getError(Object data,Integer cmd){
-		return new CmdUtil(Constant.ERR,data,cmd);
+		return new CmdUtil(Constant.CODE_ERR,data,cmd);
 	}
 	
 	public Integer getCmd() {
