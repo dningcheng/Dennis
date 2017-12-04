@@ -9,23 +9,9 @@ package com.data.trans.util;
  */
 public class CmdUtil {
 	
-	public static final Integer SUCCESS = 200;//处理成功
-	
-	public static final Integer ERR = 500;//处理失败或服务器错误
-	
-	public static final Integer UNKNOW = 404;//命令不识别
-	
-	public static final int CMD_START_TRANCE = 1;//开始转换
-	
-	public static final int CMD_STOP_TRANCE = 2;//停止转换
-	
-	public static final int CMD_GET_PROGRESS = 3;//获取处理进度
-	
-	public static final int CMD_RESTART_TRANCE = 4;//重新开始单个启动
-	
 	private Integer cmd;//客户端请求代码
 	
-	private Integer code = SUCCESS;//服务端响应
+	private Integer code = Constant.SUCCESS;//服务端响应
 	
 	private Object data;//交换附加数据
 
@@ -60,11 +46,11 @@ public class CmdUtil {
 	}
 	
 	public static CmdUtil getError(Integer cmd){
-		return new CmdUtil(CmdUtil.ERR,cmd);
+		return new CmdUtil(Constant.ERR,cmd);
 	}
 	
 	public static CmdUtil getError(Object data,Integer cmd){
-		return new CmdUtil(CmdUtil.ERR,data,cmd);
+		return new CmdUtil(Constant.ERR,data,cmd);
 	}
 	
 	public Integer getCmd() {

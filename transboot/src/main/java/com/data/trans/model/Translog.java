@@ -9,8 +9,6 @@ public class Translog {
 	
 	public static final Integer NONE_TRANCE  = 0; //无数据转移
 	public static final Integer SUCCE_TRANCE = 1; //转移成功
-	public static final Integer FAIL_TRANCE  = 2; //转移失败 (弃用)
-	
 	
 	private Integer id;         //主键
 	private String transName;   //转移任务名

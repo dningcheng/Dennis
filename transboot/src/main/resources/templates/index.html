@@ -215,6 +215,12 @@ function useResponse(message) {
 	if(message.code==200 && message.cmd==3){
 		refreshChart(message.data);
 	}
+	if(message.code==200 && message.cmd==10){
+		alert("收到服务器命令"+message.data);
+	}
+	if(message.code==200 && message.cmd==11){
+		alert("收到服务器命令"+message.data);
+	}
 }
 
 //刷新图表

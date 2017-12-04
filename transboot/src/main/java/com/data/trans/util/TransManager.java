@@ -16,8 +16,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Component;
 
+import com.alibaba.fastjson.JSON;
 import com.data.trans.model.Translog;
 import com.data.trans.service.SourceTableService;
 import com.data.trans.service.TranslogService;
@@ -43,6 +45,10 @@ public class TransManager {
 	
 	@Autowired
 	SourceTableService sourceTableService;
+	
+	//websocket服务器端发送消息模板，使用此模板给已经建立连接的指定客户端发送消息
+	@Autowired
+    private SimpMessagingTemplate socketTemplate;
 	
 	@Value("${elastic.client.import.index}")  
 	private String index;//es数据导入索引库
@@ -74,7 +80,7 @@ public class TransManager {
 		
 		List<Translog> logs = translogService.getTranslogList(null);
 		if((logs != null && logs.size() > 0) || transState != Constant.STATE_TRANS_UNSTART){
-			return CmdUtil.ERR;
+			return Constant.ERR;
 		}
 		
 		if(fixedThreadPool == null){
@@ -121,13 +127,13 @@ public class TransManager {
 					translogService.clearTranslog();
 					//清空任务记录
 					jobs.clear();
-					return CmdUtil.ERR;
+					return Constant.ERR;
 				}
 				TransJob transJob = new TransJob(dataSource, esSource, index, type, bulkSize, fetchIdMin, fetchIdMax, fetchSize, tableName,translog.getId(),translogService,sourceTableService,true);
 				jobs.add(transJob);
 			}
 			jobs.forEach(job -> futures.add(fixedThreadPool.submit(job)));
-			
+			socketTemplate.convertAndSend("/myTopic/myCmdInter", CmdUtil.getSuccess("转移处理统计中", 10));
 			//统计任务执行状态
 			new Thread(new Runnable() {
 				@Override
@@ -140,14 +146,15 @@ public class TransManager {
 						});
 					}
 					transState = Constant.STATE_TRANS_FINISHED;
+					socketTemplate.convertAndSend("/myTopic/myCmdInter", CmdUtil.getSuccess("转移处理结束", 11));
 					logger.info("任务执行状态------------------------------------------"+transState);
 				}
 			}).start();
 			
-			return CmdUtil.SUCCESS;
+			return Constant.SUCCESS;
 		} catch (SQLException e) {
 			logger.error("数据转移job生成失败："+e);
-			return CmdUtil.ERR;
+			return Constant.ERR;
 		}
 	}
 	
@@ -155,7 +162,7 @@ public class TransManager {
 	public Integer startTrans(Integer translogId){
 		
 		if(countTransFinished == Constant.STATE_TRANS_STARTING){
-			return CmdUtil.ERR;
+			return Constant.ERR;
 		}
 		
 		if(fixedThreadPool == null){
@@ -168,6 +175,6 @@ public class TransManager {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} 
-		return CmdUtil.SUCCESS;
+		return Constant.SUCCESS;
 	}
 }

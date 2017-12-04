@@ -14,6 +14,9 @@ import org.elasticsearch.client.Client;
 import org.elasticsearch.common.xcontent.XContentType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import com.alibaba.fastjson.JSON;
@@ -76,7 +79,14 @@ public class TransJob implements Runnable{
 		this.sourceTableService = sourceTableService;
 		this.firstTrans = firstTrans;
 	}
-
+	/**
+	 * @Transactional 注解用于配置事务（propagation事务传播行为、isolation事务隔离级别）
+	 * @param beginId
+	 * @param endId
+	 * @param connection
+	 * @param translogId
+	 */
+	@Transactional(propagation=Propagation.REQUIRED,isolation=Isolation.READ_COMMITTED)
 	public void beginTrans(Integer beginId,Integer endId,Connection connection,Integer translogId){
 		List<SystemLog> logs = new ArrayList<SystemLog>();
     	logs.add(new SystemLog());//占位
@@ -110,16 +120,16 @@ public class TransJob implements Runnable{
 			return ;
 		}
     	
-    	logger.info(Thread.currentThread().getName()+" 获取id区间为：[ "+beginId+" , "+endId+" ) 的数据 [ "+(logs.size()-1)+" ] 条转移到ES!");
+    	logger.debug(Thread.currentThread().getName()+"线程处理信息： 获取id区间为：[ "+beginId+" , "+endId+" ) 的数据 [ "+(logs.size()-1)+" ] 条!");
     	if(logs.size()<=1){//没有实际数据
     		updateTranslog(beginId,endId,null,Translog.NONE_TRANCE,translogId);//更新成功记录
     		return ;
     	}
     	
     	//--------------------es转移开始--------------------
-    	int estransIdMin = logs.get(1).getId();//用于记录批量插入的开始id
+    	Integer estransIdMin = logs.get(1).getId();//用于记录批量插入的开始id
+    	Integer estransIdMax = logs.get(logs.size()-1).getId()+1;//用于记录批量插入的结束id
     	int count = 0;//计数器
-    	int estransIdMax = logs.get(logs.size()-1).getId()+1;//用于记录批量插入的结束id
     	try{
     		Client client = esSource.getClient();
         	BulkRequestBuilder bulkRequest = client.prepareBulk();
@@ -129,9 +139,9 @@ public class TransJob implements Runnable{
         	    // 每bulkSize条提交一次
         	    if (i % bulkSize == 0 || i == (logs.size()-1)) {
         	        bulkRequest.execute().actionGet();
+        	        logger.debug(Thread.currentThread().getName()+"线程处理信息： 提交id区间为：[ "+beginId+" , "+endId+" ) 的数据 [ "+(logs.size()-1)+" ] 条!");
         	        estransIdMax = logs.get(i).getId()+1;//最大id作为本次截止记录
-        	        Integer tempMin = estransIdMin;
-        	        updateTranslog(tempMin,estransIdMax,count,Translog.SUCCE_TRANCE,translogId);//更新成功记录
+        	        updateTranslog(estransIdMin.intValue(),estransIdMax.intValue(),count,Translog.SUCCE_TRANCE,translogId);//更新成功记录
         	        bulkRequest = client.prepareBulk();//新开一个批次
         	        estransIdMin = estransIdMax ; //最后一次成功提交作为下一次开始记录
         	    	count = 0;//计数器归零
@@ -141,8 +151,6 @@ public class TransJob implements Runnable{
     	}catch (Exception e) {
     		e.printStackTrace();
     		logger.error("es服务存储数据失败:", e);
-    		//记录失败区间[estransIdMin,estransIdMax)
-    		updateTranslog(estransIdMin,estransIdMax,count,Translog.FAIL_TRANCE,translogId);//更新失败记录
 		}
 		
 	}
@@ -157,7 +165,7 @@ public class TransJob implements Runnable{
 	 * @param beginId id开始记录
 	 * @param endId   id结束记录
 	 * @param count   实际数据量（对于成功才有用）
-	 * @param updateType 0：无数据记录   1：成功记录   2：失败记录
+	 * @param updateType 0：无数据记录   1：成功记录 
 	 * @param translogId 记录表主键id值
 	 */
 	private void updateTranslog(Integer beginId,Integer endId,Integer count,Integer updateType,Integer translogId){
@@ -220,7 +228,6 @@ public class TransJob implements Runnable{
 					Collections.sort(sucBenginIDPoints);
 					Collections.sort(sucEndIDPoints);
 					//计算并重新规划失败区间
-					//allBeginId=(allBeginId==sucBenginIDPoints.get(0)?sucEndIDPoints.get(0):allBeginId);
 					Integer newBegin = allBeginId;
 					for(int id=allBeginId;id<=allEndId;id++){
 						if(sucBenginIDPoints.contains(id)){//碰到成功起始点
@@ -250,17 +257,6 @@ public class TransJob implements Runnable{
 				});
 			}else{//首次创建任务并转移
 				calcTrans(fetchIdMin,fetchIdMax,translogId,connection);
-				//计算一共需要抓取多少趟（可能有余）
-				/*Integer num = (fetchIdMax-fetchIdMin)%fetchSize==0?(fetchIdMax-fetchIdMin)/fetchSize:(fetchIdMax-fetchIdMin)/fetchSize+1;
-				for(int i=0;i<num;i++){//自动计算区间
-					int beginId = i*fetchSize;
-					int endId = beginId+fetchSize;
-					if(i!=(num-1)){
-						trans(fetchIdMin+beginId,fetchIdMin+endId,connection,translog.getId());
-					}else{
-						trans(fetchIdMin+beginId,fetchIdMax,connection,translog.getId());
-					}
-				}*/
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
