@@ -221,7 +221,7 @@ function useResponse(message) {
 	}
 	//全局整体任务转换已经完成,关闭连接
 	if(message.code==200 && message.cmd==101){
-		disconnect();
+		//disconnect();
 	}
 	//局部手动启动子任务转换完成
 	if(message.code==200 && message.cmd==102){
