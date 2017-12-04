@@ -192,6 +192,9 @@ public class TransJob implements Runnable{
 			if(!firstTrans){ //对已存在的进行再次转移
 				//根据总区间以及成功区间计算出失败区间再次执行
 				Translog translog = translogService.getTranslogById(translogId);
+				if(translog == null){
+					return ;
+				}
 				String allBetween = translog.getAllBetween();//总共转移的区间集合   元素格式：1-20000
 				if(!StringUtils.hasText(allBetween)){
 					return ;

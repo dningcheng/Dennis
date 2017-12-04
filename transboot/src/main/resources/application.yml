@@ -1,8 +1,7 @@
-#---------自身配置---------
+#---------springboot配置信息---------
 server: 
     port: 8080
-  
-#---------驱动配置信息---------
+#---------mysql数据库配置信息---------
 spring: 
     datasource:
         name: myDataSource
@@ -11,7 +10,7 @@ spring:
         username: root
         password: root
         driverClassName: com.mysql.jdbc.Driver
-#---------连接池的配置信息 ---------
+#---------druid连接池的配置信息 ---------
         initialSize: 50  
         minIdle: 50  
         maxActive: 50  
@@ -26,7 +25,7 @@ spring:
         maxPoolPreparedStatementPerConnectionSize: 20  
         filters: stat,wall,log4j  
         connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
-#模板引擎
+#---------模板引擎thymeleaf-----------
     thymeleaf: 
         cache: false
         prefix: classpath:/templates/
@@ -37,9 +36,9 @@ spring:
 #---------Elastic的配置信息-----------
 elastic:
     server:
-        host: 192.168.31.164
-        port: 9300
-        clusterName: escluster
+        host: 192.168.31.164                            #es服务器ip
+        port: 9300                                      #es服务监听端口
+        clusterName: escluster                          #es服务集群名称
     client:
         pool: 
             initialSize: 10
@@ -47,23 +46,21 @@ elastic:
             minSize: 8
             maxWait: 6000
         import:
-            index: logindex
-            type: systemlog
-#每批导入的文档数
-            bulkSize: 2000
+            index: logindex                             #es服务器导入目标索引库
+            type: systemlog                             #es服务器导入目标索引库类型
+            bulkSize: 2000                              #每批提交到es导入的文档数
 #---------数据迁移线程池信息-----------
 #mysql数据库迁移数据表
 trans:
     datasource:
         table:
-            name: test_log
-#每次数据库抓取数目
-            fetchSize: 10000
+            name: test_log                              #mysql迁移目标表名
+            fetchSize: 10000                            #mysql数据库单次抓取数目  
     thread:
         pool:
-            size: 10
+            size: 10                                    #数据迁移线程池容量（决定任务迁移拆分线程数据/任务数目）
 #mybatis集成配置
 mybatis: 
-    mapperLocations: classpath:mapper/*.xml
-    typeAliasesPackage: com.data.trans.model
-    config: mybatis-config.xml配置文件的路径
+    mapperLocations: classpath:mapper/*.xml             #mapper.xml文件路径
+    typeAliasesPackage: com.data.trans.model            #mybatis数据模型实体包路径
+    config: mybatis-config.xml                          #mybatis配置文件的路径
