@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
@@ -144,13 +145,13 @@ public class TransManager {
 			new Thread(new Runnable() {
 				@Override
 				public void run() {
-					while(countTransFinished<threads){
-						futures.forEach(future ->{
-							if(future.isDone()){
-								countTransFinished++;
-							}
-						});
-					}
+					futures.forEach(future -> {
+						try {
+							future.get();
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					});
 					transState = Constant.STATE_TRANS_FINISHED;
 					//任务执行完毕，推送客户端进行相关处理
 					socketTemplate.convertAndSend("/myTopic/myCmdInter", CmdUtil.getResponse(Constant.CODE_SUCCESS, Constant.CMD_PUSH_FINISHED_TRANS_GLOBAL));
@@ -166,6 +167,10 @@ public class TransManager {
 	
 	//数据迁移启动方法
 	public CmdUtil startTrans(Integer translogId){
+		
+		if(transState == Constant.STATE_TRANS_STARTING){
+			return CmdUtil.getError("主任务正在进行中，请勿开启子任务！");
+		}
 		
 		if(fixedThreadPool == null){
 			fixedThreadPool = Executors.newFixedThreadPool(threads);
