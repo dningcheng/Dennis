@@ -132,7 +132,7 @@ option = {
             label: {
                 normal: {
                     show: true,
-                    position: 'left' //还可以配置：inside（内部显示）
+                    position: 'inside' //还可以配置：left、right（内部显示）
                 }
             },
             data:[]
@@ -225,7 +225,8 @@ function useResponse(message) {
 	}
 	//局部手动启动子任务转换完成
 	if(message.code==200 && message.cmd==102){
-		alert("收到服务器命令"+message.data);
+		//子任务完成推送
+		
 	}
 }
 

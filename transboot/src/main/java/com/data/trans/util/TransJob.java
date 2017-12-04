@@ -237,7 +237,7 @@ public class TransJob implements Runnable{
 							int indexOf = sucBenginIDPoints.indexOf(id);//查询起始点索引位置
 							newBegin = sucEndIDPoints.get(indexOf);//修改起始点位置到原本转移成功的结束位置
 						}
-						if(id==allEndId){
+						if(id==allEndId && id != newBegin.intValue()){
 							needTransBetween.add(newBegin.intValue()+"-"+id);//记录该区间
 						}
 					}

@@ -72,7 +72,7 @@ public class TranslogServiceImpl implements TranslogService {
 			optionData.putyAxisData(log.getTransName());
 			optionData.putSeriesDataTotal(log.getAllCount());
 			optionData.putSeriesDataSuccess(log.getSucCount());
-			optionData.putSeriesDataFail(log.getSucCount()-log.getAllCount());
+			optionData.putSeriesDataFail(-(log.getAllCount()-log.getSucCount()));
 		});
 		
 		return optionData;
