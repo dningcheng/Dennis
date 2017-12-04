@@ -3,6 +3,8 @@ package com.data.trans.config;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -107,12 +109,43 @@ public class DruidDBConfig {
         //测试连接并判断是否存在记录表
         DruidPooledConnection connectCount = datasource.getConnection();
         Connection connection = connectCount.getConnection();
-        PreparedStatement prepareStatement = connection.prepareStatement("SELECT table_name FROM information_schema.TABLES WHERE table_name ='translog'");
-		ResultSet executeQuery = prepareStatement.executeQuery();
-		if(!executeQuery.next()){
-			throw new Exception("数据迁移记录表 [translog] 未找到，请先在目标库创建该表！");
+		if(!checkTableExist(connection)){
+			Statement createStatement = connection.createStatement();
+			
+			//创建数据转移结果记录表
+			String sql ="CREATE TABLE `translog` ("
+					+ "`id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',"
+					+ "`trans_name` varchar(64) DEFAULT NULL COMMENT '执行转移的线程名称，job名称',"
+					+ "`trans_table` varchar(32) DEFAULT NULL COMMENT '转移的目标表名，暂时不用',"
+					+ "`all_between` varchar(64) DEFAULT NULL COMMENT '整体转移id区间，格式：1000-2000',"
+					+ "`all_count` int(11) DEFAULT '0' COMMENT '总共需要转移的条数',"
+					+ "`none_between` text COMMENT '空数据id区间',"
+					+ "`suc_between` text COMMENT '已经转移成功的id区间，格式：2000-3000*6000-8000',"
+					+ "`suc_count` int(11) DEFAULT '0' COMMENT '已经转移成功的条数',"
+					+ "PRIMARY KEY (`id`)"
+					+ ") ENGINE=InnoDB AUTO_INCREMENT=424 DEFAULT CHARSET=utf8;";
+			
+			createStatement.execute(sql);
+			if(checkTableExist(connection)){
+				logger.info("数据迁移记录表 [translog] 未找到，系统已经自动创建该表！");
+			}else{
+				throw new Exception("数据迁移记录表 [translog] 未找到，系统尝试创建该表失败！");
+			}
 		}
 		logger.info("druid连接池初始化完毕!");
         return datasource;  
-    }  
+    }
+    
+    //检测目标表是否存在
+    private boolean checkTableExist(Connection connection) throws SQLException{
+    	if(connection == null){
+    		return false;
+    	}
+        PreparedStatement prepareStatement = connection.prepareStatement("SELECT table_name FROM information_schema.TABLES WHERE table_name = 'translog'");
+ 		ResultSet executeQuery = prepareStatement.executeQuery();
+ 		if(!executeQuery.next()){
+ 			return false;
+ 		}
+ 		return true;
+    }
 }
