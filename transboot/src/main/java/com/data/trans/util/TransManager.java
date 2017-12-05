@@ -74,8 +74,6 @@ public class TransManager {
 	
 	public static Integer transState = 0;//当前任务的处理状态(未用) 0：未执行 1：执行中   2：执行完毕
 	
-	private Integer countTransFinished = 0;
-	
 	//数据迁移启动方法
 	public CmdUtil startTrans(){
 		
