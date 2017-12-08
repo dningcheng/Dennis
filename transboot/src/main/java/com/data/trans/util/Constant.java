@@ -12,6 +12,10 @@ public interface Constant {
 	int CODE_ERR     = 500;//处理失败或服务器错误
 	int CODE_UNKNOW  = 404;//命令不识别
 	
+	//转移记录状态常量
+	int NONE_TRANS  = 0;//没有转移任何数据(无数据可转移)
+	int SUCCE_TRANS = 1;//转移成功
+	
 	//数据迁移任务处理状态常量
 	int STATE_TRANS_UNSTART  = 0;//任务转移状态 未开始
 	int STATE_TRANS_STARTING = 1;//任务转移状态 进行中

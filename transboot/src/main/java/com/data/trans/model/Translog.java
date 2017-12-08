@@ -7,9 +7,6 @@ package com.data.trans.model;
  */
 public class Translog {
 	
-	public static final Integer NONE_TRANCE  = 0; //无数据转移
-	public static final Integer SUCCE_TRANCE = 1; //转移成功
-	
 	private Integer id;         //主键
 	private String transName;   //转移任务名
 	private String transTable;  //转移表名

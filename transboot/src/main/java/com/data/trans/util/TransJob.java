@@ -122,7 +122,7 @@ public class TransJob implements Runnable{
     	
     	logger.debug(Thread.currentThread().getName()+"线程处理信息： 获取id区间为：[ "+beginId+" , "+endId+" ) 的数据 [ "+(logs.size()-1)+" ] 条!");
     	if(logs.size()<=1){//没有实际数据
-    		updateTranslog(beginId,endId,null,Translog.NONE_TRANCE,translogId);//更新成功记录
+    		updateTranslog(beginId,endId,null,Constant.NONE_TRANS,translogId);//更新成功记录
     		return ;
     	}
     	
@@ -141,7 +141,7 @@ public class TransJob implements Runnable{
         	        bulkRequest.execute().actionGet();
         	        logger.debug(Thread.currentThread().getName()+"线程处理信息： 提交id区间为：[ "+beginId+" , "+endId+" ) 的数据 [ "+(logs.size()-1)+" ] 条!");
         	        estransIdMax = logs.get(i).getId()+1;//最大id作为本次截止记录
-        	        updateTranslog(estransIdMin.intValue(),estransIdMax.intValue(),count,Translog.SUCCE_TRANCE,translogId);//更新成功记录
+        	        updateTranslog(estransIdMin.intValue(),estransIdMax.intValue(),count,Constant.SUCCE_TRANS,translogId);//更新成功记录
         	        bulkRequest = client.prepareBulk();//新开一个批次
         	        estransIdMin = estransIdMax ; //最后一次成功提交作为下一次开始记录
         	    	count = 0;//计数器归零
@@ -174,7 +174,7 @@ public class TransJob implements Runnable{
 		
 		String oldSucBetween = translog.getSucBetween();
 		String nowBetween = beginId+"-"+endId;
-		if(updateType==Translog.NONE_TRANCE){//没有数据的记录
+		if(updateType==Constant.NONE_TRANS){//没有数据的记录
 			String oldNonBetween = translog.getNoneBetween();
 			if(StringUtils.hasText(oldNonBetween)){
 				if(oldNonBetween.contains(nowBetween)){//不用更新
@@ -183,7 +183,7 @@ public class TransJob implements Runnable{
 				nowBetween += ("*"+oldNonBetween);
 			}
 			translog.setNoneBetween(nowBetween);
-		}else if(updateType==Translog.SUCCE_TRANCE){//成功记录
+		}else if(updateType==Constant.SUCCE_TRANS){//成功记录
 			if(StringUtils.hasText(oldSucBetween)){
 				nowBetween += ("*"+oldSucBetween);
 			}
