@@ -16,14 +16,6 @@ public class ComController {
 	@Autowired
 	TranslogService translogService;
 	
-	@RequestMapping("/")
-	public String index(Map<String,Object> map){
-		
-		map.put("tip", "你好，欢迎来到数据迁移中心！请执行开始");
-		
-		return "/login";
-	}
-	
 	@RequestMapping("/login")
 	public String login(Map<String,Object> map){
 		
