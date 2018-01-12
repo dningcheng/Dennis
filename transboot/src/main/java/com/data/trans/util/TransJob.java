@@ -3,8 +3,10 @@ package com.data.trans.util;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -110,7 +112,8 @@ public class TransJob implements Runnable{
 	    		log.setOpMethod(executeQuery.getString("op_method"));
 	    		log.setOpContent(executeQuery.getString("op_content"));
 	    		log.setOpResult(executeQuery.getString("op_result"));
-	    		log.setOpTime(executeQuery.getTime("op_time"));
+	    		Date date = executeQuery.getDate("op_time");
+	    		log.setOpTime(date);
 	    		log.setModuleParkPlate(executeQuery.getString("module_park_plate"));
 	    		logs.add(log);
 			}
