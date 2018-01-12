@@ -123,7 +123,7 @@ public class TransManager {
 				
 				//查询记录是否存在并传递主键
 				Integer allCount = sourceTableService.countRealNumByBetween(fetchIdMin, fetchIdMax, tableName);
-				Translog translog = new Translog("小蚂蚁"+i,tableName,fetchIdMin+"-"+fetchIdMax,allCount);
+				Translog translog = new Translog("迁移线程"+i,tableName,fetchIdMin+"-"+fetchIdMax,allCount);
 				Integer count = translogService.addTranslog(translog);
 				if(count == 0){//保存失败
 					//清空记录表
