@@ -2,25 +2,41 @@ package com.data.trans.model;
 
 import java.util.Date;
 
+import com.data.trans.annotation.EsDocument;
+import com.data.trans.annotation.EsField;
+
 /**
  * @author dnc
  * @since 2017年11月18日 下午10:36:35
  * 系统操作日志模型
  */
+@EsDocument(index="logindex",type="systemlog")
 public class SystemLog {
-	
+	@EsField
 	private Integer id;       		 //主键ID
+	@EsField
 	private Integer orgId;    		 //机构ID
+	@EsField
 	private Integer userId;   		 //用户ID
+	@EsField
 	private Integer unitId;   		 //小区ID
+	@EsField
 	private String moduleCode;		 //模块描述
+	@EsField
 	private String apiCode;   		 //接口描述
+	@EsField
 	private String userAccount;		 //用户账号
+	@EsField
 	private String unitName;  		 //小区名称
+	@EsField
 	private String opMethod;   		 //操作方法
+	@EsField
 	private String opContent;  		 //操作内容
+	@EsField
 	private String opResult;         //操作结果
+	@EsField
 	private Date opTime;             //操作时间
+	@EsField
 	private String moduleParkPlate;  //模块车场附属车牌号
 	
 	public Integer getId() {

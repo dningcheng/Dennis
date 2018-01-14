@@ -1,15 +1,8 @@
 package com.data.trans.util;
 
-import static java.lang.annotation.ElementType.FIELD;
-import static java.lang.annotation.ElementType.TYPE;
-import static java.lang.annotation.RetentionPolicy.RUNTIME;
-
-import java.lang.annotation.Retention;
-import java.lang.annotation.Target;
 import java.lang.reflect.Field;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -18,33 +11,28 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
 
-import org.apache.log4j.spi.LoggerFactory;
-import org.apache.logging.log4j.core.Logger;
+import org.elasticsearch.action.admin.indices.delete.DeleteIndexResponse;
+import org.elasticsearch.action.delete.DeleteResponse;
+import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.search.SearchRequestBuilder;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.common.settings.Settings;
-import org.elasticsearch.common.text.Text;
 import org.elasticsearch.common.transport.InetSocketTransportAddress;
+import org.elasticsearch.common.xcontent.XContentType;
 import org.elasticsearch.index.query.MultiMatchQueryBuilder;
-import org.elasticsearch.index.query.Operator;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
-import org.elasticsearch.search.fetch.subphase.highlight.HighlightField;
 import org.elasticsearch.transport.client.PreBuiltTransportClient;
 import org.junit.BeforeClass;
-import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.alibaba.fastjson.JSON;
-import com.data.trans.TransbootApplication;
+import com.data.trans.annotation.EsDocument;
 import com.data.trans.annotation.EsField;
-import com.data.trans.model.EsWyglLog;
-
-import ch.qos.logback.core.net.SyslogOutputStream;
+import com.data.trans.model.SystemLog;
 
 /**
  * @Date 2018年1月12日
@@ -69,19 +57,29 @@ public class ElasticUtil {
 				.build();
 	    try {
 	    	// 读取的ip列表是以逗号分隔的
-	    	client = new PreBuiltTransportClient(settings).addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName("192.168.174.128"), 9300));
+	    	client = new PreBuiltTransportClient(settings).addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName("192.168.31.33"), 9300));
 	    } catch (UnknownHostException e) {
 	    	e.printStackTrace();
 	    }
 	}
 	
-	@Test
-	public void testResult(){
+
+	public static void testResult(){
 		initClient();
-		SearchResponse resp = multiMatchSearch("房屋认证www","logindex","systemlog",new String[]{"apiCode"});
+		SearchResponse resp = multiMatchSearch("logindex","systemlog","8888",new String[]{"id"});
 		
-		 List<Object> list = ElasticUtil.getDataListByHits(resp.getHits().getHits(), EsWyglLog.class);
+		 List<Object> list = ElasticUtil.getDataListByHits(resp.getHits().getHits(), SystemLog.class);
 		 System.out.println(list.size());
+		 
+		 SystemLog log = new SystemLog();
+		 log.setId(8888);
+		 log.setModuleCode("test");
+		 log.setModuleParkPlate("鄂Qx1245");
+		 log.setOpContent("测试数据");
+		 log.setOpMethod("测试方法");
+		 log.setOpResult("失败");
+		 log.setOpTime(new Date());
+		 System.out.println(insertDocument(client,log));
 	}
 	
 	/**
@@ -98,9 +96,150 @@ public class ElasticUtil {
 	
 	public static void main(String[] args) {
 		initClient();
-		SearchResponse resp = multiMatchSearch("logindex","systemlog","191673",new String[]{"id"});
-	    List<Object> list = ElasticUtil.getDataListByHits(resp.getHits().getHits(), EsWyglLog.class);
-	    System.out.println(JSON.toJSONString(list));
+//		SearchResponse resp = multiMatchSearch("logindex","systemlog","999999",new String[]{"id"});
+//	    List<Object> list = ElasticUtil.getDataListByHits(resp.getHits().getHits(), SystemLog.class);
+//	    System.out.println(JSON.toJSONString(list));
+//		
+//		Map<String, Object> map = new HashMap<>();
+//		
+//		map.put("id", 999999);
+//		IndexResponse  resp2 = insertDocument(client,"logindex","systemlog",map );
+//		System.out.println(resp2.status().getStatus());
+		System.out.println(delDocumentById(client, "logindex2","systemlog2", "AWD1HFM6tQsuvrC2Q_Bh"));
+	}
+	
+	
+	
+	/**
+	 * @Date 2018年1月14日
+	 * @author dnc
+	 * @Description 插入文档
+	 * @param client
+	 * @param index 索引库
+	 * @param type 类型
+	 * @param mapDocument 文档内容
+	 * @return
+	 */
+	public static boolean insertDocument(Client client,String index,String type,Map<String,Object> mapDocument){
+		IndexResponse response = client.prepareIndex(index, type)
+		        .setSource(mapDocument)
+		        .get();
+		return response==null?false:response.status().getStatus()==201;
+	}
+	
+	/**
+	 * @Date 2018年1月14日
+	 * @author dnc
+	 * @Description 插入文档
+	 * @param client
+	 * @param index 索引库
+	 * @param type 类型
+	 * @param jsonDocument 文档内容
+	 * @return
+	 */
+	public static boolean insertDocument(Client client,String index,String type,String jsonDocument){
+		IndexResponse response = client.prepareIndex(index, type)
+		        .setSource(jsonDocument,XContentType.JSON)
+		        .get();
+		return response==null?false:response.status().getStatus()==201;
+	}
+	
+	/**
+	 * @Date 2018年1月14日
+	 * @author dnc
+	 * @Description 插入文档
+	 * @param client
+	 * @param obj 需要注解EsDocument 用来获取文档存储的索引库和类型参数
+	 */
+	public static boolean insertDocument(Client client,Object obj){
+		Class<?> clazz = obj.getClass();
+		EsDocument classAnnotation  = clazz.getDeclaredAnnotation(EsDocument.class);
+		//获取索引和类型
+		if(classAnnotation == null)	return false;
+		String index = classAnnotation.index();
+		String type = classAnnotation.type();
+		if(index == null || type == null)	return false;
+		return insertDocument(client,index,type,obj);
+	}
+	
+	/**
+	 * @Date 2018年1月14日
+	 * @author dnc
+	 * @Description 插入文档
+	 * @param client
+	 * @param index
+	 * @param type
+	 * @param obj
+	 * @return
+	 */
+	public static boolean insertDocument(Client client,String index,String type,Object obj){
+		try {
+			Map<String,Object> map = new HashMap<>();
+			Field[] clazzFields = obj.getClass().getDeclaredFields();
+			for(Field field : clazzFields){
+				field.setAccessible(true);
+				EsField fieldAnnotation = field.getDeclaredAnnotation(EsField.class);
+				
+				if(fieldAnnotation == null)	continue;
+				
+				//实体bean的真实字段类型名
+				String objFieldTypeName = field.getType().getSimpleName();
+				
+				//实体bean的真实字段名
+				String objFieldName = field.getName();
+				//es中对应的映射属性名称
+				String esFieldName = fieldAnnotation.value();
+				
+				if("".equals(esFieldName)){
+					esFieldName = objFieldName;
+				}
+				//获取实体bean属性值
+				Object object = field.get(obj);//获取属性值
+				
+				//对于日期，保存时间戳
+				if(objFieldTypeName.equals("Date") && object != null){
+					map.put(esFieldName,((Date)object).getTime());
+				}else{
+					map.put(esFieldName,object);
+				}
+			}
+			return insertDocument(client,index,type,map);
+		} catch (Exception e) {
+			System.out.println("文档保存异常："+e.getMessage());
+			return false;
+		}
+	}
+	
+	/**
+	 * @Date 2018年1月14日
+	 * @author dnc
+	 * @Description 删除文档
+	 * @param client
+	 * @param index 索引
+	 * @param type 类型
+	 * @param id 文档id
+	 * @return
+	 */
+	public static boolean delDocumentById(Client client,String index,String type,String id){
+		DeleteResponse response = client.prepareDelete(index, type, id)
+				.get();
+		return response==null?false:response.status().getStatus()==200;
+	}
+	
+	/**
+	 * @Date 2018年1月14日
+	 * @author dnc
+	 * @Description 删除索引
+	 * @param indices
+	 * @return
+	 */
+	public static boolean delIndex(String... indices){
+		DeleteIndexResponse deleteIndexResponse = client
+				.admin()
+				.indices()
+				.prepareDelete(indices)
+				.get();
+		return deleteIndexResponse.isAcknowledged();
 	}
 	
 	/**
@@ -127,8 +266,11 @@ public class ElasticUtil {
 	}
 	
 	/**
-	 * 结果集合到bean的数据封装
+	 * @Date 2018年1月14日
+	 * @author dnc
+	 * @Description 从es结果集获取实体集合
 	 * @param hits
+	 * @param clazz
 	 * @return
 	 */
 	public static List<Object> getDataListByHits(SearchHit[] hits,Class<?> clazz){
@@ -139,6 +281,7 @@ public class ElasticUtil {
 			try {
 				Object newInstance = clazz.newInstance();
 				if(newInstance == null) continue;
+				boolean addFlag = false;
 				//获取该类所有属性
 				Field[] logFields = clazz.getDeclaredFields();
 				for(Field field : logFields){
@@ -179,8 +322,9 @@ public class ElasticUtil {
 					}else{
 						field.set(newInstance, object);
 					}
+					addFlag = true;
 				}
-				list.add(newInstance);//加入集合
+				if(addFlag)	list.add(newInstance);//加入集合
 			} catch (Exception e) {
 				e.printStackTrace();
 				System.out.println("es结果集到实体封装异常："+e.getMessage());
@@ -188,66 +332,4 @@ public class ElasticUtil {
 		}
 		return list;
 	}
-	
-	public static Map<String,Object> beanToESMapDocument(Class<?> logClazz, Object logInstance) throws Exception{
-		Map<String,Object> map = new HashMap<>();
-		//获取所有映射的属性名称及对应属性值
-		Field[] logFields = logClazz.getDeclaredFields();
-		for(Field field : logFields){
-			field.setAccessible(true);
-			EsField fieldAnnotation = field.getDeclaredAnnotation(EsField.class);
-			if(fieldAnnotation!=null){//如果是被注解的属性
-				String beamFieldTypeName = field.getType().getSimpleName();//实体类真实类型
-				String esFieldName = fieldAnnotation.value();//es中的属性名称
-				String declareFieldType = fieldAnnotation.value();//字符串日期类型传入时格式
-				
-				Object object = field.get(logInstance);//获取值
-				if(object!=null){
-					//处理日期格式的字段
-					/*if(beamFieldTypeName.equals("Date") || "Date".equals(declareFieldType)){
-						Date fieldValue = null;
-						if(!"".equals(object.toString().trim())){//存在值
-							if(!beamFieldTypeName.equals("Date")){
-								String dateFormat = fieldAnnotation.format();//字符串日期类型的传入的格式
-								SimpleDateFormat format = new SimpleDateFormat(dateFormat);
-								fieldValue = format.parse(object.toString().trim());
-							}else{
-								fieldValue = (Date)object;
-							}
-							map.put(esFieldName, fieldValue);
-						}
-					}*/
-					map.put(esFieldName,object);
-				}
-			}
-		}
-		//logger.info("es插入文档主体为："+JSON.toJSONString(map));
-		return map;
-	}
-	
-}
-
-class TestClazz{
-	private Integer id;
-	private String name;
-	private ElasticUtil util;
-	public Integer getId() {
-		return id;
-	}
-	public void setId(Integer id) {
-		this.id = id;
-	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public ElasticUtil getUtil() {
-		return util;
-	}
-	public void setUtil(ElasticUtil util) {
-		this.util = util;
-	}
-	
 }

@@ -6,7 +6,7 @@ spring:
     datasource:
         name: myDataSource
         type: com.alibaba.druid.pool.DruidDataSource  
-        url: jdbc:mysql://192.168.6.124:3306/yc_test?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull
+        url: jdbc:mysql://192.168.31.32:3306/yc_test?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull
         username: root
         password: root
         driverClassName: com.mysql.jdbc.Driver
@@ -36,7 +36,7 @@ spring:
 #---------Elastic的配置信息-----------
 elastic:
     server:
-        host: 192.168.174.128                           #es服务器ip
+        host: 192.168.31.33                             #es服务器ip
         port: 9300                                      #es服务监听端口
         clusterName: escluster                          #es服务集群名称
     client:
