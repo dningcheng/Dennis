@@ -21,6 +21,8 @@ import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.transport.InetSocketTransportAddress;
 import org.elasticsearch.common.xcontent.XContentType;
 import org.elasticsearch.index.query.MultiMatchQueryBuilder;
+import org.elasticsearch.index.query.MultiMatchQueryBuilder.Type;
+import org.elasticsearch.index.query.Operator;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.transport.client.PreBuiltTransportClient;
@@ -96,16 +98,16 @@ public class ElasticUtil {
 	
 	public static void main(String[] args) {
 		initClient();
-//		SearchResponse resp = multiMatchSearch("logindex","systemlog","999999",new String[]{"id"});
-//	    List<Object> list = ElasticUtil.getDataListByHits(resp.getHits().getHits(), SystemLog.class);
-//	    System.out.println(JSON.toJSONString(list));
+		SearchResponse resp = multiMatchSearch("logindex","systemlog","sbgl",new String[]{"apiCode"});
+	    List<Object> list = ElasticUtil.getDataListByHits(resp.getHits().getHits(), SystemLog.class);
+	    System.out.println(list.size()+":"+JSON.toJSONString(list));
 //		
 //		Map<String, Object> map = new HashMap<>();
 //		
 //		map.put("id", 999999);
 //		IndexResponse  resp2 = insertDocument(client,"logindex","systemlog",map );
 //		System.out.println(resp2.status().getStatus());
-		System.out.println(delDocumentById(client, "logindex2","systemlog2", "AWD1HFM6tQsuvrC2Q_Bh"));
+//		System.out.println(delDocumentById(client, "logindex2","systemlog2", "AWD1HFM6tQsuvrC2Q_Bh"));
 	}
 	
 	
@@ -259,7 +261,9 @@ public class ElasticUtil {
 		  }*/
 		SearchRequestBuilder searchBuilder = client.prepareSearch().setIndices(index).setTypes(type);
 		MultiMatchQueryBuilder multiMatchQuery = QueryBuilders.multiMatchQuery(text, fields);
-		//multiMatchQuery.operator(Operator.OR);
+		//multiMatchQuery.operator(Operator.AND);
+		multiMatchQuery.type(Type.BEST_FIELDS);
+		multiMatchQuery.minimumShouldMatch("30%");
 		searchBuilder.setQuery(multiMatchQuery);
 		
 		return searchBuilder.get();
