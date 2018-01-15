@@ -68,7 +68,7 @@ public class ElasticUtil {
 
 	public static void testResult(){
 		initClient();
-		SearchResponse resp = multiMatchSearch("logindex","systemlog","8888",new String[]{"id"});
+		SearchResponse resp = multiMatchSearch(client,"logindex","systemlog","8888",new String[]{"id"});
 		
 		 List<Object> list = ElasticUtil.getDataListByHits(resp.getHits().getHits(), SystemLog.class);
 		 System.out.println(list.size());
@@ -235,7 +235,7 @@ public class ElasticUtil {
 	 * @param indices
 	 * @return
 	 */
-	public static boolean delIndex(String... indices){
+	public static boolean delIndex(Client client,String... indices){
 		DeleteIndexResponse deleteIndexResponse = client
 				.admin()
 				.indices()
@@ -250,7 +250,7 @@ public class ElasticUtil {
 	 * @Description 全文检索
 	 * @return SearchResponse
 	 */
-	public static SearchResponse multiMatchSearch(String index,String type,String text,String... fields){
+	public static SearchResponse multiMatchSearch(Client client,String index,String type,String text,String... fields){
 		/*{
 			  "query": {
 			    "multi_match": {
