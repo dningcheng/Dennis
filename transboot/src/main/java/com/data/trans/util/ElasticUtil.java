@@ -98,7 +98,7 @@ public class ElasticUtil {
 	
 	public static void main(String[] args) {
 		initClient();
-		SearchResponse resp = multiMatchSearch("logindex","systemlog","sbgl",new String[]{"apiCode"});
+		SearchResponse resp = multiMatchSearch(client,"logindex","systemlog","sbgl",new String[]{"apiCode"});
 	    List<Object> list = ElasticUtil.getDataListByHits(resp.getHits().getHits(), SystemLog.class);
 	    System.out.println(list.size()+":"+JSON.toJSONString(list));
 //		
