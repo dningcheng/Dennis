@@ -6,7 +6,7 @@ spring:
     datasource:
         name: myDataSource
         type: com.alibaba.druid.pool.DruidDataSource  
-        url: jdbc:mysql://192.168.31.32:3306/yc_test?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull
+        url: jdbc:mysql://192.168.6.124:3306/yc_test?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull
         username: root
         password: root
         driverClassName: com.mysql.jdbc.Driver
@@ -36,7 +36,7 @@ spring:
 #---------Elastic的配置信息-----------
 elastic:
     server:
-        host: 192.168.31.33                             #es服务器ip
+        host: 192.168.174.128                            #es服务器ip
         port: 9300                                      #es服务监听端口
         clusterName: escluster                          #es服务集群名称
     client:
@@ -46,7 +46,7 @@ elastic:
             minSize: 8
             maxWait: 6000
         import:
-            index: logindex                             #es服务器导入目标索引库
+            index: logindex5                             #es服务器导入目标索引库
             type: systemlog                             #es服务器导入目标索引库类型
             bulkSize: 2000                              #每批提交到es导入的文档数
 #---------数据迁移线程池信息-----------
@@ -54,7 +54,7 @@ elastic:
 trans:
     datasource:
         table:
-            name: log                                   #mysql迁移目标表名
+            name: testlog                                  #mysql迁移目标表名
             fetchSize: 10000                            #mysql数据库单次抓取数目  
     thread:
         pool:
