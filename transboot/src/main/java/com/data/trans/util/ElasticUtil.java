@@ -10,16 +10,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.concurrent.ExecutionException;
 import java.util.Set;
 import java.util.regex.Pattern;
 
 import org.elasticsearch.action.admin.indices.delete.DeleteIndexResponse;
 import org.elasticsearch.action.delete.DeleteResponse;
+import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.search.ClearScrollRequest;
 import org.elasticsearch.action.search.SearchRequestBuilder;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.search.SearchScrollRequestBuilder;
+import org.elasticsearch.action.update.UpdateRequest;
+import org.elasticsearch.action.update.UpdateResponse;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.transport.InetSocketTransportAddress;
@@ -440,6 +444,57 @@ public class ElasticUtil {
 		ClearScrollRequest request = new ClearScrollRequest();
 		request.addScrollId(scrollId);
 		client.clearScroll(request);
+	}
+	
+	/**
+	 * @Date 2018年1月16日
+	 * @author dnc
+	 * @Description 更新文档 （只会更新文档中字段匹配的文档内容）
+	 * @param client
+	 * @param index
+	 * @param type
+	 * @param id
+	 * @param mapDocument
+	 * @return
+	 */
+	public static UpdateResponse updateDocument(Client client,String index,String type,String id,Map<String,Object> mapDocument){
+		
+		UpdateResponse updateResponse=null;
+		try {
+			UpdateRequest updateRequest = new UpdateRequest()
+					.index(index)
+					.type(type)
+					.id(id)
+					.doc(mapDocument);
+			updateResponse = client.update(updateRequest).get();
+		} catch (InterruptedException | ExecutionException e) {
+			System.out.println("更新文档异常："+e.getMessage());
+		}
+		return updateResponse;
+	}
+	
+	/**
+	 * @Date 2018年1月16日
+	 * @author dnc
+	 * @Description 修改或新增文档，存在则更新，不存在则增加
+	 * @param client
+	 * @param index
+	 * @param type
+	 * @param id
+	 * @param mapDocument
+	 * @return
+	 */
+	public static UpdateResponse updateOrInsertDocument(Client client,String index,String type,String id,Map<String,Object> mapDocument){
+		UpdateResponse updateResponse =null;
+		IndexRequest indexRequest = new IndexRequest(index, type, id).source(mapDocument);
+		UpdateRequest updateRequest = new UpdateRequest(index, type, id).doc(mapDocument)
+		        .upsert(indexRequest);              
+		try {
+			updateResponse = client.update(updateRequest).get();
+		} catch (InterruptedException | ExecutionException e) {
+			System.out.println("更新文档异常："+e.getMessage());
+		}
+		return updateResponse;
 	}
 	
 	/**
