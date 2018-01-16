@@ -34,6 +34,7 @@ import org.elasticsearch.index.query.MatchAllQueryBuilder;
 import org.elasticsearch.index.query.MultiMatchQueryBuilder;
 import org.elasticsearch.index.query.MultiMatchQueryBuilder.Type;
 import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.index.query.TermQueryBuilder;
 import org.elasticsearch.search.Scroll;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.sort.SortBuilder;
@@ -61,55 +62,6 @@ public class ElasticUtil {
 	private static Client client = null;
 	
 	public static int searchMaxNum = 10000;//es常规查询最大能够查询的条数，超过后会抛出异常
-	
-	@BeforeClass
-	public static void initClient(){
-		// 设置集群名字
-    	Settings settings = Settings.builder()
-				.put("cluster.name", "escluster")
-				.put("client.transport.sniff", true)//开启自动嗅探机制，可以自动链接集群中的其他节点
-				//.put("client.transport.ignore_cluster_name", true)//客户端连接时是否验证集群名称
-				.put("client.transport.ping_timeout", "5s")//ping节点的超时时间
-				.put("client.transport.nodes_sampler_interval", "5s")//节点的超时时间
-				.build();
-	    try {
-	    	// 读取的ip列表是以逗号分隔的
-	    	client = new PreBuiltTransportClient(settings).addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName("192.168.174.128"), 9300));
-	    } catch (UnknownHostException e) {
-	    	e.printStackTrace();
-	    }
-	}
-	
-
-	public static void testResult(){
-		initClient();
-		SearchResponse resp = multiMatchSearch(client,"logindex","systemlog","8888",new String[]{"id"});
-		
-		 List<Object> list = ElasticUtil.getDataListByHits(resp.getHits().getHits(), SystemLog.class);
-		 System.out.println(list.size());
-		 
-		 SystemLog log = new SystemLog();
-		 log.setId(8888);
-		 log.setModuleCode("test");
-		 log.setModuleParkPlate("鄂Qx1245");
-		 log.setOpContent("测试数据");
-		 log.setOpMethod("测试方法");
-		 log.setOpResult("失败");
-		 log.setOpTime(new Date());
-		 System.out.println(insertDocument(client,log));
-	}
-	
-	/**
-	 * @Date 2018年1月12日
-	 * @author dnc
-	 * @Description 验证索引是否存在
-	 * @param client
-	 * @param index
-	 * @return
-	 */
-	public static boolean existIndex(Client client,String index){
-		return client.admin().indices().prepareExists(index).execute().actionGet().isExists();
-	} 
 	
 	public static void main(String[] args) {
 		initClient();
@@ -158,7 +110,51 @@ public class ElasticUtil {
 	    
 	}
 	
+	@BeforeClass
+	public static void initClient(){
+		// 设置集群名字
+    	Settings settings = Settings.builder()
+				.put("cluster.name", "escluster")
+				.put("client.transport.sniff", true)//开启自动嗅探机制，可以自动链接集群中的其他节点
+				//.put("client.transport.ignore_cluster_name", true)//客户端连接时是否验证集群名称
+				.put("client.transport.ping_timeout", "5s")//ping节点的超时时间
+				.put("client.transport.nodes_sampler_interval", "5s")//节点的超时时间
+				.build();
+	    try {
+	    	// 读取的ip列表是以逗号分隔的
+	    	client = new PreBuiltTransportClient(settings).addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName("192.168.174.128"), 9300));
+	    } catch (UnknownHostException e) {
+	    	e.printStackTrace();
+	    }
+	}
 	
+	/**
+	 * @Date 2018年1月14日
+	 * @author dnc
+	 * @Description 验证索引是否存在
+	 * @param client
+	 * @param index
+	 * @return
+	 */
+	public static boolean existIndex(Client client,String index){
+		return client.admin().indices().prepareExists(index).execute().actionGet().isExists();
+	} 
+	
+	/**
+	 * @Date 2018年1月14日
+	 * @author dnc
+	 * @Description 删除索引
+	 * @param indices
+	 * @return
+	 */
+	public static boolean delIndex(Client client,String... indices){
+		DeleteIndexResponse deleteIndexResponse = client
+				.admin()
+				.indices()
+				.prepareDelete(indices)
+				.get();
+		return deleteIndexResponse.isAcknowledged();
+	}
 	
 	/**
 	 * @Date 2018年1月14日
@@ -277,43 +273,78 @@ public class ElasticUtil {
 	}
 	
 	/**
-	 * @Date 2018年1月14日
+	 * @Date 2018年1月16日
 	 * @author dnc
-	 * @Description 删除索引
-	 * @param indices
+	 * @Description 更新文档 （只会更新文档中字段匹配的文档内容）
+	 * @param client
+	 * @param index
+	 * @param type
+	 * @param id
+	 * @param mapDocument
 	 * @return
 	 */
-	public static boolean delIndex(Client client,String... indices){
-		DeleteIndexResponse deleteIndexResponse = client
-				.admin()
-				.indices()
-				.prepareDelete(indices)
-				.get();
-		return deleteIndexResponse.isAcknowledged();
+	public static UpdateResponse updateDocument(Client client,String index,String type,String id,Map<String,Object> mapDocument){
+		
+		UpdateResponse updateResponse=null;
+		try {
+			UpdateRequest updateRequest = new UpdateRequest()
+					.index(index)
+					.type(type)
+					.id(id)
+					.doc(mapDocument);
+			updateResponse = client.update(updateRequest).get();
+		} catch (InterruptedException | ExecutionException e) {
+			System.out.println("更新文档异常："+e.getMessage());
+		}
+		return updateResponse;
 	}
 	
 	/**
-	 * @Date 2018年1月12日
+	 * @Date 2018年1月16日
 	 * @author dnc
-	 * @Description 全文检索
-	 * @return SearchResponse
+	 * @Description 修改或新增文档，存在则更新，不存在则增加
+	 * @param client
+	 * @param index
+	 * @param type
+	 * @param id
+	 * @param mapDocument
+	 * @return
 	 */
-	public static SearchResponse multiMatchSearch(Client client,String index,String type,String text,String... fields){
-		/*{
-			  "query": {
-			    "multi_match": {
-			        "query":    "基础管理  成功",
-			        "fields":   [ "apiCode", "opResult" ]
-			    }
-			  }
-		  }*/
+	public static UpdateResponse updateOrInsertDocument(Client client,String index,String type,String id,Map<String,Object> mapDocument){
+		UpdateResponse updateResponse =null;
+		IndexRequest indexRequest = new IndexRequest(index, type, id).source(mapDocument);
+		UpdateRequest updateRequest = new UpdateRequest(index, type, id).doc(mapDocument)
+		        .upsert(indexRequest);              
+		try {
+			updateResponse = client.update(updateRequest).get();
+		} catch (InterruptedException | ExecutionException e) {
+			System.out.println("更新文档异常："+e.getMessage());
+		}
+		return updateResponse;
+	}
+	
+	/**
+	 * @Date 2018年1月17日
+	 * @author dnc
+	 * @Description 单字段精确查询
+	 * @param client
+	 * @param index
+	 * @param type
+	 * @param from
+	 * @param size
+	 * @param sortMap
+	 * @param queryMap 
+	 * @return
+	 */
+	public static SearchResponse termSearch(Client client,String index,String type,int from,int size,Map<String,Integer> sortMap,Map<String,Object> queryMap){
 		SearchRequestBuilder searchBuilder = client.prepareSearch().setIndices(index).setTypes(type);
-		MultiMatchQueryBuilder multiMatchQuery = QueryBuilders.multiMatchQuery(text, fields);
-		//multiMatchQuery.operator(Operator.AND);
-		multiMatchQuery.type(Type.MOST_FIELDS);
-		multiMatchQuery.minimumShouldMatch("70%");
-		searchBuilder.setQuery(multiMatchQuery);
 		
+		BoolQueryBuilder bool = QueryBuilders.boolQuery();
+		for(Entry<String, Object> entry:queryMap.entrySet()){
+			if(entry.getKey()!=null && !"".equals(entry.getKey())){
+				bool.must(QueryBuilders.termQuery(entry.getKey(), entry.getValue()));
+			}
+		}
 		return searchBuilder.get();
 	}
 	
@@ -446,56 +477,7 @@ public class ElasticUtil {
 		client.clearScroll(request);
 	}
 	
-	/**
-	 * @Date 2018年1月16日
-	 * @author dnc
-	 * @Description 更新文档 （只会更新文档中字段匹配的文档内容）
-	 * @param client
-	 * @param index
-	 * @param type
-	 * @param id
-	 * @param mapDocument
-	 * @return
-	 */
-	public static UpdateResponse updateDocument(Client client,String index,String type,String id,Map<String,Object> mapDocument){
-		
-		UpdateResponse updateResponse=null;
-		try {
-			UpdateRequest updateRequest = new UpdateRequest()
-					.index(index)
-					.type(type)
-					.id(id)
-					.doc(mapDocument);
-			updateResponse = client.update(updateRequest).get();
-		} catch (InterruptedException | ExecutionException e) {
-			System.out.println("更新文档异常："+e.getMessage());
-		}
-		return updateResponse;
-	}
 	
-	/**
-	 * @Date 2018年1月16日
-	 * @author dnc
-	 * @Description 修改或新增文档，存在则更新，不存在则增加
-	 * @param client
-	 * @param index
-	 * @param type
-	 * @param id
-	 * @param mapDocument
-	 * @return
-	 */
-	public static UpdateResponse updateOrInsertDocument(Client client,String index,String type,String id,Map<String,Object> mapDocument){
-		UpdateResponse updateResponse =null;
-		IndexRequest indexRequest = new IndexRequest(index, type, id).source(mapDocument);
-		UpdateRequest updateRequest = new UpdateRequest(index, type, id).doc(mapDocument)
-		        .upsert(indexRequest);              
-		try {
-			updateResponse = client.update(updateRequest).get();
-		} catch (InterruptedException | ExecutionException e) {
-			System.out.println("更新文档异常："+e.getMessage());
-		}
-		return updateResponse;
-	}
 	
 	/**
 	 * @Date 2018年1月14日
