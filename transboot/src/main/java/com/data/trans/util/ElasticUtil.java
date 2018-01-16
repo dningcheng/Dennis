@@ -9,22 +9,31 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 import java.util.regex.Pattern;
 
 import org.elasticsearch.action.admin.indices.delete.DeleteIndexResponse;
 import org.elasticsearch.action.delete.DeleteResponse;
 import org.elasticsearch.action.index.IndexResponse;
+import org.elasticsearch.action.search.ClearScrollRequest;
 import org.elasticsearch.action.search.SearchRequestBuilder;
 import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.action.search.SearchScrollRequestBuilder;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.transport.InetSocketTransportAddress;
+import org.elasticsearch.common.unit.TimeValue;
 import org.elasticsearch.common.xcontent.XContentType;
+import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.MatchAllQueryBuilder;
 import org.elasticsearch.index.query.MultiMatchQueryBuilder;
 import org.elasticsearch.index.query.MultiMatchQueryBuilder.Type;
-import org.elasticsearch.index.query.Operator;
 import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.search.Scroll;
 import org.elasticsearch.search.SearchHit;
+import org.elasticsearch.search.sort.SortBuilder;
+import org.elasticsearch.search.sort.SortOrder;
 import org.elasticsearch.transport.client.PreBuiltTransportClient;
 import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
@@ -47,6 +56,8 @@ public class ElasticUtil {
 	
 	private static Client client = null;
 	
+	public static int searchMaxNum = 10000;//es常规查询最大能够查询的条数，超过后会抛出异常
+	
 	@BeforeClass
 	public static void initClient(){
 		// 设置集群名字
@@ -59,7 +70,7 @@ public class ElasticUtil {
 				.build();
 	    try {
 	    	// 读取的ip列表是以逗号分隔的
-	    	client = new PreBuiltTransportClient(settings).addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName("192.168.31.33"), 9300));
+	    	client = new PreBuiltTransportClient(settings).addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName("192.168.174.128"), 9300));
 	    } catch (UnknownHostException e) {
 	    	e.printStackTrace();
 	    }
@@ -98,16 +109,49 @@ public class ElasticUtil {
 	
 	public static void main(String[] args) {
 		initClient();
-		SearchResponse resp = multiMatchSearch(client,"logindex","systemlog","sbgl",new String[]{"apiCode"});
-	    List<Object> list = ElasticUtil.getDataListByHits(resp.getHits().getHits(), SystemLog.class);
-	    System.out.println(list.size()+":"+JSON.toJSONString(list));
-//		
+		
+		//排序参数
+		Map<String,Integer> sortMap = new HashMap<>();
+		sortMap.put("id", 0);
+		long total =0;
+		String scrollId = null;
+		List<Object> list = new ArrayList<>();
+		SearchResponse resp = null;
+		
+		//滚动查询演示
+		
+		int size = 5;
+		resp = multiMatchScrollSearch(client,"logindex5","systemlog",size,60L,sortMap,"wanke",new String[]{"userAccount","unitName","unitName.kw","opMethod","apiCode","opContent"});
+		list = ElasticUtil.getDataListByHits(resp.getHits().getHits(), SystemLog.class);
+		total = resp.getHits().getTotalHits();
+		System.out.println("总数："+total+"  当前获取"+list.size()+":"+JSON.toJSONString(list));
+		//首次建立查询并返回结果之后使用游标翻页查询
+		scrollId = resp.getScrollId();
+		do{
+			resp = scrollSearch(client,scrollId,null);
+			total = resp.getHits().getTotalHits();
+			list = ElasticUtil.getDataListByHits(resp.getHits().getHits(), SystemLog.class);
+			System.out.println("总数："+total+"  当前获取"+list.size()+":"+JSON.toJSONString(list));
+		}while(list!= null && list.size()!=0);
+		
+		//常规分页查询
+		/*int from = 0,size=5;
+		do{
+			resp = multiMatchSearch(client,"logindex5","systemlog",from,size,sortMap,"wanke",new String[]{"userAccount","unitName","unitName.kw","opMethod","apiCode","opContent"});
+			list = ElasticUtil.getDataListByHits(resp.getHits().getHits(), SystemLog.class);
+			total = resp.getHits().getTotalHits();
+			list = ElasticUtil.getDataListByHits(resp.getHits().getHits(), SystemLog.class);
+			System.out.println("总数："+total+"  当前获取"+list.size()+":"+JSON.toJSONString(list));
+			from+=size;
+		}while(list!= null && list.size()!=0);*/
+		
 //		Map<String, Object> map = new HashMap<>();
 //		
 //		map.put("id", 999999);
 //		IndexResponse  resp2 = insertDocument(client,"logindex","systemlog",map );
 //		System.out.println(resp2.status().getStatus());
 //		System.out.println(delDocumentById(client, "logindex2","systemlog2", "AWD1HFM6tQsuvrC2Q_Bh"));
+	    
 	}
 	
 	
@@ -262,11 +306,140 @@ public class ElasticUtil {
 		SearchRequestBuilder searchBuilder = client.prepareSearch().setIndices(index).setTypes(type);
 		MultiMatchQueryBuilder multiMatchQuery = QueryBuilders.multiMatchQuery(text, fields);
 		//multiMatchQuery.operator(Operator.AND);
-		multiMatchQuery.type(Type.BEST_FIELDS);
-		multiMatchQuery.minimumShouldMatch("30%");
+		multiMatchQuery.type(Type.MOST_FIELDS);
+		multiMatchQuery.minimumShouldMatch("70%");
 		searchBuilder.setQuery(multiMatchQuery);
 		
 		return searchBuilder.get();
+	}
+	
+	/**
+	 * @Date 2018年1月16日
+	 * @author dnc
+	 * @Description 布尔全文搜索
+	 * @param client
+	 * @param index 索引库
+	 * @param type 类型
+	 * @param from 起始页码
+	 * @param size 单页条数
+	 * @param text 检索词
+	 * @param sortMap 排序字段  其值   1用于升序排序  其它 用于降序排序
+	 * @param fields 需要检索的字段
+	 * @return
+	 */
+	public static SearchResponse multiMatchSearch(Client client,String index,String type,int from,int size,Map<String,Integer> sortMap,String text,String... fields){
+		SearchRequestBuilder searchBuilder = initMatchSearch(client,index,type,null,from,size,sortMap,text,fields);
+		return searchBuilder.get();
+	}
+	
+	/**
+	 * @Date 2018年1月16日
+	 * @author dnc
+	 * @Description 大数据量甚至是全库滚动检索
+	 * @param client
+	 * @param index
+	 * @param type
+	 * @param size 单次返回数量
+	 * @param seconds 游标单次有效期
+	 * @param sortMap 排序字段
+	 * @param text 检索词
+	 * @param fields 检索目标字段
+	 * @return
+	 */
+	public static SearchResponse multiMatchScrollSearch(Client client,String index,String type,int size,Long seconds,Map<String,Integer> sortMap,String text,String... fields){
+		SearchRequestBuilder searchBuilder = initMatchSearch(client,index,type,seconds,0,size,sortMap,text,fields);
+		SearchResponse searchResponse = searchBuilder.get();
+		return searchResponse;
+	}
+	
+	/**
+	 * @Date 2018年1月16日
+	 * @author dnc
+	 * @Description 多值查询请求体构建
+	 * @param client
+	 * @param index
+	 * @param type
+	 * @param seconds 如果为游标查询则设置此参数，否则请务必设置为null
+	 * @param from 如果from为null则默认为0
+	 * @param size 单次/每页返回的条数
+	 * @param sortMap 排序字段
+	 * @param text 检索关键词   null/""等价于无条件检索
+	 * @param fields 需要匹配的目标字段集
+	 * @return
+	 */
+	public static SearchRequestBuilder initMatchSearch(Client client,String index,String type,Long seconds,Integer from,int size,Map<String,Integer> sortMap,String text,String... fields){
+		SearchRequestBuilder searchBuilder = client.prepareSearch().setIndices(index).setTypes(type);
+		//查询体
+		BoolQueryBuilder boolQuery = QueryBuilders.boolQuery();
+		
+		if(text==null || "".equals(text)){
+			MatchAllQueryBuilder matchAllQuery = QueryBuilders.matchAllQuery();
+			boolQuery.filter(matchAllQuery);//boolQuery.must(matchAllQuery);
+		}else{
+			//包装一个多字段匹配查询
+			MultiMatchQueryBuilder multiMatchQuery = QueryBuilders.multiMatchQuery(text, fields);
+			multiMatchQuery.type(Type.MOST_FIELDS);
+			multiMatchQuery.minimumShouldMatch("70%");
+			boolQuery.filter(multiMatchQuery);//boolQuery.must(multiMatchQuery);
+		}
+		
+		searchBuilder.setPostFilter(boolQuery);//searchBuilder.setQuery(boolQuery);
+		
+		//分页
+		if(seconds == null){
+			searchBuilder.setFrom(from==null?0:from).setSize(size);
+		}else{
+			searchBuilder.setSize(size);
+			searchBuilder.setScroll(new Scroll(TimeValue.timeValueSeconds(seconds)));
+		}
+		
+		//多级排序
+		for(Entry<String, Integer> entry:sortMap.entrySet()){
+			if(entry.getKey()!=null){
+				searchBuilder.addSort(entry.getKey(),entry.getValue()==1?SortOrder.ASC:SortOrder.DESC);
+			}
+		}
+		
+		return searchBuilder;
+	}
+	
+	/**
+	 * @Date 2018年1月16日
+	 * @author dnc
+	 * @Description 滚动查询，用于支持深度分页甚至是滚动查询全部文档,受游标有效期限制,只有未失效才可使用,但可以支持大数据量甚至是全部文档
+	 * @param client
+	 * @param scrollId 游标id
+	 * @param seconds 游标有效期   传递null则默认60
+	 * @return
+	 */
+	public static SearchResponse scrollSearch(Client client,String scrollId,Long seconds){
+		
+		//设定查询最新游标
+		SearchScrollRequestBuilder searchScrollBuilder = client.prepareSearchScroll(scrollId);
+		
+		//重新设定保持查询上下文时间
+		searchScrollBuilder.setScroll(TimeValue.timeValueSeconds(seconds==null?60:seconds));
+		SearchResponse searchResponse = searchScrollBuilder.get();
+		
+		//已经查询完,自动清除游标节省资源
+		if(searchResponse.getHits().getHits().length==0){
+			clearScroll(client,searchResponse.getScrollId());
+		}
+		
+		return searchResponse;
+	}
+	
+	/**
+	 * @Date 2018年1月16日
+	 * @author dnc
+	 * @Description 清除游标
+	 * @param client
+	 * @param scrollId
+	 */
+	public static void clearScroll(Client client,String scrollId){
+		ClearScrollRequest request = new ClearScrollRequest();
+		request.addScrollId(scrollId);
+		client.clearScroll(request);
 	}
 	
 	/**
