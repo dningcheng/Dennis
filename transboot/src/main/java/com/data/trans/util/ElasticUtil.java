@@ -75,8 +75,7 @@ public class ElasticUtil {
 		SearchResponse resp = null;
 		
 		//滚动查询演示
-		
-		int size = 5;
+		/*int size = 5;
 		resp = multiMatchScrollSearch(client,"logindex5","systemlog",size,60L,sortMap,"wanke",new String[]{"userAccount","unitName","unitName.kw","opMethod","apiCode","opContent"});
 		list = ElasticUtil.getDataListByHits(resp.getHits().getHits(), SystemLog.class);
 		total = resp.getHits().getTotalHits();
@@ -88,7 +87,7 @@ public class ElasticUtil {
 			total = resp.getHits().getTotalHits();
 			list = ElasticUtil.getDataListByHits(resp.getHits().getHits(), SystemLog.class);
 			System.out.println("总数："+total+"  当前获取"+list.size()+":"+JSON.toJSONString(list));
-		}while(list!= null && list.size()!=0);
+		}while(list!= null && list.size()!=0);*/
 		
 		//常规分页查询
 		/*int from = 0,size=5;
@@ -101,13 +100,27 @@ public class ElasticUtil {
 			from+=size;
 		}while(list!= null && list.size()!=0);*/
 		
-//		Map<String, Object> map = new HashMap<>();
-//		
-//		map.put("id", 999999);
-//		IndexResponse  resp2 = insertDocument(client,"logindex","systemlog",map );
-//		System.out.println(resp2.status().getStatus());
-//		System.out.println(delDocumentById(client, "logindex2","systemlog2", "AWD1HFM6tQsuvrC2Q_Bh"));
-	    
+		//修改文档
+		Map<String,Object> queryMap = new HashMap<>();
+		queryMap.put("id",1);
+		SearchResponse termSearch = termSearch(client, "logindex5","systemlog", 0, 20, sortMap, queryMap);
+		System.out.println(termSearch.getHits().getHits()[0].getSourceAsString());
+		
+		Map<String,Object> updateData = new HashMap<>();
+		List<List<String>> testList = new ArrayList<>();
+		List<String> subLestList = new ArrayList<>();
+		subLestList.add("Test1");
+		subLestList.add("Test3");
+		subLestList.add("Test2");
+		testList.add(subLestList);
+		updateData.put("apiCode", testList);
+		
+		updateData.put("unitId", "2019-01-17T12:07:57.832Z");//1431619200000
+		
+		updateDocument(client, "logindex5","systemlog", "AWD96KOk-ulqxJ1pAwi2", updateData);
+		
+		
+		System.out.println(termSearch(client, "logindex5","systemlog", 0, 20, sortMap, queryMap).getHits().getHits()[0].getSourceAsString());
 	}
 	
 	@BeforeClass
@@ -345,6 +358,7 @@ public class ElasticUtil {
 				bool.must(QueryBuilders.termQuery(entry.getKey(), entry.getValue()));
 			}
 		}
+		searchBuilder.setQuery(bool);
 		return searchBuilder.get();
 	}
 	
