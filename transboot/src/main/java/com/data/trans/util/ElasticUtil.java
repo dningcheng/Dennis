@@ -64,7 +64,7 @@ public class ElasticUtil {
 	public static int searchMaxNum = 10000;//es常规查询最大能够查询的条数，超过后会抛出异常
 	
 	public static void main(String[] args) {
-		initClient();
+		//initClient();
 		
 		//排序参数
 		Map<String,Integer> sortMap = new HashMap<>();
