@@ -6,9 +6,9 @@ spring:
     datasource:
         name: myDataSource
         type: com.alibaba.druid.pool.DruidDataSource  
-        url: jdbc:mysql://192.168.6.124:3306/yc_test?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull
-        username: root
-        password: root
+        url: jdbc:mysql://192.168.0.98:3306/db_unitpropertybase?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull
+        username: dev_wygl
+        password: dev_wygl
         driverClassName: com.mysql.jdbc.Driver
 #---------druid连接池的配置信息 ---------
         initialSize: 50  
@@ -36,9 +36,9 @@ spring:
 #---------Elastic的配置信息-----------
 elastic:
     server:
-        host: 192.168.174.128                            #es服务器ip
+        host: 192.168.0.104                            #es服务器ip
         port: 9300                                      #es服务监听端口
-        clusterName: escluster                          #es服务集群名称
+        clusterName: es_cluster                          #es服务集群名称
     client:
         pool: 
             initialSize: 10
@@ -46,7 +46,7 @@ elastic:
             minSize: 8
             maxWait: 6000
         import:
-            index: logindex5                             #es服务器导入目标索引库
+            index: wygl-systemlog-index                             #es服务器导入目标索引库
             type: systemlog                             #es服务器导入目标索引库类型
             bulkSize: 2000                              #每批提交到es导入的文档数
 #---------数据迁移线程池信息-----------
@@ -54,7 +54,7 @@ elastic:
 trans:
     datasource:
         table:
-            name: testlog                                  #mysql迁移目标表名
+            name: t_pb_log                                  #mysql迁移目标表名
             fetchSize: 10000                            #mysql数据库单次抓取数目  
     thread:
         pool:
