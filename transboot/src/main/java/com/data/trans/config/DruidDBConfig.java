@@ -18,7 +18,7 @@ import com.alibaba.druid.pool.DruidPooledConnection;
 
 /**
  * @author dnc
- * 2017年11月30日
+ * 2017年11月30日  将主机信息等配置到输入参数传入
  * Druid数据源
  */
 @Configuration
@@ -26,13 +26,21 @@ public class DruidDBConfig {
 	
 	private static Logger logger = LoggerFactory.getLogger(DruidDBConfig.class);  
      
-    @Value("${spring.datasource.url}")  
-    private String dbUrl;  
-      
-    @Value("${spring.datasource.username}")  
+//    @Value("${spring.datasource.url}")  
+//    private String dbUrl;  //使用下面的dbhost和dbport取代
+    
+	@Value("${dbhost:localhost}")  
+	private String dbhost;
+	
+    @Value("${dbport:3306}")  
+    private String dbport;
+    
+    //@Value("${spring.datasource.username}")
+    @Value("${dbusername:root}")
     private String username;  
       
-    @Value("${spring.datasource.password}")  
+    //@Value("${spring.datasource.password}")
+    @Value("${dbpassword:root}")
     private String password;  
       
     @Value("${spring.datasource.driverClassName}")  
@@ -85,7 +93,9 @@ public class DruidDBConfig {
     public DruidDataSource dataSource() throws Exception{  
         DruidDataSource datasource = new DruidDataSource();  
           
-        datasource.setUrl(dbUrl);  
+        //datasource.setUrl(dbUrl);
+        datasource.setUrl("jdbc:mysql://"+dbhost+":"+dbport+"/db_unitpropertybase?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull");
+        
         datasource.setUsername(username);  
         datasource.setPassword(password);  
         datasource.setDriverClassName(driverClassName);  

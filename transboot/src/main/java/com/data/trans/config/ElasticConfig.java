@@ -14,13 +14,16 @@ public class ElasticConfig {
 	
 	private Logger logger = LoggerFactory.getLogger(ElasticConfig.class);  
     
-    @Value("${elastic.server.host}")  
+    //@Value("${elastic.server.host}")
+	@Value("${eshost:localhost}")
     private String host;  
       
-    @Value("${elastic.server.port}")  
+    //@Value("${elastic.server.port}")
+	@Value("${esport:9300}")
     private Integer port;  
       
-    @Value("${elastic.server.clusterName}")  
+    //@Value("${elastic.server.clusterName}")
+	@Value("${esclustername:elasticsearch}")
     private String clusterName;
     
     @Value("${elastic.client.pool.initialSize}")  

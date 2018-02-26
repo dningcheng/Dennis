@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.concurrent.ExecutionException;
-import java.util.Set;
 import java.util.regex.Pattern;
 
 import org.elasticsearch.action.admin.indices.delete.DeleteIndexResponse;
@@ -34,10 +33,8 @@ import org.elasticsearch.index.query.MatchAllQueryBuilder;
 import org.elasticsearch.index.query.MultiMatchQueryBuilder;
 import org.elasticsearch.index.query.MultiMatchQueryBuilder.Type;
 import org.elasticsearch.index.query.QueryBuilders;
-import org.elasticsearch.index.query.TermQueryBuilder;
 import org.elasticsearch.search.Scroll;
 import org.elasticsearch.search.SearchHit;
-import org.elasticsearch.search.sort.SortBuilder;
 import org.elasticsearch.search.sort.SortOrder;
 import org.elasticsearch.transport.client.PreBuiltTransportClient;
 import org.junit.BeforeClass;
@@ -45,10 +42,8 @@ import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.alibaba.fastjson.JSON;
 import com.data.trans.annotation.EsDocument;
 import com.data.trans.annotation.EsField;
-import com.data.trans.model.SystemLog;
 
 /**
  * @Date 2018年1月12日
@@ -63,7 +58,7 @@ public class ElasticUtil {
 	
 	public static int searchMaxNum = 10000;//es常规查询最大能够查询的条数，超过后会抛出异常
 	
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		//initClient();
 		
 		//排序参数
@@ -75,7 +70,7 @@ public class ElasticUtil {
 		SearchResponse resp = null;
 		
 		//滚动查询演示
-		/*int size = 5;
+		int size = 5;
 		resp = multiMatchScrollSearch(client,"logindex5","systemlog",size,60L,sortMap,"wanke",new String[]{"userAccount","unitName","unitName.kw","opMethod","apiCode","opContent"});
 		list = ElasticUtil.getDataListByHits(resp.getHits().getHits(), SystemLog.class);
 		total = resp.getHits().getTotalHits();
@@ -87,10 +82,10 @@ public class ElasticUtil {
 			total = resp.getHits().getTotalHits();
 			list = ElasticUtil.getDataListByHits(resp.getHits().getHits(), SystemLog.class);
 			System.out.println("总数："+total+"  当前获取"+list.size()+":"+JSON.toJSONString(list));
-		}while(list!= null && list.size()!=0);*/
+		}while(list!= null && list.size()!=0);
 		
 		//常规分页查询
-		/*int from = 0,size=5;
+		int from = 0,size=5;
 		do{
 			resp = multiMatchSearch(client,"logindex5","systemlog",from,size,sortMap,"wanke",new String[]{"userAccount","unitName","unitName.kw","opMethod","apiCode","opContent"});
 			list = ElasticUtil.getDataListByHits(resp.getHits().getHits(), SystemLog.class);
@@ -98,7 +93,7 @@ public class ElasticUtil {
 			list = ElasticUtil.getDataListByHits(resp.getHits().getHits(), SystemLog.class);
 			System.out.println("总数："+total+"  当前获取"+list.size()+":"+JSON.toJSONString(list));
 			from+=size;
-		}while(list!= null && list.size()!=0);*/
+		}while(list!= null && list.size()!=0);
 		
 		//修改文档
 		Map<String,Object> queryMap = new HashMap<>();
@@ -121,7 +116,7 @@ public class ElasticUtil {
 		
 		
 		System.out.println(termSearch(client, "logindex5","systemlog", 0, 20, sortMap, queryMap).getHits().getHits()[0].getSourceAsString());
-	}
+	}*/
 	
 	@BeforeClass
 	public static void initClient(){

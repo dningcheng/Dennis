@@ -1,6 +1,6 @@
 #---------springboot配置信息---------
 server: 
-    port: 8080
+    port: 8088
 #---------mysql数据库配置信息---------
 spring: 
     datasource:
@@ -36,8 +36,8 @@ spring:
 #---------Elastic的配置信息-----------
 elastic:
     server:
-        host: 192.168.0.104                            #es服务器ip
-        port: 9300                                      #es服务监听端口
+        host: 192.168.0.104                              #es服务器ip
+        port: 9300                                       #es服务监听端口
         clusterName: es_cluster                          #es服务集群名称
     client:
         pool: 
@@ -46,15 +46,15 @@ elastic:
             minSize: 8
             maxWait: 6000
         import:
-            index: wygl-systemlog-index                             #es服务器导入目标索引库
-            type: systemlog                             #es服务器导入目标索引库类型
+            index: wyglsystemlog                        #es服务器导入目标索引库
+            type: pblog                                 #es服务器导入目标索引库类型
             bulkSize: 2000                              #每批提交到es导入的文档数
 #---------数据迁移线程池信息-----------
 #mysql数据库迁移数据表
 trans:
     datasource:
         table:
-            name: t_pb_log                                  #mysql迁移目标表名
+            name: t_pb_log                              #mysql迁移目标表名
             fetchSize: 10000                            #mysql数据库单次抓取数目  
     thread:
         pool:

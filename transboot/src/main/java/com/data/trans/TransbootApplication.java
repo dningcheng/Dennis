@@ -1,5 +1,7 @@
 package com.data.trans;
 
+import java.util.Arrays;
+
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -16,6 +18,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 public class TransbootApplication {
 
 	public static void main(String[] args) {
+		System.out.println("传递参数："+Arrays.toString(args));
 		SpringApplication.run(TransbootApplication.class, args);
 	}
 	

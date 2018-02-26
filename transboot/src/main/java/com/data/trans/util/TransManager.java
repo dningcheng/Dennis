@@ -92,7 +92,7 @@ public class TransManager {
 		//获取数据转移总记录数
 		try {
 			Connection connection = dataSource.getConnection();
-			PreparedStatement prepareStatement = connection.prepareStatement(String.format("select max(id) as maxId,count(*) as totalNum from %s", tableName));
+			PreparedStatement prepareStatement = connection.prepareStatement(String.format("select max(id) as maxId,count(*) as totalNum from %s where id < 3714955", tableName));
 			
 			ResultSet executeQuery = prepareStatement.executeQuery();
 			int maxId = 0;
