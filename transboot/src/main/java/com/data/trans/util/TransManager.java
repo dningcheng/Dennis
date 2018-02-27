@@ -69,6 +69,12 @@ public class TransManager {
 	@Value("${trans.datasource.table.fetchSize}")  
 	private Integer fetchSize;//每次加载到内存中的表中记录数
 	
+	@Value("${idmin:0}")  
+	private Integer idmin;//id最小值
+	
+	@Value("${idmax:3714955}")  
+	private Integer idmax;//id最大值
+	
 	//线程池
 	private ExecutorService fixedThreadPool = null;
 	
@@ -92,7 +98,7 @@ public class TransManager {
 		//获取数据转移总记录数
 		try {
 			Connection connection = dataSource.getConnection();
-			PreparedStatement prepareStatement = connection.prepareStatement(String.format("select max(id) as maxId,count(*) as totalNum from %s where id < 3714955", tableName));
+			PreparedStatement prepareStatement = connection.prepareStatement(String.format("select max(id) as maxId,count(*) as totalNum from %s where id > %d and id < %d  ", tableName,idmin,idmax));
 			
 			ResultSet executeQuery = prepareStatement.executeQuery();
 			int maxId = 0;

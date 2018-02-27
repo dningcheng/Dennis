@@ -101,7 +101,7 @@ public class TransJob implements Runnable{
 			ResultSet executeQuery = prepareStatement.executeQuery();
 	    	while (executeQuery.next()) {
 	    		SystemLog log = new SystemLog();
-	    		log.setId(executeQuery.getInt("id"));
+	    		log.setLogId(executeQuery.getInt("id"));
 	    		log.setOrgId(executeQuery.getInt("org_id"));
 	    		log.setUserId(executeQuery.getInt("user_id"));
 	    		log.setUnitId(executeQuery.getInt("unit_id"));
@@ -130,8 +130,8 @@ public class TransJob implements Runnable{
     	}
     	
     	//--------------------es转移开始--------------------
-    	Integer estransIdMin = logs.get(1).getId();//用于记录批量插入的开始id
-    	Integer estransIdMax = logs.get(logs.size()-1).getId()+1;//用于记录批量插入的结束id
+    	Integer estransIdMin = logs.get(1).getLogId();//用于记录批量插入的开始id
+    	Integer estransIdMax = logs.get(logs.size()-1).getLogId()+1;//用于记录批量插入的结束id
     	int count = 0;//计数器
     	try{
     		Client client = esSource.getClient();
@@ -143,7 +143,7 @@ public class TransJob implements Runnable{
         	    if (i % bulkSize == 0 || i == (logs.size()-1)) {
         	        bulkRequest.execute().actionGet();
         	        logger.debug(Thread.currentThread().getName()+"线程处理信息： 提交id区间为：[ "+beginId+" , "+endId+" ) 的数据 [ "+(logs.size()-1)+" ] 条!");
-        	        estransIdMax = logs.get(i).getId()+1;//最大id作为本次截止记录
+        	        estransIdMax = logs.get(i).getLogId()+1;//最大id作为本次截止记录
         	        updateTranslog(estransIdMin.intValue(),estransIdMax.intValue(),count,Constant.SUCCE_TRANS,translogId);//更新成功记录
         	        bulkRequest = client.prepareBulk();//新开一个批次
         	        estransIdMin = estransIdMax ; //最后一次成功提交作为下一次开始记录

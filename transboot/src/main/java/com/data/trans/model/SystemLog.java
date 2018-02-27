@@ -13,7 +13,7 @@ import com.data.trans.annotation.EsField;
 @EsDocument(index="logindex",type="systemlog")
 public class SystemLog {
 	@EsField
-	private Integer id;       		 //主键ID
+	private Integer logId;       	 //主键ID
 	@EsField
 	private Integer orgId;    		 //机构ID
 	@EsField
@@ -39,11 +39,11 @@ public class SystemLog {
 	@EsField
 	private String moduleParkPlate;  //模块车场附属车牌号
 	
-	public Integer getId() {
-		return id;
+	public Integer getLogId() {
+		return logId;
 	}
-	public void setId(Integer id) {
-		this.id = id;
+	public void setLogId(Integer logId) {
+		this.logId = logId;
 	}
 	public Integer getOrgId() {
 		return orgId;
