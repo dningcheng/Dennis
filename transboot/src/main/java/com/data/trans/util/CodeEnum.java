@@ -31,6 +31,9 @@ public enum CodeEnum {
 	}
 
 	public static void main(String[] args) {
-		System.out.println(CodeEnum.ERR.getCode()+CodeEnum.ERR.getMessage());
+		System.out.println(CodeEnum.ERR.getCode()+
+				CodeEnum.ERR.getMessage()+
+				CodeEnum.ERR.name()+
+				CodeEnum.ERR.ordinal());
 	}
 }
