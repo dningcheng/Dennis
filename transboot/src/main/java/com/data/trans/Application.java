@@ -14,12 +14,11 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  */
 @SpringBootApplication
 @EnableTransactionManagement  //开启注解事务管理，等同于xml配置文件中的 <tx:annotation-driven />
-@MapperScan("com.data.trans.mapper") //mybatis的映射文件包路径
-public class TransbootApplication {
+@MapperScan("com.data.trans.mapper") //mybatis的mapper接口包路径
+public class Application {
 
 	public static void main(String[] args) {
-		System.out.println("传递参数："+Arrays.toString(args));
-		SpringApplication.run(TransbootApplication.class, args);
+		SpringApplication.run(Application.class, args);
 	}
 	
 }

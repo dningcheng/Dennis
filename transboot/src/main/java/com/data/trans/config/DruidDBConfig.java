@@ -6,119 +6,83 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import javax.sql.DataSource;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.bind.RelaxedPropertyResolver;
+import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
+import org.springframework.core.env.Environment;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.pool.DruidPooledConnection;
 
 /**
+ * @Date 2018年3月17日
  * @author dnc
- * 2017年11月30日  将主机信息等配置到输入参数传入
- * Druid数据源
+ * @Description Druid的DataResource配置类
+ * 获取配置信息方式有两种：
+ * 方式一：凡是被Spring管理的类，实现接口 EnvironmentAware 重写方法 setEnvironment 可以在工程启动时，获取到系统环境变量和application配置文件中的变量。  
+ * 方式二：采用注解的方式获取 @value("${变量的key值}") 获取application配置文件中的变量。 
+ * 
+ * 这里采用方式一要方便些  
  */
 @Configuration
-public class DruidDBConfig {
+public class DruidDBConfig implements EnvironmentAware{
 	
-	private static Logger logger = LoggerFactory.getLogger(DruidDBConfig.class);  
-     
-//    @Value("${spring.datasource.url}")  
-//    private String dbUrl;  //使用下面的dbhost和dbport取代
+	protected static Logger logger = LoggerFactory.getLogger(DruidDBConfig.class);  
     
-	@Value("${dbhost:localhost}")  
-	private String dbhost;
+	//方式二获取参数
+	/*@Value("${dbhost:localhost}")  
+	private String dbhost;*/
 	
-    @Value("${dbport:3306}")  
-    private String dbport;
-    
-    //@Value("${spring.datasource.username}")
-    @Value("${dbusername:root}")
-    private String username;  
-      
-    //@Value("${spring.datasource.password}")
-    @Value("${dbpassword:root}")
-    private String password;  
-      
-    @Value("${spring.datasource.driverClassName}")  
-    private String driverClassName;  
-      
-    @Value("${spring.datasource.initialSize}")  
-    private int initialSize;  
-      
-    @Value("${spring.datasource.minIdle}")  
-    private int minIdle;  
-      
-    @Value("${spring.datasource.maxActive}")  
-    private int maxActive;  
-      
-    @Value("${spring.datasource.maxWait}")  
-    private int maxWait;  
-      
-    @Value("${spring.datasource.timeBetweenEvictionRunsMillis}")  
-    private int timeBetweenEvictionRunsMillis;  
-      
-    @Value("${spring.datasource.minEvictableIdleTimeMillis}")  
-    private int minEvictableIdleTimeMillis;  
-      
-    @Value("${spring.datasource.validationQuery}")  
-    private String validationQuery;  
-      
-    @Value("${spring.datasource.testWhileIdle}")  
-    private boolean testWhileIdle;  
-      
-    @Value("${spring.datasource.testOnBorrow}")  
-    private boolean testOnBorrow;  
-      
-    @Value("${spring.datasource.testOnReturn}")  
-    private boolean testOnReturn;  
-      
-    @Value("${spring.datasource.poolPreparedStatements}")  
-    private boolean poolPreparedStatements;  
-      
-    @Value("${spring.datasource.maxPoolPreparedStatementPerConnectionSize}")  
-    private int maxPoolPreparedStatementPerConnectionSize;  
-      
-    @Value("${spring.datasource.filters}")  
-    private String filters;  
-      
-    @Value("{spring.datasource.connectionProperties}")  
-    private String connectionProperties;  
-      
-    @Primary//默认数据源  
-    @Bean(name = "dataSource",destroyMethod = "close")//声明其为Bean实例  
-    public DruidDataSource dataSource() throws Exception{  
+	//方式一获取参数
+	private RelaxedPropertyResolver propertyResolver;  
+	 
+	@Override
+    public void setEnvironment(Environment env) {  
+        this.propertyResolver = new RelaxedPropertyResolver(env, "spring.datasource.");//设置统一前缀，方便获取参数时省略该前缀
+    } 
+	
+	@Bean  
+    public DataSource dataSource() throws SQLException, Exception {  
         DruidDataSource datasource = new DruidDataSource();  
+        datasource.setUrl(propertyResolver.getProperty("url"));  
+        datasource.setDriverClassName(propertyResolver.getProperty("driverClassName"));  
+        datasource.setUsername(propertyResolver.getProperty("username"));  
+        datasource.setPassword(propertyResolver.getProperty("password"));  
           
-        //datasource.setUrl(dbUrl);
-        datasource.setUrl("jdbc:mysql://"+dbhost+":"+dbport+"/db_unitpropertybase?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull");
-        
-        datasource.setUsername(username);  
-        datasource.setPassword(password);  
-        datasource.setDriverClassName(driverClassName);  
-        
-        //configuration  
-        datasource.setInitialSize(initialSize);  
-        datasource.setMinIdle(minIdle);  
-        datasource.setMaxActive(maxActive);  
-        datasource.setMaxWait(maxWait);  
-        datasource.setTimeBetweenEvictionRunsMillis(timeBetweenEvictionRunsMillis);  
-        datasource.setMinEvictableIdleTimeMillis(minEvictableIdleTimeMillis);  
-        datasource.setValidationQuery(validationQuery);  
-        datasource.setTestWhileIdle(testWhileIdle);  
-        datasource.setTestOnBorrow(testOnBorrow);  
-        datasource.setTestOnReturn(testOnReturn);  
-        datasource.setPoolPreparedStatements(poolPreparedStatements);  
-        datasource.setMaxPoolPreparedStatementPerConnectionSize(maxPoolPreparedStatementPerConnectionSize);  
-        datasource.setFilters(filters);   
-        datasource.setConnectionProperties(connectionProperties);  
+        datasource.setInitialSize(propertyResolver.getProperty("initialSize",Integer.class));  
+        datasource.setMinIdle(propertyResolver.getProperty("minIdle",Integer.class));  
+        datasource.setMaxWait(propertyResolver.getProperty("maxWait",Long.class));  
+        datasource.setMaxActive(propertyResolver.getProperty("maxActive",Integer.class));  
+        datasource.setMinEvictableIdleTimeMillis(propertyResolver.getProperty("minEvictableIdleTimeMillis",Long.class)); 
+        datasource.setTimeBetweenEvictionRunsMillis(propertyResolver.getProperty("timeBetweenEvictionRunsMillis",Long.class));  
+        datasource.setValidationQuery(propertyResolver.getProperty("validationQuery"));  
+        datasource.setTestWhileIdle(propertyResolver.getProperty("testWhileIdle", Boolean.class));  
+        datasource.setTestOnBorrow(propertyResolver.getProperty("testOnBorrow", Boolean.class));  
+        datasource.setTestOnReturn(propertyResolver.getProperty("testOnReturn", Boolean.class));  
+        datasource.setPoolPreparedStatements(propertyResolver.getProperty("poolPreparedStatements",Boolean.class));  
+        datasource.setMaxPoolPreparedStatementPerConnectionSize(propertyResolver.getProperty("maxPoolPreparedStatementPerConnectionSize",Integer.class));  
+        datasource.setConnectionProperties(propertyResolver.getProperty("connectionProperties"));  
+        try {  
+        	datasource.setFilters(propertyResolver.getProperty("filters")); 
+        } catch (SQLException e) {  
+            e.printStackTrace();  
+        }
         
         //测试连接并判断是否存在记录表
-        DruidPooledConnection connectCount = datasource.getConnection();
-        Connection connection = connectCount.getConnection();
+        checkNeedTable(datasource);
+        
+        return datasource;  
+    }
+
+	private void checkNeedTable(DruidDataSource datasource) throws SQLException, Exception {
+		DruidPooledConnection connectCount = datasource.getConnection();
+		Connection connection = connectCount.getConnection();
+		
 		if(!checkTableExist(connection)){
 			Statement createStatement = connection.createStatement();
 			
@@ -143,9 +107,8 @@ public class DruidDBConfig {
 			}
 		}
 		logger.info("druid连接池初始化完毕!");
-        return datasource;  
-    }
-    
+	}  
+	
     //检测目标表是否存在
     private boolean checkTableExist(Connection connection) throws SQLException{
     	if(connection == null){
@@ -158,4 +121,5 @@ public class DruidDBConfig {
  		}
  		return true;
     }
+	
 }
