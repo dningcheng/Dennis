@@ -1,4 +1,4 @@
-package com.data.trans.util;
+package com.data.trans.datasource;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;

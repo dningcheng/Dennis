@@ -1,4 +1,4 @@
-package com.data.trans.util;
+package com.data.trans.thread;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -21,9 +21,12 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Component;
 
 import com.alibaba.fastjson.JSON;
+import com.data.trans.common.Constant;
+import com.data.trans.datasource.ElasticDataSource;
 import com.data.trans.model.Translog;
 import com.data.trans.service.SourceTableService;
 import com.data.trans.service.TranslogService;
+import com.data.trans.util.CmdUtil;
 
 /**
  * @author dnc

@@ -1,4 +1,4 @@
-package com.data.trans.util;
+package com.data.trans.thread;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -22,6 +22,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import com.alibaba.fastjson.JSON;
+import com.data.trans.common.Constant;
+import com.data.trans.datasource.ElasticDataSource;
 import com.data.trans.model.SystemLog;
 import com.data.trans.model.Translog;
 import com.data.trans.service.SourceTableService;

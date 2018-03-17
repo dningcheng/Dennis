@@ -1,5 +1,7 @@
 package com.data.trans.util;
 
+import com.data.trans.common.Constant;
+
 /**
  * @Date 2017年11月28日
  * @author dnc

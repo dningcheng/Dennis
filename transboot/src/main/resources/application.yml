@@ -1,8 +1,8 @@
 #一下关于数据库和es的相关配置已经修改为使用jar包启动时传入，打包该项目为jar后使用命令启动：java -jar xxx.jar --dbhost=192.168.0.98   --dbport=3306  --dbusername=dev_wygl   --dbpassword=dev_wygl   --eshost=192.168.0.104   --esport=9300  --esclustername=es_cluster
 #---------springboot配置信息---------
 server: 
-    port: 8088
-    
+    port: 8080
+      
 #---------自定义日志配置文件的名称和位置
 logging: 
     config: classpath:logback-spring.xml
@@ -11,9 +11,9 @@ logging:
 spring: 
     datasource:
         name: myDataSource
-        url: jdbc:mysql://192.168.0.98:3306/db_unitpropertybase?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull
-        username: dev_wygl
-        password: dev_wygl
+        url: jdbc:mysql://localhost:3306/yc_test?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull
+        username: root
+        password: root
         driverClassName: com.mysql.jdbc.Driver
 #-------配置使用druid连接池 ---------
         type: com.alibaba.druid.pool.DruidDataSource
@@ -40,7 +40,14 @@ spring:
         # 通过connectProperties属性来打开mergeSql功能；慢SQL记录  
         connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000  
         # 合并多个DruidDataSource的监控数据  
-        #useGlobalDataSourceStat: true  
+        #useGlobalDataSourceStat: true 
+
+#-------mybatis集成配置-----------
+mybatis: 
+    mapperLocations: classpath:mapper/*.xml             #mapper.xml文件路径
+    typeAliasesPackage: com.data.trans.model            #mybatis数据模型实体包路径
+    config: mybatis-config.xml                          #mybatis配置文件的路径 
+    
 #-------模板引擎thymeleaf配置-----------
     thymeleaf: 
         cache: false
@@ -49,22 +56,22 @@ spring:
         encoding: UTF-8
         content-type: text/html
         mode: HTML5
-#---------Elastic的配置信息-----------
-elastic:
-    server:
-        host: 192.168.0.104                              #es服务器ip
-        port: 9300                                       #es服务监听端口
-        clusterName: es_cluster                          #es服务集群名称
-    client:
-        pool: 
-            initialSize: 10
-            maxSize: 20
-            minSize: 8
-            maxWait: 6000
-        import:
+        
+#---------Elastic自定义的配置信息-----------
+elasticsearch: 
+    serverHost: 192.168.0.104                              #es服务器ip
+    serverPort: 9300                                       #es服务监听端口
+    serverName: es_cluster                                 #es服务集群名称
+    clientPoolInitialSize: 10
+    clientPoolMaxSize: 20 
+    clientPoolMinSize: 8
+    clientPoolMaxWait: 6000
+    client:     
+        import: 
             index: wyglsystemlog                        #es服务器导入目标索引库
             type: pblog                                 #es服务器导入目标索引库类型
             bulkSize: 2000                              #每批提交到es导入的文档数
+            
 #---------数据迁移线程池信息-----------
 #mysql数据库迁移数据表
 trans:
@@ -75,8 +82,3 @@ trans:
     thread:
         pool:
             size: 10                                    #数据迁移线程池容量（决定任务迁移拆分线程数据/任务数目）
-#mybatis集成配置
-mybatis: 
-    mapperLocations: classpath:mapper/*.xml             #mapper.xml文件路径
-    typeAliasesPackage: com.data.trans.model            #mybatis数据模型实体包路径
-    config: mybatis-config.xml                          #mybatis配置文件的路径

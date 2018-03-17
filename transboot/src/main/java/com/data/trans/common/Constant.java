@@ -1,4 +1,4 @@
-package com.data.trans.util;
+package com.data.trans.common;
 /**
  * @Date 2017年12月1日
  * @author dnc

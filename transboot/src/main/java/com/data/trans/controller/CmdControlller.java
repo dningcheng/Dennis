@@ -6,10 +6,10 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
 
+import com.data.trans.common.Constant;
 import com.data.trans.service.TranslogService;
+import com.data.trans.thread.TransManager;
 import com.data.trans.util.CmdUtil;
-import com.data.trans.util.Constant;
-import com.data.trans.util.TransManager;
 
 @Controller
 public class CmdControlller {

@@ -2,41 +2,26 @@ package com.data.trans.config;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.bind.RelaxedPropertyResolver;
+import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.core.env.Environment;
 
-import com.data.trans.util.ElasticDataSource;
+import com.data.trans.datasource.ElasticDataSource;
 
 @Configuration
-public class ElasticConfig {
+public class ElasticConfig extends ElasticDataSource implements EnvironmentAware{
 	
 	private Logger logger = LoggerFactory.getLogger(ElasticConfig.class);  
     
-    //@Value("${elastic.server.host}")
-	@Value("${eshost:localhost}")
-    private String host;  
-      
-    //@Value("${elastic.server.port}")
-	@Value("${esport:9300}")
-    private Integer port;  
-      
-    //@Value("${elastic.server.clusterName}")
-	@Value("${esclustername:elasticsearch}")
-    private String clusterName;
-    
-    @Value("${elastic.client.pool.initialSize}")  
-    private Integer initialSize;  
-      
-    @Value("${elastic.client.pool.maxSize}")  
-    private Integer maxSize;  
-      
-    @Value("${elastic.client.pool.minSize}")  
-    private Integer minSize;
-    
-    @Value("${elastic.client.pool.maxWait}")  
-    private Integer maxWait;
+	private RelaxedPropertyResolver propertyResolver;
+	
+	@Override
+    public void setEnvironment(Environment env) {  
+        this.propertyResolver = new RelaxedPropertyResolver(env, "elasticsearch.");//设置统一前缀，方便获取参数时省略该前缀
+    } 
     
 	@Bean     //声明其为Bean实例  
     @Primary  //在同样的DataSource中，首先使用被标注的DataSource  
@@ -44,15 +29,15 @@ public class ElasticConfig {
     	
 		ElasticDataSource dataSource = new ElasticDataSource();
 		
-    	dataSource.setHost(host);
-    	dataSource.setClusterName(clusterName);
-    	dataSource.setPort(port);
-    	dataSource.setInitialSize(initialSize);
-    	dataSource.setMaxSize(maxSize);
-    	dataSource.setMinSize(minSize);
-    	dataSource.setMaxWait(maxWait);
+    	dataSource.setHost(propertyResolver.getProperty("serverHost"));
+    	dataSource.setClusterName(propertyResolver.getProperty("serverName"));
+    	dataSource.setPort(propertyResolver.getProperty("serverPort",Integer.class));
+    	dataSource.setInitialSize(propertyResolver.getProperty("clientPoolInitialSize",Integer.class));
+    	dataSource.setMaxSize(propertyResolver.getProperty("clientPoolMaxSize",Integer.class));
+    	dataSource.setMinSize(propertyResolver.getProperty("clientPoolMinSize",Integer.class));
+    	dataSource.setMaxWait(propertyResolver.getProperty("clientPoolMaxWait",Integer.class));
     	logger.info("开始初始化es连接池...");
-    	dataSource.initDataSource();
+    	//dataSource.initDataSource();
     	logger.info("初始化es连接池结束！");
 		return dataSource;
     }
