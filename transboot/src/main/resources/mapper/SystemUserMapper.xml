@@ -4,10 +4,10 @@
 	
 	<sql id="idUserIdAccountIdentityWhere">
 		<where>
-		<if test="null != model.id and model.id != '' ">and id = #{model.id}</if>
-		<if test="null != model.userId and model.userId != '' ">and user_id = #{model.userId}</if>
-		<if test="null != model.account and model.account != '' ">and account = #{model.account}</if>
-		<if test="null != model.identity and model.identity != '' ">and identity = #{model.identity}</if>
+		<if test="null != id and id != '' ">and id = #{model.id}</if>
+		<if test="null != userId and userId != '' ">and user_id = #{model.userId}</if>
+		<if test="null != account and account != '' ">and account = #{model.account}</if>
+		<if test="null != identity and identity != '' ">and identity = #{model.identity}</if>
 		</where>
 	</sql>
 	
@@ -79,7 +79,7 @@
 		<include refid="idUserIdAccountIdentityWhere"/>
 	</update>
 	
-	<select id="getSystemUser" resultMap="systemUserAll_map">
+	<select id="getSystemUser" parameterType="com.data.trans.model.SystemUser" resultMap="systemUserAll_map">
 		select * from system_user
 		<include refid="idUserIdAccountIdentityWhere"/>
 	</select>

@@ -10,6 +10,7 @@ public enum ResponseEnum {
 	NOT_FIND(404,"未能识别"),
 	PARAM_ERR(600,"参数错误"),
 	AUTH_ERR(601,"无权操作"),
+	USER_UNKNOW(602,"用户不存在"),
 	;
 	private int code;
 	private String message;

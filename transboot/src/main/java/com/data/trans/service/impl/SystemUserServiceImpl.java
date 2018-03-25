@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import com.data.trans.exception.SystemException;
+import com.data.trans.exception.AjaxException;
 import com.data.trans.mapper.SystemUserMapper;
 import com.data.trans.model.SystemUser;
 import com.data.trans.service.SystemUserService;
@@ -32,7 +32,7 @@ public class SystemUserServiceImpl implements SystemUserService {
 		String password = model.getPassword();
 		
 		if(StringUtils.isEmpty(account) || StringUtils.isEmpty(password)){
-			throw new SystemException(ResponseEnum.PARAM_ERR);
+			throw new AjaxException(ResponseEnum.PARAM_ERR);
 		}
 		//密码加密存储
 		model.setPassword(EncryptUtil.Encrypt(model.getPassword().trim(),true));
@@ -65,8 +65,8 @@ public class SystemUserServiceImpl implements SystemUserService {
 	public SystemUser getSystemUser(SystemUser model) {
 		//没有传递唯一身份标识抛异常，防止查出多个账号
 		checkSafeOpt(model);
-		
-		return systemUserMapper.getSystemUser(model);
+		SystemUser user = systemUserMapper.getSystemUser(model);
+		return user;
 	}
 
 	@Override
@@ -81,7 +81,7 @@ public class SystemUserServiceImpl implements SystemUserService {
 				StringUtils.isEmpty(model.getUserId()) &&
 				StringUtils.isEmpty(model.getAccount()) &&
 				StringUtils.isEmpty(model.getIdentity())){
-			throw new SystemException(ResponseEnum.PARAM_ERR);
+			throw new AjaxException(ResponseEnum.PARAM_ERR);
 		}
 	}
 }

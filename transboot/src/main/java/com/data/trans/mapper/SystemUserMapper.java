@@ -2,6 +2,8 @@ package com.data.trans.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Mapper;
+
 import com.data.trans.model.SystemUser;
 
 /**
@@ -9,6 +11,7 @@ import com.data.trans.model.SystemUser;
  * @author dnc
  * @Description 系统用户
  */
+@Mapper
 public interface SystemUserMapper {
 	
 	/**

@@ -7,29 +7,35 @@ package com.data.trans.util;
 public class ApiResponse<T> {
 	
 	private Integer code;
+	private String message;
 	private T result;
 	
 	public ApiResponse(){}
 	
-	public ApiResponse(Integer code, T result) {
+	public ApiResponse(Integer code, String message, T result) {
 		this.code = code;
+		this.message = message;
 		this.result = result;
 	}
 	
-	public static <T> ApiResponse<T> success(T result) {
-		return new ApiResponse<T>(ResponseEnum.SUCCESS.getCode(),result);
-	}
-	
 	public static ApiResponse<String> success() {
-		return new ApiResponse<String>(ResponseEnum.SUCCESS.getCode(),ResponseEnum.SUCCESS.getMessage());
+		return new ApiResponse<String>(ResponseEnum.SUCCESS.getCode(),ResponseEnum.SUCCESS.getMessage(),null);
 	}
 	
-	public static <T> ApiResponse<T> error(T result) {
-		return new ApiResponse<T>(ResponseEnum.ERROR.getCode(),result);
+	public static <T> ApiResponse<T> success(T result) {
+		return new ApiResponse<T>(ResponseEnum.SUCCESS.getCode(),ResponseEnum.SUCCESS.getMessage(),result);
 	}
 	
 	public static ApiResponse<String> error() {
-		return new ApiResponse<String>(ResponseEnum.ERROR.getCode(),ResponseEnum.ERROR.getMessage());
+		return new ApiResponse<String>(ResponseEnum.ERROR.getCode(),ResponseEnum.ERROR.getMessage(),null);
+	}
+	
+	public static ApiResponse<String> error(String message) {
+		return new ApiResponse<String>(ResponseEnum.ERROR.getCode(),message,null);
+	}
+	
+	public static ApiResponse<String> response(ResponseEnum resp) {
+		return new ApiResponse<String>(resp.getCode(),resp.getMessage(),null);
 	}
 	
 	public Integer getCode() {
@@ -37,6 +43,14 @@ public class ApiResponse<T> {
 	}
 	public void setCode(Integer code) {
 		this.code = code;
+	}
+	
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
 	}
 
 	public T getResult() {
