@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -54,10 +55,10 @@ public class TransManager {
 	@Autowired
     private SimpMessagingTemplate socketTemplate;
 	
-	@Value("${elastic.client.import.index}")  
+	@Value("${elasticsearch.client.import.index}")  
 	private String index;//es数据导入索引库
 	
-	@Value("${elastic.client.import.type}")  
+	@Value("${elasticsearch.client.import.type}")  
 	private String type;//es数据导入类型
 	
 	@Value("${trans.datasource.table.name}")  
@@ -66,7 +67,7 @@ public class TransManager {
 	@Value("${trans.thread.pool.size}")  
 	private Integer threads;//es数据导入批量提交每批数目
 	
-	@Value("${elastic.client.import.bulkSize}")  
+	@Value("${elasticsearch.client.import.bulkSize}")  
 	private Integer bulkSize;//es数据导入批量提交每批数目
 	
 	@Value("${trans.datasource.table.fetchSize}")  
@@ -148,6 +149,10 @@ public class TransManager {
 			socketTemplate.convertAndSend("/myTopic/myCmdInter", CmdUtil.getResponse(Constant.CODE_SUCCESS, Constant.CMD_PUSH_FINISHED_TRANS_TABLE_RECORDS));
 			jobs.forEach(job -> futures.add(fixedThreadPool.submit(job)));
 			transState = Constant.STATE_TRANS_STARTING;//修改状态为正在执行中
+			
+			CountDownLatch latch = new CountDownLatch(jobs.size());//并发线程计数器
+			latch.wait();
+			
 			//统计任务执行状态
 			new Thread(new Runnable() {
 				@Override

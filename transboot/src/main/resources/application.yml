@@ -6,12 +6,12 @@ server:
 #---------自定义日志配置文件的名称和位置
 logging: 
     config: classpath:logback-spring.xml
-    
+    dir: d://log
 #---------mysql数据库配置信息---------
 spring: 
     datasource:
         name: myDataSource
-        url: jdbc:mysql://localhost:3306/yc_test?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull
+        url: jdbc:mysql://www.seally.cn:3306/dennis?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull
         username: root
         password: root
         driverClassName: com.mysql.jdbc.Driver
@@ -41,13 +41,6 @@ spring:
         connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000  
         # 合并多个DruidDataSource的监控数据  
         #useGlobalDataSourceStat: true 
-
-#-------mybatis集成配置-----------
-mybatis: 
-    mapperLocations: classpath:mapper/*.xml             #mapper.xml文件路径
-    typeAliasesPackage: com.data.trans.model            #mybatis数据模型实体包路径
-    config: mybatis-config.xml                          #mybatis配置文件的路径 
-    
 #-------模板引擎thymeleaf配置-----------
     thymeleaf: 
         cache: false
@@ -55,13 +48,31 @@ mybatis:
         suffix: .html
         encoding: UTF-8
         content-type: text/html
-        mode: HTML5
-        
+        mode: html
+
+#-------Redis配置-----------
+    redis:
+        database: 0 #Redis数据库索引（默认为0）
+        host: www.seally.cn ##Redis服务器地址
+        port: 6379 #Redis服务器连接端口
+        password:   #Redis服务器连接密码（默认为空）
+        pool.max-active: 8 #连接池最大连接数（使用负值表示没有限制）
+        pool.max-wait: -1 #连接池最大阻塞等待时间（使用负值表示没有限制）
+        pool.max-idle: 8 #连接池中的最大空闲连接
+        pool.min-idle: 0 #连接池中的最小空闲连接
+        timeout: -1  #连接超时时间（毫秒）
+#-------mybatis集成配置-----------
+mybatis: 
+    mapperLocations: classpath:mapper/*.xml             #mapper.xml文件路径
+    typeAliasesPackage: com.data.trans.model            #mybatis数据模型实体包路径
+    config: mybatis-config.xml                          #mybatis配置文件的路径 
+    
+    
 #---------Elastic自定义的配置信息-----------
 elasticsearch: 
-    serverHost: 192.168.0.104                              #es服务器ip
+    serverHost: www.seally.cn                              #es服务器ip
     serverPort: 9300                                       #es服务监听端口
-    serverName: es_cluster                                 #es服务集群名称
+    serverName: es_cluster                                  #es服务集群名称
     clientPoolInitialSize: 10
     clientPoolMaxSize: 20 
     clientPoolMinSize: 8
@@ -77,7 +88,7 @@ elasticsearch:
 trans:
     datasource:
         table:
-            name: t_pb_log                              #mysql迁移目标表名
+            name: systemlog                              #mysql迁移目标表名
             fetchSize: 10000                            #mysql数据库单次抓取数目  
     thread:
         pool:

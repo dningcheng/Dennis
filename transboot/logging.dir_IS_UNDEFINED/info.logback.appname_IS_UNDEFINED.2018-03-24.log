@@ -1,0 +1,828 @@
+09:07:14.679 [main] INFO  com.data.trans.Application - Starting Application on dningcheng with PID 2068 (C:\Users\dning\git\dennis-demo\transboot\target\classes started by dennis in C:\Users\dning\git\dennis-demo\transboot)
+09:07:14.706 [main] INFO  com.data.trans.Application - No active profile set, falling back to default profiles: default
+09:07:15.099 [main] INFO  o.s.b.c.e.AnnotationConfigEmbeddedWebApplicationContext - Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@1356d4d4: startup date [Sat Mar 24 09:07:15 CST 2018]; root of context hierarchy
+09:07:16.180 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+09:07:17.428 [main] INFO  c.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+09:07:17.478 [main] INFO  com.data.trans.config.DruidDBConfig - druid连接池初始化完毕!
+09:07:18.278 [main] INFO  o.s.b.c.e.t.TomcatEmbeddedServletContainer - Tomcat initialized with port(s): 8080 (http)
+09:07:18.292 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+09:07:18.293 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet Engine: Apache Tomcat/8.5.23
+09:07:18.479 [localhost-startStop-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+09:07:18.480 [localhost-startStop-1] INFO  o.s.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 3381 ms
+09:07:18.760 [localhost-startStop-1] INFO  o.s.b.w.s.ServletRegistrationBean - Mapping servlet: 'dispatcherServlet' to [/]
+09:07:18.767 [localhost-startStop-1] INFO  o.s.b.w.s.FilterRegistrationBean - Mapping filter: 'characterEncodingFilter' to: [/*]
+09:07:18.768 [localhost-startStop-1] INFO  o.s.b.w.s.FilterRegistrationBean - Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+09:07:18.768 [localhost-startStop-1] INFO  o.s.b.w.s.FilterRegistrationBean - Mapping filter: 'httpPutFormContentFilter' to: [/*]
+09:07:18.769 [localhost-startStop-1] INFO  o.s.b.w.s.FilterRegistrationBean - Mapping filter: 'requestContextFilter' to: [/*]
+09:07:18.877 [main] INFO  com.data.trans.config.ElasticConfig - 开始初始化es连接池...
+09:07:42.362 [main] WARN  o.s.b.c.e.AnnotationConfigEmbeddedWebApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'cmdControlller': Injection of resource dependencies failed; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'transManager': Unsatisfied dependency expressed through field 'esSource'; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'EsDataSource' defined in class path resource [com/data/trans/config/ElasticConfig.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.data.trans.datasource.ElasticDataSource]: Factory method 'EsDataSource' threw exception; nested exception is NoNodeAvailableException[None of the configured nodes are available: [{#transport#-1}{eufD0Wa3R3-d33xWvFjXeg}{www.seally.cn}{47.106.77.74:9300}]]
+09:07:42.368 [main] INFO  c.alibaba.druid.pool.DruidDataSource - {dataSource-1} closed
+09:07:42.372 [main] INFO  o.a.catalina.core.StandardService - Stopping service [Tomcat]
+09:07:42.402 [main] INFO  o.s.b.a.l.AutoConfigurationReportLoggingInitializer - 
+
+Error starting ApplicationContext. To display the auto-configuration report re-run your application with 'debug' enabled.
+09:07:42.412 [main] ERROR o.s.boot.SpringApplication - Application startup failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'cmdControlller': Injection of resource dependencies failed; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'transManager': Unsatisfied dependency expressed through field 'esSource'; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'EsDataSource' defined in class path resource [com/data/trans/config/ElasticConfig.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.data.trans.datasource.ElasticDataSource]: Factory method 'EsDataSource' threw exception; nested exception is NoNodeAvailableException[None of the configured nodes are available: [{#transport#-1}{eufD0Wa3R3-d33xWvFjXeg}{www.seally.cn}{47.106.77.74:9300}]]
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.postProcessPropertyValues(CommonAnnotationBeanPostProcessor.java:321)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1264)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:553)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:483)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:306)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:302)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:197)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:761)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:867)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:543)
+	at org.springframework.boot.context.embedded.EmbeddedWebApplicationContext.refresh(EmbeddedWebApplicationContext.java:122)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:693)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:360)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:303)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1118)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1107)
+	at com.data.trans.Application.main(Application.java:19)
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'transManager': Unsatisfied dependency expressed through field 'esSource'; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'EsDataSource' defined in class path resource [com/data/trans/config/ElasticConfig.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.data.trans.datasource.ElasticDataSource]: Factory method 'EsDataSource' threw exception; nested exception is NoNodeAvailableException[None of the configured nodes are available: [{#transport#-1}{eufD0Wa3R3-d33xWvFjXeg}{www.seally.cn}{47.106.77.74:9300}]]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:588)
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:88)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:366)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1264)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:553)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:483)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:306)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:302)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.autowireResource(CommonAnnotationBeanPostProcessor.java:522)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.getResource(CommonAnnotationBeanPostProcessor.java:496)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor$ResourceElement.getResourceToInject(CommonAnnotationBeanPostProcessor.java:627)
+	at org.springframework.beans.factory.annotation.InjectionMetadata$InjectedElement.inject(InjectionMetadata.java:169)
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:88)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.postProcessPropertyValues(CommonAnnotationBeanPostProcessor.java:318)
+	... 17 common frames omitted
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'EsDataSource' defined in class path resource [com/data/trans/config/ElasticConfig.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.data.trans.datasource.ElasticDataSource]: Factory method 'EsDataSource' threw exception; nested exception is NoNodeAvailableException[None of the configured nodes are available: [{#transport#-1}{eufD0Wa3R3-d33xWvFjXeg}{www.seally.cn}{47.106.77.74:9300}]]
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:599)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1173)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1067)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:513)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:483)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:306)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:302)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:208)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1138)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1066)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:585)
+	... 32 common frames omitted
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.data.trans.datasource.ElasticDataSource]: Factory method 'EsDataSource' threw exception; nested exception is NoNodeAvailableException[None of the configured nodes are available: [{#transport#-1}{eufD0Wa3R3-d33xWvFjXeg}{www.seally.cn}{47.106.77.74:9300}]]
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:189)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:588)
+	... 44 common frames omitted
+Caused by: org.elasticsearch.client.transport.NoNodeAvailableException: None of the configured nodes are available: [{#transport#-1}{eufD0Wa3R3-d33xWvFjXeg}{www.seally.cn}{47.106.77.74:9300}]
+	at org.elasticsearch.client.transport.TransportClientNodesService.ensureNodesAreAvailable(TransportClientNodesService.java:347)
+	at org.elasticsearch.client.transport.TransportClientNodesService.execute(TransportClientNodesService.java:245)
+	at org.elasticsearch.client.transport.TransportProxyClient.execute(TransportProxyClient.java:59)
+	at org.elasticsearch.client.transport.TransportClient.doExecute(TransportClient.java:363)
+	at org.elasticsearch.client.support.AbstractClient.execute(AbstractClient.java:408)
+	at org.elasticsearch.client.support.AbstractClient$ClusterAdmin.execute(AbstractClient.java:730)
+	at org.elasticsearch.action.ActionRequestBuilder.execute(ActionRequestBuilder.java:80)
+	at org.elasticsearch.action.ActionRequestBuilder.execute(ActionRequestBuilder.java:54)
+	at com.data.trans.datasource.ElasticDataSource.initDataSource(ElasticDataSource.java:44)
+	at com.data.trans.config.ElasticConfig.EsDataSource(ElasticConfig.java:40)
+	at com.data.trans.config.ElasticConfig$$EnhancerBySpringCGLIB$$38a4e17a.CGLIB$EsDataSource$1(<generated>)
+	at com.data.trans.config.ElasticConfig$$EnhancerBySpringCGLIB$$38a4e17a$$FastClassBySpringCGLIB$$ed86763f.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invokeSuper(MethodProxy.java:228)
+	at org.springframework.context.annotation.ConfigurationClassEnhancer$BeanMethodInterceptor.intercept(ConfigurationClassEnhancer.java:358)
+	at com.data.trans.config.ElasticConfig$$EnhancerBySpringCGLIB$$38a4e17a.EsDataSource(<generated>)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:162)
+	... 45 common frames omitted
+10:12:23.765 [main] INFO  com.data.trans.Application - Starting Application on dningcheng with PID 8664 (C:\Users\dning\git\dennis-demo\transboot\target\classes started by dennis in C:\Users\dning\git\dennis-demo\transboot)
+10:12:23.768 [main] INFO  com.data.trans.Application - No active profile set, falling back to default profiles: default
+10:12:24.239 [main] INFO  o.s.b.c.e.AnnotationConfigEmbeddedWebApplicationContext - Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@1356d4d4: startup date [Sat Mar 24 10:12:24 CST 2018]; root of context hierarchy
+10:12:25.192 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+10:12:26.332 [main] INFO  c.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+10:12:26.365 [main] INFO  com.data.trans.config.DruidDBConfig - druid连接池初始化完毕!
+10:12:27.351 [main] INFO  o.s.b.c.e.t.TomcatEmbeddedServletContainer - Tomcat initialized with port(s): 8080 (http)
+10:12:27.361 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+10:12:27.362 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet Engine: Apache Tomcat/8.5.23
+10:12:27.557 [localhost-startStop-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+10:12:27.557 [localhost-startStop-1] INFO  o.s.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 3318 ms
+10:12:27.842 [localhost-startStop-1] INFO  o.s.b.w.s.ServletRegistrationBean - Mapping servlet: 'dispatcherServlet' to [/]
+10:12:27.851 [localhost-startStop-1] INFO  o.s.b.w.s.FilterRegistrationBean - Mapping filter: 'characterEncodingFilter' to: [/*]
+10:12:27.852 [localhost-startStop-1] INFO  o.s.b.w.s.FilterRegistrationBean - Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+10:12:27.852 [localhost-startStop-1] INFO  o.s.b.w.s.FilterRegistrationBean - Mapping filter: 'httpPutFormContentFilter' to: [/*]
+10:12:27.853 [localhost-startStop-1] INFO  o.s.b.w.s.FilterRegistrationBean - Mapping filter: 'requestContextFilter' to: [/*]
+10:12:27.966 [main] INFO  com.data.trans.config.ElasticConfig - 开始初始化es连接池...
+10:12:51.422 [main] WARN  o.s.b.c.e.AnnotationConfigEmbeddedWebApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'cmdControlller': Injection of resource dependencies failed; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'transManager': Unsatisfied dependency expressed through field 'esSource'; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'EsDataSource' defined in class path resource [com/data/trans/config/ElasticConfig.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.data.trans.datasource.ElasticDataSource]: Factory method 'EsDataSource' threw exception; nested exception is NoNodeAvailableException[None of the configured nodes are available: [{#transport#-1}{rwJfXbcWRlu43QHSulFIRg}{www.seally.cn}{47.106.77.74:9300}]]
+10:12:51.433 [main] INFO  c.alibaba.druid.pool.DruidDataSource - {dataSource-1} closed
+10:12:51.440 [main] INFO  o.a.catalina.core.StandardService - Stopping service [Tomcat]
+10:12:51.480 [main] INFO  o.s.b.a.l.AutoConfigurationReportLoggingInitializer - 
+
+Error starting ApplicationContext. To display the auto-configuration report re-run your application with 'debug' enabled.
+10:12:51.497 [main] ERROR o.s.boot.SpringApplication - Application startup failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'cmdControlller': Injection of resource dependencies failed; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'transManager': Unsatisfied dependency expressed through field 'esSource'; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'EsDataSource' defined in class path resource [com/data/trans/config/ElasticConfig.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.data.trans.datasource.ElasticDataSource]: Factory method 'EsDataSource' threw exception; nested exception is NoNodeAvailableException[None of the configured nodes are available: [{#transport#-1}{rwJfXbcWRlu43QHSulFIRg}{www.seally.cn}{47.106.77.74:9300}]]
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.postProcessPropertyValues(CommonAnnotationBeanPostProcessor.java:321)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1264)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:553)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:483)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:306)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:302)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:197)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:761)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:867)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:543)
+	at org.springframework.boot.context.embedded.EmbeddedWebApplicationContext.refresh(EmbeddedWebApplicationContext.java:122)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:693)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:360)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:303)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1118)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1107)
+	at com.data.trans.Application.main(Application.java:19)
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'transManager': Unsatisfied dependency expressed through field 'esSource'; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'EsDataSource' defined in class path resource [com/data/trans/config/ElasticConfig.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.data.trans.datasource.ElasticDataSource]: Factory method 'EsDataSource' threw exception; nested exception is NoNodeAvailableException[None of the configured nodes are available: [{#transport#-1}{rwJfXbcWRlu43QHSulFIRg}{www.seally.cn}{47.106.77.74:9300}]]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:588)
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:88)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:366)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1264)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:553)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:483)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:306)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:302)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.autowireResource(CommonAnnotationBeanPostProcessor.java:522)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.getResource(CommonAnnotationBeanPostProcessor.java:496)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor$ResourceElement.getResourceToInject(CommonAnnotationBeanPostProcessor.java:627)
+	at org.springframework.beans.factory.annotation.InjectionMetadata$InjectedElement.inject(InjectionMetadata.java:169)
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:88)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.postProcessPropertyValues(CommonAnnotationBeanPostProcessor.java:318)
+	... 17 common frames omitted
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'EsDataSource' defined in class path resource [com/data/trans/config/ElasticConfig.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.data.trans.datasource.ElasticDataSource]: Factory method 'EsDataSource' threw exception; nested exception is NoNodeAvailableException[None of the configured nodes are available: [{#transport#-1}{rwJfXbcWRlu43QHSulFIRg}{www.seally.cn}{47.106.77.74:9300}]]
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:599)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1173)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1067)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:513)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:483)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:306)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:302)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:208)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1138)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1066)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:585)
+	... 32 common frames omitted
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.data.trans.datasource.ElasticDataSource]: Factory method 'EsDataSource' threw exception; nested exception is NoNodeAvailableException[None of the configured nodes are available: [{#transport#-1}{rwJfXbcWRlu43QHSulFIRg}{www.seally.cn}{47.106.77.74:9300}]]
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:189)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:588)
+	... 44 common frames omitted
+Caused by: org.elasticsearch.client.transport.NoNodeAvailableException: None of the configured nodes are available: [{#transport#-1}{rwJfXbcWRlu43QHSulFIRg}{www.seally.cn}{47.106.77.74:9300}]
+	at org.elasticsearch.client.transport.TransportClientNodesService.ensureNodesAreAvailable(TransportClientNodesService.java:347)
+	at org.elasticsearch.client.transport.TransportClientNodesService.execute(TransportClientNodesService.java:245)
+	at org.elasticsearch.client.transport.TransportProxyClient.execute(TransportProxyClient.java:59)
+	at org.elasticsearch.client.transport.TransportClient.doExecute(TransportClient.java:363)
+	at org.elasticsearch.client.support.AbstractClient.execute(AbstractClient.java:408)
+	at org.elasticsearch.client.support.AbstractClient$ClusterAdmin.execute(AbstractClient.java:730)
+	at org.elasticsearch.action.ActionRequestBuilder.execute(ActionRequestBuilder.java:80)
+	at org.elasticsearch.action.ActionRequestBuilder.execute(ActionRequestBuilder.java:54)
+	at com.data.trans.datasource.ElasticDataSource.initDataSource(ElasticDataSource.java:44)
+	at com.data.trans.config.ElasticConfig.EsDataSource(ElasticConfig.java:40)
+	at com.data.trans.config.ElasticConfig$$EnhancerBySpringCGLIB$$5bd76cba.CGLIB$EsDataSource$1(<generated>)
+	at com.data.trans.config.ElasticConfig$$EnhancerBySpringCGLIB$$5bd76cba$$FastClassBySpringCGLIB$$7042bc7d.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invokeSuper(MethodProxy.java:228)
+	at org.springframework.context.annotation.ConfigurationClassEnhancer$BeanMethodInterceptor.intercept(ConfigurationClassEnhancer.java:358)
+	at com.data.trans.config.ElasticConfig$$EnhancerBySpringCGLIB$$5bd76cba.EsDataSource(<generated>)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:162)
+	... 45 common frames omitted
+10:15:59.667 [main] INFO  com.data.trans.Application - Starting Application on dningcheng with PID 13928 (C:\Users\dning\git\dennis-demo\transboot\target\classes started by dennis in C:\Users\dning\git\dennis-demo\transboot)
+10:15:59.682 [main] INFO  com.data.trans.Application - No active profile set, falling back to default profiles: default
+10:16:00.454 [main] INFO  o.s.b.c.e.AnnotationConfigEmbeddedWebApplicationContext - Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@1356d4d4: startup date [Sat Mar 24 10:16:00 CST 2018]; root of context hierarchy
+10:16:01.575 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+10:16:02.899 [main] INFO  c.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+10:16:02.942 [main] INFO  com.data.trans.config.DruidDBConfig - druid连接池初始化完毕!
+10:16:03.838 [main] INFO  o.s.b.c.e.t.TomcatEmbeddedServletContainer - Tomcat initialized with port(s): 8080 (http)
+10:16:03.850 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+10:16:03.852 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet Engine: Apache Tomcat/8.5.23
+10:16:04.058 [localhost-startStop-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+10:16:04.058 [localhost-startStop-1] INFO  o.s.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 3604 ms
+10:16:04.339 [localhost-startStop-1] INFO  o.s.b.w.s.ServletRegistrationBean - Mapping servlet: 'dispatcherServlet' to [/]
+10:16:04.346 [localhost-startStop-1] INFO  o.s.b.w.s.FilterRegistrationBean - Mapping filter: 'characterEncodingFilter' to: [/*]
+10:16:04.348 [localhost-startStop-1] INFO  o.s.b.w.s.FilterRegistrationBean - Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+10:16:04.348 [localhost-startStop-1] INFO  o.s.b.w.s.FilterRegistrationBean - Mapping filter: 'httpPutFormContentFilter' to: [/*]
+10:16:04.348 [localhost-startStop-1] INFO  o.s.b.w.s.FilterRegistrationBean - Mapping filter: 'requestContextFilter' to: [/*]
+10:16:04.456 [main] INFO  com.data.trans.config.ElasticConfig - 开始初始化es连接池...
+10:16:27.741 [main] WARN  o.s.b.c.e.AnnotationConfigEmbeddedWebApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'cmdControlller': Injection of resource dependencies failed; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'transManager': Unsatisfied dependency expressed through field 'esSource'; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'EsDataSource' defined in class path resource [com/data/trans/config/ElasticConfig.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.data.trans.datasource.ElasticDataSource]: Factory method 'EsDataSource' threw exception; nested exception is NoNodeAvailableException[None of the configured nodes are available: [{#transport#-1}{M_f01z1XQzWCTGPR4E2RCA}{www.seally.cn}{47.106.77.74:9300}]]
+10:16:27.749 [main] INFO  c.alibaba.druid.pool.DruidDataSource - {dataSource-1} closed
+10:16:27.754 [main] INFO  o.a.catalina.core.StandardService - Stopping service [Tomcat]
+10:16:27.776 [main] INFO  o.s.b.a.l.AutoConfigurationReportLoggingInitializer - 
+
+Error starting ApplicationContext. To display the auto-configuration report re-run your application with 'debug' enabled.
+10:16:27.787 [main] ERROR o.s.boot.SpringApplication - Application startup failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'cmdControlller': Injection of resource dependencies failed; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'transManager': Unsatisfied dependency expressed through field 'esSource'; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'EsDataSource' defined in class path resource [com/data/trans/config/ElasticConfig.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.data.trans.datasource.ElasticDataSource]: Factory method 'EsDataSource' threw exception; nested exception is NoNodeAvailableException[None of the configured nodes are available: [{#transport#-1}{M_f01z1XQzWCTGPR4E2RCA}{www.seally.cn}{47.106.77.74:9300}]]
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.postProcessPropertyValues(CommonAnnotationBeanPostProcessor.java:321)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1264)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:553)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:483)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:306)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:302)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:197)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:761)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:867)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:543)
+	at org.springframework.boot.context.embedded.EmbeddedWebApplicationContext.refresh(EmbeddedWebApplicationContext.java:122)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:693)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:360)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:303)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1118)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1107)
+	at com.data.trans.Application.main(Application.java:19)
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'transManager': Unsatisfied dependency expressed through field 'esSource'; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'EsDataSource' defined in class path resource [com/data/trans/config/ElasticConfig.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.data.trans.datasource.ElasticDataSource]: Factory method 'EsDataSource' threw exception; nested exception is NoNodeAvailableException[None of the configured nodes are available: [{#transport#-1}{M_f01z1XQzWCTGPR4E2RCA}{www.seally.cn}{47.106.77.74:9300}]]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:588)
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:88)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:366)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1264)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:553)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:483)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:306)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:302)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.autowireResource(CommonAnnotationBeanPostProcessor.java:522)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.getResource(CommonAnnotationBeanPostProcessor.java:496)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor$ResourceElement.getResourceToInject(CommonAnnotationBeanPostProcessor.java:627)
+	at org.springframework.beans.factory.annotation.InjectionMetadata$InjectedElement.inject(InjectionMetadata.java:169)
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:88)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.postProcessPropertyValues(CommonAnnotationBeanPostProcessor.java:318)
+	... 17 common frames omitted
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'EsDataSource' defined in class path resource [com/data/trans/config/ElasticConfig.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.data.trans.datasource.ElasticDataSource]: Factory method 'EsDataSource' threw exception; nested exception is NoNodeAvailableException[None of the configured nodes are available: [{#transport#-1}{M_f01z1XQzWCTGPR4E2RCA}{www.seally.cn}{47.106.77.74:9300}]]
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:599)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1173)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1067)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:513)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:483)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:306)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:302)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:208)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1138)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1066)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:585)
+	... 32 common frames omitted
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.data.trans.datasource.ElasticDataSource]: Factory method 'EsDataSource' threw exception; nested exception is NoNodeAvailableException[None of the configured nodes are available: [{#transport#-1}{M_f01z1XQzWCTGPR4E2RCA}{www.seally.cn}{47.106.77.74:9300}]]
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:189)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:588)
+	... 44 common frames omitted
+Caused by: org.elasticsearch.client.transport.NoNodeAvailableException: None of the configured nodes are available: [{#transport#-1}{M_f01z1XQzWCTGPR4E2RCA}{www.seally.cn}{47.106.77.74:9300}]
+	at org.elasticsearch.client.transport.TransportClientNodesService.ensureNodesAreAvailable(TransportClientNodesService.java:347)
+	at org.elasticsearch.client.transport.TransportClientNodesService.execute(TransportClientNodesService.java:245)
+	at org.elasticsearch.client.transport.TransportProxyClient.execute(TransportProxyClient.java:59)
+	at org.elasticsearch.client.transport.TransportClient.doExecute(TransportClient.java:363)
+	at org.elasticsearch.client.support.AbstractClient.execute(AbstractClient.java:408)
+	at org.elasticsearch.client.support.AbstractClient$ClusterAdmin.execute(AbstractClient.java:730)
+	at org.elasticsearch.action.ActionRequestBuilder.execute(ActionRequestBuilder.java:80)
+	at org.elasticsearch.action.ActionRequestBuilder.execute(ActionRequestBuilder.java:54)
+	at com.data.trans.datasource.ElasticDataSource.initDataSource(ElasticDataSource.java:44)
+	at com.data.trans.config.ElasticConfig.EsDataSource(ElasticConfig.java:40)
+	at com.data.trans.config.ElasticConfig$$EnhancerBySpringCGLIB$$5bd76cba.CGLIB$EsDataSource$1(<generated>)
+	at com.data.trans.config.ElasticConfig$$EnhancerBySpringCGLIB$$5bd76cba$$FastClassBySpringCGLIB$$7042bc7d.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invokeSuper(MethodProxy.java:228)
+	at org.springframework.context.annotation.ConfigurationClassEnhancer$BeanMethodInterceptor.intercept(ConfigurationClassEnhancer.java:358)
+	at com.data.trans.config.ElasticConfig$$EnhancerBySpringCGLIB$$5bd76cba.EsDataSource(<generated>)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:162)
+	... 45 common frames omitted
+11:46:23.180 [main] INFO  com.data.trans.Application - Starting Application on dningcheng with PID 13132 (C:\Users\dning\git\dennis-demo\transboot\target\classes started by dennis in C:\Users\dning\git\dennis-demo\transboot)
+11:46:23.193 [main] INFO  com.data.trans.Application - No active profile set, falling back to default profiles: default
+11:46:23.702 [main] INFO  o.s.b.c.e.AnnotationConfigEmbeddedWebApplicationContext - Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@55dfcc6: startup date [Sat Mar 24 11:46:23 CST 2018]; root of context hierarchy
+11:46:24.822 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+11:46:26.144 [main] INFO  c.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+11:46:26.181 [main] INFO  com.data.trans.config.DruidDBConfig - druid连接池初始化完毕!
+11:46:27.068 [main] INFO  o.s.b.c.e.t.TomcatEmbeddedServletContainer - Tomcat initialized with port(s): 8080 (http)
+11:46:27.081 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+11:46:27.083 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet Engine: Apache Tomcat/8.5.23
+11:46:27.288 [localhost-startStop-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+11:46:27.289 [localhost-startStop-1] INFO  o.s.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 3587 ms
+11:46:27.624 [localhost-startStop-1] INFO  o.s.b.w.s.ServletRegistrationBean - Mapping servlet: 'dispatcherServlet' to [/]
+11:46:27.634 [localhost-startStop-1] INFO  o.s.b.w.s.FilterRegistrationBean - Mapping filter: 'characterEncodingFilter' to: [/*]
+11:46:27.634 [localhost-startStop-1] INFO  o.s.b.w.s.FilterRegistrationBean - Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+11:46:27.635 [localhost-startStop-1] INFO  o.s.b.w.s.FilterRegistrationBean - Mapping filter: 'httpPutFormContentFilter' to: [/*]
+11:46:27.636 [localhost-startStop-1] INFO  o.s.b.w.s.FilterRegistrationBean - Mapping filter: 'requestContextFilter' to: [/*]
+11:46:27.769 [main] INFO  com.data.trans.config.ElasticConfig - 开始初始化es连接池...
+11:46:51.370 [main] WARN  o.s.b.c.e.AnnotationConfigEmbeddedWebApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'cmdControlller': Injection of resource dependencies failed; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'transManager': Unsatisfied dependency expressed through field 'esSource'; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'EsDataSource' defined in class path resource [com/data/trans/config/ElasticConfig.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.data.trans.datasource.ElasticDataSource]: Factory method 'EsDataSource' threw exception; nested exception is NoNodeAvailableException[None of the configured nodes are available: [{#transport#-1}{6glUxg73Q6q0uiq8_FJ0aQ}{www.seally.cn}{47.106.77.74:9300}]]
+11:46:51.376 [main] INFO  c.alibaba.druid.pool.DruidDataSource - {dataSource-1} closed
+11:46:51.381 [main] INFO  o.a.catalina.core.StandardService - Stopping service [Tomcat]
+11:46:51.404 [main] INFO  o.s.b.a.l.AutoConfigurationReportLoggingInitializer - 
+
+Error starting ApplicationContext. To display the auto-configuration report re-run your application with 'debug' enabled.
+11:46:51.414 [main] ERROR o.s.boot.SpringApplication - Application startup failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'cmdControlller': Injection of resource dependencies failed; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'transManager': Unsatisfied dependency expressed through field 'esSource'; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'EsDataSource' defined in class path resource [com/data/trans/config/ElasticConfig.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.data.trans.datasource.ElasticDataSource]: Factory method 'EsDataSource' threw exception; nested exception is NoNodeAvailableException[None of the configured nodes are available: [{#transport#-1}{6glUxg73Q6q0uiq8_FJ0aQ}{www.seally.cn}{47.106.77.74:9300}]]
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.postProcessPropertyValues(CommonAnnotationBeanPostProcessor.java:321)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1264)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:553)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:483)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:306)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:302)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:197)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:761)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:867)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:543)
+	at org.springframework.boot.context.embedded.EmbeddedWebApplicationContext.refresh(EmbeddedWebApplicationContext.java:122)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:693)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:360)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:303)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1118)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1107)
+	at com.data.trans.Application.main(Application.java:19)
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'transManager': Unsatisfied dependency expressed through field 'esSource'; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'EsDataSource' defined in class path resource [com/data/trans/config/ElasticConfig.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.data.trans.datasource.ElasticDataSource]: Factory method 'EsDataSource' threw exception; nested exception is NoNodeAvailableException[None of the configured nodes are available: [{#transport#-1}{6glUxg73Q6q0uiq8_FJ0aQ}{www.seally.cn}{47.106.77.74:9300}]]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:588)
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:88)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:366)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1264)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:553)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:483)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:306)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:302)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.autowireResource(CommonAnnotationBeanPostProcessor.java:522)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.getResource(CommonAnnotationBeanPostProcessor.java:496)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor$ResourceElement.getResourceToInject(CommonAnnotationBeanPostProcessor.java:627)
+	at org.springframework.beans.factory.annotation.InjectionMetadata$InjectedElement.inject(InjectionMetadata.java:169)
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:88)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.postProcessPropertyValues(CommonAnnotationBeanPostProcessor.java:318)
+	... 17 common frames omitted
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'EsDataSource' defined in class path resource [com/data/trans/config/ElasticConfig.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.data.trans.datasource.ElasticDataSource]: Factory method 'EsDataSource' threw exception; nested exception is NoNodeAvailableException[None of the configured nodes are available: [{#transport#-1}{6glUxg73Q6q0uiq8_FJ0aQ}{www.seally.cn}{47.106.77.74:9300}]]
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:599)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1173)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1067)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:513)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:483)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:306)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:302)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:208)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1138)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1066)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:585)
+	... 32 common frames omitted
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.data.trans.datasource.ElasticDataSource]: Factory method 'EsDataSource' threw exception; nested exception is NoNodeAvailableException[None of the configured nodes are available: [{#transport#-1}{6glUxg73Q6q0uiq8_FJ0aQ}{www.seally.cn}{47.106.77.74:9300}]]
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:189)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:588)
+	... 44 common frames omitted
+Caused by: org.elasticsearch.client.transport.NoNodeAvailableException: None of the configured nodes are available: [{#transport#-1}{6glUxg73Q6q0uiq8_FJ0aQ}{www.seally.cn}{47.106.77.74:9300}]
+	at org.elasticsearch.client.transport.TransportClientNodesService.ensureNodesAreAvailable(TransportClientNodesService.java:347)
+	at org.elasticsearch.client.transport.TransportClientNodesService.execute(TransportClientNodesService.java:245)
+	at org.elasticsearch.client.transport.TransportProxyClient.execute(TransportProxyClient.java:59)
+	at org.elasticsearch.client.transport.TransportClient.doExecute(TransportClient.java:363)
+	at org.elasticsearch.client.support.AbstractClient.execute(AbstractClient.java:408)
+	at org.elasticsearch.client.support.AbstractClient$ClusterAdmin.execute(AbstractClient.java:730)
+	at org.elasticsearch.action.ActionRequestBuilder.execute(ActionRequestBuilder.java:80)
+	at org.elasticsearch.action.ActionRequestBuilder.execute(ActionRequestBuilder.java:54)
+	at com.data.trans.datasource.ElasticDataSource.initDataSource(ElasticDataSource.java:44)
+	at com.data.trans.config.ElasticConfig.EsDataSource(ElasticConfig.java:40)
+	at com.data.trans.config.ElasticConfig$$EnhancerBySpringCGLIB$$fc152c30.CGLIB$EsDataSource$1(<generated>)
+	at com.data.trans.config.ElasticConfig$$EnhancerBySpringCGLIB$$fc152c30$$FastClassBySpringCGLIB$$301d6060.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invokeSuper(MethodProxy.java:228)
+	at org.springframework.context.annotation.ConfigurationClassEnhancer$BeanMethodInterceptor.intercept(ConfigurationClassEnhancer.java:358)
+	at com.data.trans.config.ElasticConfig$$EnhancerBySpringCGLIB$$fc152c30.EsDataSource(<generated>)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:162)
+	... 45 common frames omitted
+11:50:35.558 [main] INFO  com.data.trans.Application - Starting Application on dningcheng with PID 12352 (C:\Users\dning\git\dennis-demo\transboot\target\classes started by dennis in C:\Users\dning\git\dennis-demo\transboot)
+11:50:35.574 [main] INFO  com.data.trans.Application - No active profile set, falling back to default profiles: default
+11:50:36.080 [main] INFO  o.s.b.c.e.AnnotationConfigEmbeddedWebApplicationContext - Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@55dfcc6: startup date [Sat Mar 24 11:50:36 CST 2018]; root of context hierarchy
+11:50:37.214 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+11:50:38.594 [main] INFO  c.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+11:50:38.633 [main] INFO  com.data.trans.config.DruidDBConfig - druid连接池初始化完毕!
+11:50:39.783 [main] INFO  o.s.b.c.e.t.TomcatEmbeddedServletContainer - Tomcat initialized with port(s): 8080 (http)
+11:50:39.801 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+11:50:39.804 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet Engine: Apache Tomcat/8.5.23
+11:50:40.077 [localhost-startStop-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+11:50:40.077 [localhost-startStop-1] INFO  o.s.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 3997 ms
+11:50:40.405 [localhost-startStop-1] INFO  o.s.b.w.s.ServletRegistrationBean - Mapping servlet: 'dispatcherServlet' to [/]
+11:50:40.412 [localhost-startStop-1] INFO  o.s.b.w.s.FilterRegistrationBean - Mapping filter: 'characterEncodingFilter' to: [/*]
+11:50:40.413 [localhost-startStop-1] INFO  o.s.b.w.s.FilterRegistrationBean - Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+11:50:40.414 [localhost-startStop-1] INFO  o.s.b.w.s.FilterRegistrationBean - Mapping filter: 'httpPutFormContentFilter' to: [/*]
+11:50:40.414 [localhost-startStop-1] INFO  o.s.b.w.s.FilterRegistrationBean - Mapping filter: 'requestContextFilter' to: [/*]
+11:50:40.574 [main] INFO  com.data.trans.config.ElasticConfig - 开始初始化es连接池...
+11:51:03.972 [main] WARN  o.s.b.c.e.AnnotationConfigEmbeddedWebApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'cmdControlller': Injection of resource dependencies failed; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'transManager': Unsatisfied dependency expressed through field 'esSource'; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'EsDataSource' defined in class path resource [com/data/trans/config/ElasticConfig.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.data.trans.datasource.ElasticDataSource]: Factory method 'EsDataSource' threw exception; nested exception is NoNodeAvailableException[None of the configured nodes are available: [{#transport#-1}{7OJl80IKRy2-NSaguzh7ig}{www.seally.cn}{47.106.77.74:9300}]]
+11:51:03.980 [main] INFO  c.alibaba.druid.pool.DruidDataSource - {dataSource-1} closed
+11:51:03.983 [main] INFO  o.a.catalina.core.StandardService - Stopping service [Tomcat]
+11:51:04.015 [main] INFO  o.s.b.a.l.AutoConfigurationReportLoggingInitializer - 
+
+Error starting ApplicationContext. To display the auto-configuration report re-run your application with 'debug' enabled.
+11:51:04.032 [main] ERROR o.s.boot.SpringApplication - Application startup failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'cmdControlller': Injection of resource dependencies failed; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'transManager': Unsatisfied dependency expressed through field 'esSource'; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'EsDataSource' defined in class path resource [com/data/trans/config/ElasticConfig.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.data.trans.datasource.ElasticDataSource]: Factory method 'EsDataSource' threw exception; nested exception is NoNodeAvailableException[None of the configured nodes are available: [{#transport#-1}{7OJl80IKRy2-NSaguzh7ig}{www.seally.cn}{47.106.77.74:9300}]]
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.postProcessPropertyValues(CommonAnnotationBeanPostProcessor.java:321)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1264)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:553)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:483)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:306)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:302)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:197)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:761)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:867)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:543)
+	at org.springframework.boot.context.embedded.EmbeddedWebApplicationContext.refresh(EmbeddedWebApplicationContext.java:122)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:693)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:360)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:303)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1118)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1107)
+	at com.data.trans.Application.main(Application.java:19)
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'transManager': Unsatisfied dependency expressed through field 'esSource'; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'EsDataSource' defined in class path resource [com/data/trans/config/ElasticConfig.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.data.trans.datasource.ElasticDataSource]: Factory method 'EsDataSource' threw exception; nested exception is NoNodeAvailableException[None of the configured nodes are available: [{#transport#-1}{7OJl80IKRy2-NSaguzh7ig}{www.seally.cn}{47.106.77.74:9300}]]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:588)
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:88)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:366)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1264)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:553)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:483)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:306)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:302)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.autowireResource(CommonAnnotationBeanPostProcessor.java:522)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.getResource(CommonAnnotationBeanPostProcessor.java:496)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor$ResourceElement.getResourceToInject(CommonAnnotationBeanPostProcessor.java:627)
+	at org.springframework.beans.factory.annotation.InjectionMetadata$InjectedElement.inject(InjectionMetadata.java:169)
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:88)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.postProcessPropertyValues(CommonAnnotationBeanPostProcessor.java:318)
+	... 17 common frames omitted
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'EsDataSource' defined in class path resource [com/data/trans/config/ElasticConfig.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.data.trans.datasource.ElasticDataSource]: Factory method 'EsDataSource' threw exception; nested exception is NoNodeAvailableException[None of the configured nodes are available: [{#transport#-1}{7OJl80IKRy2-NSaguzh7ig}{www.seally.cn}{47.106.77.74:9300}]]
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:599)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1173)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1067)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:513)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:483)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:306)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:302)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:208)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1138)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1066)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:585)
+	... 32 common frames omitted
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.data.trans.datasource.ElasticDataSource]: Factory method 'EsDataSource' threw exception; nested exception is NoNodeAvailableException[None of the configured nodes are available: [{#transport#-1}{7OJl80IKRy2-NSaguzh7ig}{www.seally.cn}{47.106.77.74:9300}]]
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:189)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:588)
+	... 44 common frames omitted
+Caused by: org.elasticsearch.client.transport.NoNodeAvailableException: None of the configured nodes are available: [{#transport#-1}{7OJl80IKRy2-NSaguzh7ig}{www.seally.cn}{47.106.77.74:9300}]
+	at org.elasticsearch.client.transport.TransportClientNodesService.ensureNodesAreAvailable(TransportClientNodesService.java:347)
+	at org.elasticsearch.client.transport.TransportClientNodesService.execute(TransportClientNodesService.java:245)
+	at org.elasticsearch.client.transport.TransportProxyClient.execute(TransportProxyClient.java:59)
+	at org.elasticsearch.client.transport.TransportClient.doExecute(TransportClient.java:363)
+	at org.elasticsearch.client.support.AbstractClient.execute(AbstractClient.java:408)
+	at org.elasticsearch.client.support.AbstractClient$ClusterAdmin.execute(AbstractClient.java:730)
+	at org.elasticsearch.action.ActionRequestBuilder.execute(ActionRequestBuilder.java:80)
+	at org.elasticsearch.action.ActionRequestBuilder.execute(ActionRequestBuilder.java:54)
+	at com.data.trans.datasource.ElasticDataSource.initDataSource(ElasticDataSource.java:44)
+	at com.data.trans.config.ElasticConfig.EsDataSource(ElasticConfig.java:40)
+	at com.data.trans.config.ElasticConfig$$EnhancerBySpringCGLIB$$3130979a.CGLIB$EsDataSource$1(<generated>)
+	at com.data.trans.config.ElasticConfig$$EnhancerBySpringCGLIB$$3130979a$$FastClassBySpringCGLIB$$2c6fa352.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invokeSuper(MethodProxy.java:228)
+	at org.springframework.context.annotation.ConfigurationClassEnhancer$BeanMethodInterceptor.intercept(ConfigurationClassEnhancer.java:358)
+	at com.data.trans.config.ElasticConfig$$EnhancerBySpringCGLIB$$3130979a.EsDataSource(<generated>)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:162)
+	... 45 common frames omitted
+11:59:45.289 [main] INFO  com.data.trans.Application - Starting Application on dningcheng with PID 1116 (C:\Users\dning\git\dennis-demo\transboot\target\classes started by dennis in C:\Users\dning\git\dennis-demo\transboot)
+11:59:45.301 [main] INFO  com.data.trans.Application - No active profile set, falling back to default profiles: default
+11:59:45.717 [main] INFO  o.s.b.c.e.AnnotationConfigEmbeddedWebApplicationContext - Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@1356d4d4: startup date [Sat Mar 24 11:59:45 CST 2018]; root of context hierarchy
+11:59:46.778 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+11:59:48.055 [main] INFO  c.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+11:59:48.088 [main] INFO  com.data.trans.config.DruidDBConfig - druid连接池初始化完毕!
+11:59:48.920 [main] INFO  o.s.b.c.e.t.TomcatEmbeddedServletContainer - Tomcat initialized with port(s): 8080 (http)
+11:59:48.933 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+11:59:48.935 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet Engine: Apache Tomcat/8.5.23
+11:59:49.123 [localhost-startStop-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+11:59:49.123 [localhost-startStop-1] INFO  o.s.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 3406 ms
+11:59:49.428 [localhost-startStop-1] INFO  o.s.b.w.s.ServletRegistrationBean - Mapping servlet: 'dispatcherServlet' to [/]
+11:59:49.437 [localhost-startStop-1] INFO  o.s.b.w.s.FilterRegistrationBean - Mapping filter: 'characterEncodingFilter' to: [/*]
+11:59:49.438 [localhost-startStop-1] INFO  o.s.b.w.s.FilterRegistrationBean - Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+11:59:49.439 [localhost-startStop-1] INFO  o.s.b.w.s.FilterRegistrationBean - Mapping filter: 'httpPutFormContentFilter' to: [/*]
+11:59:49.439 [localhost-startStop-1] INFO  o.s.b.w.s.FilterRegistrationBean - Mapping filter: 'requestContextFilter' to: [/*]
+11:59:49.538 [main] INFO  com.data.trans.config.ElasticConfig - 开始初始化es连接池...
+12:00:13.478 [main] WARN  o.s.b.c.e.AnnotationConfigEmbeddedWebApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'cmdControlller': Injection of resource dependencies failed; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'transManager': Unsatisfied dependency expressed through field 'esSource'; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'EsDataSource' defined in class path resource [com/data/trans/config/ElasticConfig.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.data.trans.datasource.ElasticDataSource]: Factory method 'EsDataSource' threw exception; nested exception is NoNodeAvailableException[None of the configured nodes are available: [{#transport#-1}{Knnl2s9wQCqnKQ5z-4ld6w}{www.seally.cn}{47.106.77.74:9300}]]
+12:00:13.484 [main] INFO  c.alibaba.druid.pool.DruidDataSource - {dataSource-1} closed
+12:00:13.645 [main] INFO  o.a.catalina.core.StandardService - Stopping service [Tomcat]
+12:00:13.661 [main] INFO  o.s.b.a.l.AutoConfigurationReportLoggingInitializer - 
+
+Error starting ApplicationContext. To display the auto-configuration report re-run your application with 'debug' enabled.
+12:00:13.670 [main] ERROR o.s.boot.SpringApplication - Application startup failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'cmdControlller': Injection of resource dependencies failed; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'transManager': Unsatisfied dependency expressed through field 'esSource'; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'EsDataSource' defined in class path resource [com/data/trans/config/ElasticConfig.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.data.trans.datasource.ElasticDataSource]: Factory method 'EsDataSource' threw exception; nested exception is NoNodeAvailableException[None of the configured nodes are available: [{#transport#-1}{Knnl2s9wQCqnKQ5z-4ld6w}{www.seally.cn}{47.106.77.74:9300}]]
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.postProcessPropertyValues(CommonAnnotationBeanPostProcessor.java:321)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1264)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:553)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:483)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:306)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:302)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:197)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:761)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:867)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:543)
+	at org.springframework.boot.context.embedded.EmbeddedWebApplicationContext.refresh(EmbeddedWebApplicationContext.java:122)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:693)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:360)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:303)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1118)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1107)
+	at com.data.trans.Application.main(Application.java:19)
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'transManager': Unsatisfied dependency expressed through field 'esSource'; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'EsDataSource' defined in class path resource [com/data/trans/config/ElasticConfig.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.data.trans.datasource.ElasticDataSource]: Factory method 'EsDataSource' threw exception; nested exception is NoNodeAvailableException[None of the configured nodes are available: [{#transport#-1}{Knnl2s9wQCqnKQ5z-4ld6w}{www.seally.cn}{47.106.77.74:9300}]]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:588)
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:88)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:366)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1264)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:553)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:483)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:306)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:302)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.autowireResource(CommonAnnotationBeanPostProcessor.java:522)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.getResource(CommonAnnotationBeanPostProcessor.java:496)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor$ResourceElement.getResourceToInject(CommonAnnotationBeanPostProcessor.java:627)
+	at org.springframework.beans.factory.annotation.InjectionMetadata$InjectedElement.inject(InjectionMetadata.java:169)
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:88)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.postProcessPropertyValues(CommonAnnotationBeanPostProcessor.java:318)
+	... 17 common frames omitted
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'EsDataSource' defined in class path resource [com/data/trans/config/ElasticConfig.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.data.trans.datasource.ElasticDataSource]: Factory method 'EsDataSource' threw exception; nested exception is NoNodeAvailableException[None of the configured nodes are available: [{#transport#-1}{Knnl2s9wQCqnKQ5z-4ld6w}{www.seally.cn}{47.106.77.74:9300}]]
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:599)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1173)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1067)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:513)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:483)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:306)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:302)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:208)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1138)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1066)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:585)
+	... 32 common frames omitted
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.data.trans.datasource.ElasticDataSource]: Factory method 'EsDataSource' threw exception; nested exception is NoNodeAvailableException[None of the configured nodes are available: [{#transport#-1}{Knnl2s9wQCqnKQ5z-4ld6w}{www.seally.cn}{47.106.77.74:9300}]]
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:189)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:588)
+	... 44 common frames omitted
+Caused by: org.elasticsearch.client.transport.NoNodeAvailableException: None of the configured nodes are available: [{#transport#-1}{Knnl2s9wQCqnKQ5z-4ld6w}{www.seally.cn}{47.106.77.74:9300}]
+	at org.elasticsearch.client.transport.TransportClientNodesService.ensureNodesAreAvailable(TransportClientNodesService.java:347)
+	at org.elasticsearch.client.transport.TransportClientNodesService.execute(TransportClientNodesService.java:245)
+	at org.elasticsearch.client.transport.TransportProxyClient.execute(TransportProxyClient.java:59)
+	at org.elasticsearch.client.transport.TransportClient.doExecute(TransportClient.java:363)
+	at org.elasticsearch.client.support.AbstractClient.execute(AbstractClient.java:408)
+	at org.elasticsearch.client.support.AbstractClient$ClusterAdmin.execute(AbstractClient.java:730)
+	at org.elasticsearch.action.ActionRequestBuilder.execute(ActionRequestBuilder.java:80)
+	at org.elasticsearch.action.ActionRequestBuilder.execute(ActionRequestBuilder.java:54)
+	at com.data.trans.datasource.ElasticDataSource.initDataSource(ElasticDataSource.java:44)
+	at com.data.trans.config.ElasticConfig.EsDataSource(ElasticConfig.java:40)
+	at com.data.trans.config.ElasticConfig$$EnhancerBySpringCGLIB$$3566e8db.CGLIB$EsDataSource$1(<generated>)
+	at com.data.trans.config.ElasticConfig$$EnhancerBySpringCGLIB$$3566e8db$$FastClassBySpringCGLIB$$58fb084.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invokeSuper(MethodProxy.java:228)
+	at org.springframework.context.annotation.ConfigurationClassEnhancer$BeanMethodInterceptor.intercept(ConfigurationClassEnhancer.java:358)
+	at com.data.trans.config.ElasticConfig$$EnhancerBySpringCGLIB$$3566e8db.EsDataSource(<generated>)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:162)
+	... 45 common frames omitted
+12:09:16.398 [main] INFO  com.data.trans.Application - Starting Application on dningcheng with PID 12924 (C:\Users\dning\git\dennis-demo\transboot\target\classes started by dennis in C:\Users\dning\git\dennis-demo\transboot)
+12:09:16.405 [main] INFO  com.data.trans.Application - No active profile set, falling back to default profiles: default
+12:09:16.884 [main] INFO  o.s.b.c.e.AnnotationConfigEmbeddedWebApplicationContext - Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@55dfcc6: startup date [Sat Mar 24 12:09:16 CST 2018]; root of context hierarchy
+12:09:18.147 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+12:09:19.519 [main] INFO  c.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+12:09:19.559 [main] INFO  com.data.trans.config.DruidDBConfig - druid连接池初始化完毕!
+12:09:20.451 [main] INFO  o.s.b.c.e.t.TomcatEmbeddedServletContainer - Tomcat initialized with port(s): 8080 (http)
+12:09:20.466 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+12:09:20.468 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet Engine: Apache Tomcat/8.5.23
+12:09:20.696 [localhost-startStop-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+12:09:20.696 [localhost-startStop-1] INFO  o.s.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 3812 ms
+12:09:21.024 [localhost-startStop-1] INFO  o.s.b.w.s.ServletRegistrationBean - Mapping servlet: 'dispatcherServlet' to [/]
+12:09:21.034 [localhost-startStop-1] INFO  o.s.b.w.s.FilterRegistrationBean - Mapping filter: 'characterEncodingFilter' to: [/*]
+12:09:21.035 [localhost-startStop-1] INFO  o.s.b.w.s.FilterRegistrationBean - Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+12:09:21.036 [localhost-startStop-1] INFO  o.s.b.w.s.FilterRegistrationBean - Mapping filter: 'httpPutFormContentFilter' to: [/*]
+12:09:21.036 [localhost-startStop-1] INFO  o.s.b.w.s.FilterRegistrationBean - Mapping filter: 'requestContextFilter' to: [/*]
+12:09:21.200 [main] INFO  com.data.trans.config.ElasticConfig - 开始初始化es连接池...
+12:09:28.960 [main] INFO  c.d.t.datasource.ElasticDataSource - put into espool client0
+12:09:29.194 [main] INFO  c.d.t.datasource.ElasticDataSource - put into espool client1
+12:09:30.350 [main] INFO  c.d.t.datasource.ElasticDataSource - put into espool client2
+12:09:30.488 [main] INFO  c.d.t.datasource.ElasticDataSource - put into espool client3
+12:09:30.597 [main] INFO  c.d.t.datasource.ElasticDataSource - put into espool client4
+12:09:30.936 [main] INFO  c.d.t.datasource.ElasticDataSource - put into espool client5
+12:09:31.105 [main] INFO  c.d.t.datasource.ElasticDataSource - put into espool client6
+12:09:31.297 [main] INFO  c.d.t.datasource.ElasticDataSource - put into espool client7
+12:09:31.415 [main] INFO  c.d.t.datasource.ElasticDataSource - put into espool client8
+12:09:31.524 [main] INFO  c.d.t.datasource.ElasticDataSource - put into espool client9
+12:09:31.525 [main] INFO  com.data.trans.config.ElasticConfig - 初始化es连接池结束！
+12:09:32.186 [main] INFO  o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService  'clientInboundChannelExecutor'
+12:09:32.202 [main] INFO  o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService  'clientOutboundChannelExecutor'
+12:09:32.515 [main] INFO  o.s.s.c.ThreadPoolTaskScheduler - Initializing ExecutorService  'messageBrokerTaskScheduler'
+12:09:32.778 [main] INFO  o.s.w.s.s.s.WebSocketHandlerMapping - Mapped URL path [/myCmdEndpoint/**] onto handler of type [class org.springframework.web.socket.sockjs.support.SockJsHttpRequestHandler]
+12:09:32.824 [main] INFO  o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService  'brokerChannelExecutor'
+12:09:33.082 [main] INFO  o.s.w.s.m.WebSocketAnnotationMethodMessageHandler - Mapped "{[/myCmd],messageType=[MESSAGE]}" onto public com.data.trans.util.CmdUtil com.data.trans.controller.CmdControlller.cmdInter(com.data.trans.util.CmdUtil) throws java.lang.Exception
+12:09:33.467 [main] INFO  o.s.w.s.m.m.a.RequestMappingHandlerAdapter - Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@55dfcc6: startup date [Sat Mar 24 12:09:16 CST 2018]; root of context hierarchy
+12:09:33.665 [main] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/login]}" onto public java.lang.String com.data.trans.controller.ComController.login(java.util.Map<java.lang.String, java.lang.Object>,com.data.trans.model.User)
+12:09:33.672 [main] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+12:09:33.682 [main] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+12:09:33.748 [main] INFO  o.s.w.s.h.SimpleUrlHandlerMapping - Root mapping to handler of type [class org.springframework.web.servlet.mvc.ParameterizableViewController]
+12:09:33.808 [main] INFO  o.s.w.s.h.SimpleUrlHandlerMapping - Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+12:09:33.809 [main] INFO  o.s.w.s.h.SimpleUrlHandlerMapping - Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+12:09:34.039 [main] INFO  o.s.w.s.h.SimpleUrlHandlerMapping - Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+12:09:35.451 [main] WARN  o.s.b.s.r.RedisStarterDeprecationWarningAutoConfiguration - spring-boot-starter-redis is deprecated as of Spring Boot 1.4, please migrate to spring-boot-starter-data-redis
+12:09:35.791 [main] INFO  o.s.j.e.a.AnnotationMBeanExporter - Registering beans for JMX exposure on startup
+12:09:35.793 [main] INFO  o.s.j.e.a.AnnotationMBeanExporter - Bean with name 'dataSource' has been autodetected for JMX exposure
+12:09:35.809 [main] INFO  o.s.j.e.a.AnnotationMBeanExporter - Located MBean 'dataSource': registering with JMX server as MBean [com.alibaba.druid.pool:name=dataSource,type=DruidDataSource]
+12:09:35.818 [main] INFO  o.s.c.s.DefaultLifecycleProcessor - Starting beans in phase 2147483647
+12:09:35.819 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Starting...
+12:09:35.820 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [DefaultSubscriptionRegistry[cache[0 destination(s)], registry[0 sessions]]]]
+12:09:35.823 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Started.
+12:09:35.981 [main] INFO  o.s.b.c.e.t.TomcatEmbeddedServletContainer - Tomcat started on port(s): 8080 (http)
+12:09:36.001 [main] INFO  com.data.trans.Application - Started Application in 20.537 seconds (JVM running for 21.297)
+12:10:32.818 [MessageBroker-1] INFO  o.s.w.s.c.WebSocketMessageBrokerStats - WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannelpool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 1, active threads = 1, queued tasks = 0, completed tasks = 0]
+12:12:49.072 [http-nio-8080-exec-10] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring FrameworkServlet 'dispatcherServlet'
+12:12:49.074 [http-nio-8080-exec-10] INFO  o.s.web.servlet.DispatcherServlet - FrameworkServlet 'dispatcherServlet': initialization started
+12:12:49.155 [http-nio-8080-exec-10] INFO  o.s.web.servlet.DispatcherServlet - FrameworkServlet 'dispatcherServlet': initialization completed in 81 ms
+12:13:25.158 [main] INFO  com.data.trans.Application - Starting Application on dningcheng with PID 15180 (C:\Users\dning\git\dennis-demo\transboot\target\classes started by dennis in C:\Users\dning\git\dennis-demo\transboot)
+12:13:25.170 [main] INFO  com.data.trans.Application - No active profile set, falling back to default profiles: default
+12:13:25.567 [main] INFO  o.s.b.c.e.AnnotationConfigEmbeddedWebApplicationContext - Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@1356d4d4: startup date [Sat Mar 24 12:13:25 CST 2018]; root of context hierarchy
+12:13:26.547 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+12:13:27.720 [main] INFO  c.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+12:13:27.754 [main] INFO  com.data.trans.config.DruidDBConfig - druid连接池初始化完毕!
+12:13:28.554 [main] INFO  o.s.b.c.e.t.TomcatEmbeddedServletContainer - Tomcat initialized with port(s): 8080 (http)
+12:13:28.570 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+12:13:28.572 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet Engine: Apache Tomcat/8.5.23
+12:13:28.765 [localhost-startStop-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+12:13:28.767 [localhost-startStop-1] INFO  o.s.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 3200 ms
+12:13:29.070 [localhost-startStop-1] INFO  o.s.b.w.s.ServletRegistrationBean - Mapping servlet: 'dispatcherServlet' to [/]
+12:13:29.076 [localhost-startStop-1] INFO  o.s.b.w.s.FilterRegistrationBean - Mapping filter: 'characterEncodingFilter' to: [/*]
+12:13:29.076 [localhost-startStop-1] INFO  o.s.b.w.s.FilterRegistrationBean - Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+12:13:29.077 [localhost-startStop-1] INFO  o.s.b.w.s.FilterRegistrationBean - Mapping filter: 'httpPutFormContentFilter' to: [/*]
+12:13:29.077 [localhost-startStop-1] INFO  o.s.b.w.s.FilterRegistrationBean - Mapping filter: 'requestContextFilter' to: [/*]
+12:13:29.169 [main] INFO  com.data.trans.config.ElasticConfig - 开始初始化es连接池...
+12:13:32.983 [main] INFO  c.d.t.datasource.ElasticDataSource - put into espool client0
+12:13:33.128 [main] INFO  c.d.t.datasource.ElasticDataSource - put into espool client1
+12:13:33.490 [main] INFO  c.d.t.datasource.ElasticDataSource - put into espool client2
+12:13:35.527 [main] INFO  c.d.t.datasource.ElasticDataSource - put into espool client3
+12:13:35.966 [main] INFO  c.d.t.datasource.ElasticDataSource - put into espool client4
+12:13:36.120 [main] INFO  c.d.t.datasource.ElasticDataSource - put into espool client5
+12:13:36.292 [main] INFO  c.d.t.datasource.ElasticDataSource - put into espool client6
+12:13:40.717 [main] INFO  c.d.t.datasource.ElasticDataSource - put into espool client7
+12:13:40.900 [main] INFO  c.d.t.datasource.ElasticDataSource - put into espool client8
+12:13:41.070 [main] INFO  c.d.t.datasource.ElasticDataSource - put into espool client9
+12:13:41.071 [main] INFO  com.data.trans.config.ElasticConfig - 初始化es连接池结束！
+12:13:41.567 [main] INFO  o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService  'clientInboundChannelExecutor'
+12:13:41.579 [main] INFO  o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService  'clientOutboundChannelExecutor'
+12:13:41.784 [main] INFO  o.s.s.c.ThreadPoolTaskScheduler - Initializing ExecutorService  'messageBrokerTaskScheduler'
+12:13:41.858 [main] INFO  o.s.w.s.s.s.WebSocketHandlerMapping - Mapped URL path [/myCmdEndpoint/**] onto handler of type [class org.springframework.web.socket.sockjs.support.SockJsHttpRequestHandler]
+12:13:41.876 [main] INFO  o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService  'brokerChannelExecutor'
+12:13:42.020 [main] INFO  o.s.w.s.m.WebSocketAnnotationMethodMessageHandler - Mapped "{[/myCmd],messageType=[MESSAGE]}" onto public com.data.trans.util.CmdUtil com.data.trans.controller.CmdControlller.cmdInter(com.data.trans.util.CmdUtil) throws java.lang.Exception
+12:13:42.313 [main] INFO  o.s.w.s.m.m.a.RequestMappingHandlerAdapter - Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@1356d4d4: startup date [Sat Mar 24 12:13:25 CST 2018]; root of context hierarchy
+12:13:42.387 [main] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/login]}" onto public java.lang.String com.data.trans.controller.ComController.login(java.util.Map<java.lang.String, java.lang.Object>,com.data.trans.model.User)
+12:13:42.391 [main] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+12:13:42.392 [main] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+12:13:42.407 [main] INFO  o.s.w.s.h.SimpleUrlHandlerMapping - Root mapping to handler of type [class org.springframework.web.servlet.mvc.ParameterizableViewController]
+12:13:42.428 [main] INFO  o.s.w.s.h.SimpleUrlHandlerMapping - Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+12:13:42.428 [main] INFO  o.s.w.s.h.SimpleUrlHandlerMapping - Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+12:13:42.485 [main] INFO  o.s.w.s.h.SimpleUrlHandlerMapping - Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+12:13:43.253 [main] WARN  o.s.b.s.r.RedisStarterDeprecationWarningAutoConfiguration - spring-boot-starter-redis is deprecated as of Spring Boot 1.4, please migrate to spring-boot-starter-data-redis
+12:13:43.304 [main] INFO  o.s.j.e.a.AnnotationMBeanExporter - Registering beans for JMX exposure on startup
+12:13:43.305 [main] INFO  o.s.j.e.a.AnnotationMBeanExporter - Bean with name 'dataSource' has been autodetected for JMX exposure
+12:13:43.311 [main] INFO  o.s.j.e.a.AnnotationMBeanExporter - Located MBean 'dataSource': registering with JMX server as MBean [com.alibaba.druid.pool:name=dataSource,type=DruidDataSource]
+12:13:43.314 [main] INFO  o.s.c.s.DefaultLifecycleProcessor - Starting beans in phase 2147483647
+12:13:43.315 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Starting...
+12:13:43.315 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [DefaultSubscriptionRegistry[cache[0 destination(s)], registry[0 sessions]]]]
+12:13:43.316 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Started.
+12:13:43.499 [main] INFO  o.s.b.c.e.t.TomcatEmbeddedServletContainer - Tomcat started on port(s): 8080 (http)
+12:13:43.506 [main] INFO  com.data.trans.Application - Started Application in 18.946 seconds (JVM running for 19.476)
+12:14:41.873 [MessageBroker-1] INFO  o.s.w.s.c.WebSocketMessageBrokerStats - WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannelpool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 1, active threads = 1, queued tasks = 0, completed tasks = 0]
+12:26:17.730 [main] INFO  com.data.trans.Application - Starting Application on dningcheng with PID 2780 (C:\Users\dning\git\dennis-demo\transboot\target\classes started by dennis in C:\Users\dning\git\dennis-demo\transboot)
+12:26:17.734 [main] INFO  com.data.trans.Application - No active profile set, falling back to default profiles: default
+12:26:18.150 [main] INFO  o.s.b.c.e.AnnotationConfigEmbeddedWebApplicationContext - Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@1356d4d4: startup date [Sat Mar 24 12:26:18 CST 2018]; root of context hierarchy
+12:26:19.165 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+12:26:20.471 [main] INFO  c.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+12:26:20.524 [main] INFO  com.data.trans.config.DruidDBConfig - druid连接池初始化完毕!
+12:26:21.554 [main] INFO  o.s.b.c.e.t.TomcatEmbeddedServletContainer - Tomcat initialized with port(s): 8080 (http)
+12:26:21.569 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+12:26:21.570 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet Engine: Apache Tomcat/8.5.23
+12:26:21.762 [localhost-startStop-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+12:26:21.763 [localhost-startStop-1] INFO  o.s.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 3613 ms
+12:26:22.083 [localhost-startStop-1] INFO  o.s.b.w.s.ServletRegistrationBean - Mapping servlet: 'dispatcherServlet' to [/]
+12:26:22.089 [localhost-startStop-1] INFO  o.s.b.w.s.FilterRegistrationBean - Mapping filter: 'characterEncodingFilter' to: [/*]
+12:26:22.090 [localhost-startStop-1] INFO  o.s.b.w.s.FilterRegistrationBean - Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+12:26:22.090 [localhost-startStop-1] INFO  o.s.b.w.s.FilterRegistrationBean - Mapping filter: 'httpPutFormContentFilter' to: [/*]
+12:26:22.091 [localhost-startStop-1] INFO  o.s.b.w.s.FilterRegistrationBean - Mapping filter: 'requestContextFilter' to: [/*]
+12:26:22.223 [main] INFO  com.data.trans.config.ElasticConfig - 开始初始化es连接池...
+12:26:25.683 [main] INFO  c.d.t.datasource.ElasticDataSource - put into espool client0
+12:26:25.851 [main] INFO  c.d.t.datasource.ElasticDataSource - put into espool client1
+12:26:26.403 [main] INFO  c.d.t.datasource.ElasticDataSource - put into espool client2
+12:26:27.207 [main] INFO  c.d.t.datasource.ElasticDataSource - put into espool client3
+12:26:27.408 [main] INFO  c.d.t.datasource.ElasticDataSource - put into espool client4
+12:26:27.652 [main] INFO  c.d.t.datasource.ElasticDataSource - put into espool client5
+12:26:27.825 [main] INFO  c.d.t.datasource.ElasticDataSource - put into espool client6
+12:26:28.013 [main] INFO  c.d.t.datasource.ElasticDataSource - put into espool client7
+12:26:28.214 [main] INFO  c.d.t.datasource.ElasticDataSource - put into espool client8
+12:26:29.952 [main] INFO  c.d.t.datasource.ElasticDataSource - put into espool client9
+12:26:29.954 [main] INFO  com.data.trans.config.ElasticConfig - 初始化es连接池结束！
+12:26:30.568 [main] INFO  o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService  'clientInboundChannelExecutor'
+12:26:30.580 [main] INFO  o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService  'clientOutboundChannelExecutor'
+12:26:30.963 [main] INFO  o.s.s.c.ThreadPoolTaskScheduler - Initializing ExecutorService  'messageBrokerTaskScheduler'
+12:26:31.019 [main] INFO  o.s.w.s.s.s.WebSocketHandlerMapping - Mapped URL path [/myCmdEndpoint/**] onto handler of type [class org.springframework.web.socket.sockjs.support.SockJsHttpRequestHandler]
+12:26:31.034 [main] INFO  o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService  'brokerChannelExecutor'
+12:26:31.168 [main] INFO  o.s.w.s.m.WebSocketAnnotationMethodMessageHandler - Mapped "{[/myCmd],messageType=[MESSAGE]}" onto public com.data.trans.util.CmdUtil com.data.trans.controller.CmdControlller.cmdInter(com.data.trans.util.CmdUtil) throws java.lang.Exception
+12:26:31.439 [main] INFO  o.s.w.s.m.m.a.RequestMappingHandlerAdapter - Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@1356d4d4: startup date [Sat Mar 24 12:26:18 CST 2018]; root of context hierarchy
+12:26:31.561 [main] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/login]}" onto public java.lang.String com.data.trans.controller.ComController.login(java.util.Map<java.lang.String, java.lang.Object>,com.data.trans.model.User)
+12:26:31.568 [main] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+12:26:31.573 [main] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+12:26:31.596 [main] INFO  o.s.w.s.h.SimpleUrlHandlerMapping - Root mapping to handler of type [class org.springframework.web.servlet.mvc.ParameterizableViewController]
+12:26:31.618 [main] INFO  o.s.w.s.h.SimpleUrlHandlerMapping - Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+12:26:31.620 [main] INFO  o.s.w.s.h.SimpleUrlHandlerMapping - Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+12:26:31.727 [main] INFO  o.s.w.s.h.SimpleUrlHandlerMapping - Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+12:26:32.754 [main] WARN  o.s.b.s.r.RedisStarterDeprecationWarningAutoConfiguration - spring-boot-starter-redis is deprecated as of Spring Boot 1.4, please migrate to spring-boot-starter-data-redis
+12:26:32.820 [main] INFO  o.s.j.e.a.AnnotationMBeanExporter - Registering beans for JMX exposure on startup
+12:26:32.822 [main] INFO  o.s.j.e.a.AnnotationMBeanExporter - Bean with name 'dataSource' has been autodetected for JMX exposure
+12:26:32.829 [main] INFO  o.s.j.e.a.AnnotationMBeanExporter - Located MBean 'dataSource': registering with JMX server as MBean [com.alibaba.druid.pool:name=dataSource,type=DruidDataSource]
+12:26:32.833 [main] INFO  o.s.c.s.DefaultLifecycleProcessor - Starting beans in phase 2147483647
+12:26:32.834 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Starting...
+12:26:32.836 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [DefaultSubscriptionRegistry[cache[0 destination(s)], registry[0 sessions]]]]
+12:26:32.837 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Started.
+12:26:32.931 [main] INFO  o.s.b.c.e.t.TomcatEmbeddedServletContainer - Tomcat started on port(s): 8080 (http)
+12:26:32.940 [main] INFO  com.data.trans.Application - Started Application in 15.778 seconds (JVM running for 16.321)
+12:27:12.340 [main] INFO  com.data.trans.Application - Starting Application on dningcheng with PID 14408 (C:\Users\dning\git\dennis-demo\transboot\target\classes started by dennis in C:\Users\dning\git\dennis-demo\transboot)
+12:27:12.352 [main] INFO  com.data.trans.Application - No active profile set, falling back to default profiles: default
+12:27:12.737 [main] INFO  o.s.b.c.e.AnnotationConfigEmbeddedWebApplicationContext - Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@1356d4d4: startup date [Sat Mar 24 12:27:12 CST 2018]; root of context hierarchy
+12:27:13.856 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+12:27:15.457 [main] INFO  c.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+12:27:15.493 [main] INFO  com.data.trans.config.DruidDBConfig - druid连接池初始化完毕!
+12:27:16.606 [main] INFO  o.s.b.c.e.t.TomcatEmbeddedServletContainer - Tomcat initialized with port(s): 8080 (http)
+12:27:16.619 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+12:27:16.620 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet Engine: Apache Tomcat/8.5.23
+12:27:16.821 [localhost-startStop-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+12:27:16.821 [localhost-startStop-1] INFO  o.s.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 4084 ms
+12:27:17.350 [localhost-startStop-1] INFO  o.s.b.w.s.ServletRegistrationBean - Mapping servlet: 'dispatcherServlet' to [/]
+12:27:17.357 [localhost-startStop-1] INFO  o.s.b.w.s.FilterRegistrationBean - Mapping filter: 'characterEncodingFilter' to: [/*]
+12:27:17.358 [localhost-startStop-1] INFO  o.s.b.w.s.FilterRegistrationBean - Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+12:27:17.359 [localhost-startStop-1] INFO  o.s.b.w.s.FilterRegistrationBean - Mapping filter: 'httpPutFormContentFilter' to: [/*]
+12:27:17.360 [localhost-startStop-1] INFO  o.s.b.w.s.FilterRegistrationBean - Mapping filter: 'requestContextFilter' to: [/*]
+12:27:17.555 [main] INFO  com.data.trans.config.ElasticConfig - 开始初始化es连接池...
+12:27:23.338 [main] INFO  c.d.t.datasource.ElasticDataSource - put into espool client0
+12:27:23.525 [main] INFO  c.d.t.datasource.ElasticDataSource - put into espool client1
+12:27:23.876 [main] INFO  c.d.t.datasource.ElasticDataSource - put into espool client2
+12:27:24.028 [main] INFO  c.d.t.datasource.ElasticDataSource - put into espool client3
+12:27:24.235 [main] INFO  c.d.t.datasource.ElasticDataSource - put into espool client4
+12:27:24.380 [main] INFO  c.d.t.datasource.ElasticDataSource - put into espool client5
+12:27:24.535 [main] INFO  c.d.t.datasource.ElasticDataSource - put into espool client6
+12:27:24.657 [main] INFO  c.d.t.datasource.ElasticDataSource - put into espool client7
+12:27:24.916 [main] INFO  c.d.t.datasource.ElasticDataSource - put into espool client8
+12:27:25.045 [main] INFO  c.d.t.datasource.ElasticDataSource - put into espool client9
+12:27:25.046 [main] INFO  com.data.trans.config.ElasticConfig - 初始化es连接池结束！
+12:27:26.136 [main] INFO  o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService  'clientInboundChannelExecutor'
+12:27:26.170 [main] INFO  o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService  'clientOutboundChannelExecutor'
+12:27:26.661 [main] INFO  o.s.s.c.ThreadPoolTaskScheduler - Initializing ExecutorService  'messageBrokerTaskScheduler'
+12:27:26.758 [main] INFO  o.s.w.s.s.s.WebSocketHandlerMapping - Mapped URL path [/myCmdEndpoint/**] onto handler of type [class org.springframework.web.socket.sockjs.support.SockJsHttpRequestHandler]
+12:27:26.777 [main] INFO  o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService  'brokerChannelExecutor'
+12:27:26.985 [main] INFO  o.s.w.s.m.WebSocketAnnotationMethodMessageHandler - Mapped "{[/myCmd],messageType=[MESSAGE]}" onto public com.data.trans.util.CmdUtil com.data.trans.controller.CmdControlller.cmdInter(com.data.trans.util.CmdUtil) throws java.lang.Exception
+12:27:27.633 [main] INFO  o.s.w.s.m.m.a.RequestMappingHandlerAdapter - Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@1356d4d4: startup date [Sat Mar 24 12:27:12 CST 2018]; root of context hierarchy
+12:27:27.883 [main] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/login]}" onto public java.lang.String com.data.trans.controller.ComController.login(java.util.Map<java.lang.String, java.lang.Object>,com.data.trans.model.User)
+12:27:27.892 [main] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+12:27:27.894 [main] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+12:27:27.922 [main] INFO  o.s.w.s.h.SimpleUrlHandlerMapping - Root mapping to handler of type [class org.springframework.web.servlet.mvc.ParameterizableViewController]
+12:27:27.960 [main] INFO  o.s.w.s.h.SimpleUrlHandlerMapping - Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+12:27:27.961 [main] INFO  o.s.w.s.h.SimpleUrlHandlerMapping - Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+12:27:28.111 [main] INFO  o.s.w.s.h.SimpleUrlHandlerMapping - Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+12:27:30.478 [main] WARN  o.s.b.s.r.RedisStarterDeprecationWarningAutoConfiguration - spring-boot-starter-redis is deprecated as of Spring Boot 1.4, please migrate to spring-boot-starter-data-redis
+12:27:30.640 [main] INFO  o.s.j.e.a.AnnotationMBeanExporter - Registering beans for JMX exposure on startup
+12:27:30.643 [main] INFO  o.s.j.e.a.AnnotationMBeanExporter - Bean with name 'dataSource' has been autodetected for JMX exposure
+12:27:30.653 [main] INFO  o.s.j.e.a.AnnotationMBeanExporter - Located MBean 'dataSource': registering with JMX server as MBean [com.alibaba.druid.pool:name=dataSource,type=DruidDataSource]
+12:27:30.699 [main] INFO  o.s.c.s.DefaultLifecycleProcessor - Starting beans in phase 2147483647
+12:27:30.701 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Starting...
+12:27:30.705 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [DefaultSubscriptionRegistry[cache[0 destination(s)], registry[0 sessions]]]]
+12:27:30.706 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Started.
+12:27:30.965 [main] INFO  o.s.b.c.e.t.TomcatEmbeddedServletContainer - Tomcat started on port(s): 8080 (http)
+12:27:30.972 [main] INFO  com.data.trans.Application - Started Application in 19.189 seconds (JVM running for 19.744)
+12:27:33.275 [http-nio-8080-exec-10] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring FrameworkServlet 'dispatcherServlet'
+12:27:33.276 [http-nio-8080-exec-10] INFO  o.s.web.servlet.DispatcherServlet - FrameworkServlet 'dispatcherServlet': initialization started
+12:27:33.339 [http-nio-8080-exec-10] INFO  o.s.web.servlet.DispatcherServlet - FrameworkServlet 'dispatcherServlet': initialization completed in 62 ms

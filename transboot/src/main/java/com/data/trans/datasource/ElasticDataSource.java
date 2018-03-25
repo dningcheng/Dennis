@@ -21,13 +21,13 @@ public class ElasticDataSource {
 	
 	private static Logger logger = LoggerFactory.getLogger(ElasticDataSource.class);  
 	
-	private  String  host="localhost";           //集群主机
-	private  Integer port=9300;                  //端口
-	private  String  clusterName="escluster";    //集群名称
-	private  Integer initialSize=50;             //初始化大小
-	private  Integer maxSize=50;                 //最大数目
-	private  Integer minSize=50;                 //最小数目
-	private  Integer maxWait=6000;               //最大等待时间 
+	private  String  host;           //集群主机
+	private  Integer port;           //端口
+	private  String  clusterName;    //集群名称
+	private  Integer initialSize;    //初始化大小
+	private  Integer maxSize;        //最大数目
+	private  Integer minSize;        //最小数目
+	private  Integer maxWait;        //最大等待时间 
 	
 	private static LinkedList<Client> pool = new LinkedList<Client>();
 	
@@ -46,7 +46,6 @@ public class ElasticDataSource {
 			logger.info("put into espool client"+index);
 			ElasticDataSource.pool.add(client);
 		}
-		logger.info("初始化es连接池:"+ElasticDataSource.pool.size());
 	}
 	
 	public String getHost() {

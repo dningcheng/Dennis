@@ -37,7 +37,7 @@ public class ElasticConfig extends ElasticDataSource implements EnvironmentAware
     	dataSource.setMinSize(propertyResolver.getProperty("clientPoolMinSize",Integer.class));
     	dataSource.setMaxWait(propertyResolver.getProperty("clientPoolMaxWait",Integer.class));
     	logger.info("开始初始化es连接池...");
-    	//dataSource.initDataSource();
+    	dataSource.initDataSource();
     	logger.info("初始化es连接池结束！");
 		return dataSource;
     }
