@@ -16,8 +16,6 @@ import com.data.trans.util.ApiResponse;
  */
 @ControllerAdvice
 public class GlobalExceptionHandler {
-	public static final String DEFAULT_ERROR_VIEW = "error";  
-    
 	
     /**
      * @Date 2018年3月26日
@@ -30,10 +28,11 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(value = ViewException.class)  
     public ModelAndView businessExceptionHandler(HttpServletRequest req, ViewException e) throws Exception {  
-          
-        ModelAndView view = new ModelAndView();  
-        //view.addObject("message", e.getMessage());  
-        view.setViewName(DEFAULT_ERROR_VIEW);  
+        ModelAndView view = new ModelAndView();
+        view.addObject("code", e.getCode());  
+        view.addObject("message", e.getMessage()); 
+        view.addObject("data", e.getData()); 
+        view.setViewName(e.getViewName());  
         return view;  
     }  
       

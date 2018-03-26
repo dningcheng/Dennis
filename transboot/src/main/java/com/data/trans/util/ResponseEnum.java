@@ -11,6 +11,7 @@ public enum ResponseEnum {
 	PARAM_ERR(600,"参数错误"),
 	AUTH_ERR(601,"无权操作"),
 	USER_UNKNOW(602,"用户不存在"),
+	PASS_UNMATCH(603,"密码错误"),
 	;
 	private int code;
 	private String message;

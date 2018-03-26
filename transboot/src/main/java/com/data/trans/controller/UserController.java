@@ -4,10 +4,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.data.trans.model.Translog;
@@ -42,24 +45,25 @@ public class UserController {
 		}else{
 			System.out.println("存在，存储获取到："+loginUser.getUserName());
 		}*/
-		try {
-			SystemUser loginUser = systemUserService.getSystemUser(user);
-			if(loginUser == null ){
-				throw new ViewException(ResponseEnum.USER_UNKNOW);
-			}
-			//登陆成功
-			if(loginUser.getPassword().equals(EncryptUtil.Encrypt(user.getPassword(), true))){
-				
-				List<Translog> logs = translogService.getTranslogList(null);
-				
-				map.put("logs", logs);
-				
-				return "/index";
-			}
-			throw new ViewException(ResponseEnum.USER_UNKNOW);
-		} catch (Exception e) {
-			throw new ViewException(ResponseEnum.USER_UNKNOW);
+		
+		if(StringUtils.isEmpty(user.getAccount()) && StringUtils.isEmpty(user.getPassword())){
+			throw new ViewException(ResponseEnum.USER_UNKNOW,user.getAccount(),"/login");
 		}
+		
+		SystemUser loginUser = systemUserService.getSystemUser(user);
+		if(loginUser == null ){
+			throw new ViewException(ResponseEnum.USER_UNKNOW,user.getAccount(),"/login");
+		}
+		//登陆成功
+		if(loginUser.getPassword().equals(EncryptUtil.Encrypt(user.getPassword(), true))){
+			
+			List<Translog> logs = translogService.getTranslogList(null);
+			
+			map.put("logs", logs);
+			
+			return "/index";
+		}
+		throw new ViewException(ResponseEnum.PASS_UNMATCH,user.getAccount(),"/login");
 	}
 	
 }

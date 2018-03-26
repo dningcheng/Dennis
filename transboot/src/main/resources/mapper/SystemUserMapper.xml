@@ -4,10 +4,10 @@
 	
 	<sql id="idUserIdAccountIdentityWhere">
 		<where>
-		<if test="null != id and id != '' ">and id = #{model.id}</if>
-		<if test="null != userId and userId != '' ">and user_id = #{model.userId}</if>
-		<if test="null != account and account != '' ">and account = #{model.account}</if>
-		<if test="null != identity and identity != '' ">and identity = #{model.identity}</if>
+		<if test="null != id and id != '' ">and id = #{id}</if>
+		<if test="null != userId and userId != '' ">and user_id = #{userId}</if>
+		<if test="null != account and account != '' ">and account = #{account}</if>
+		<if test="null != identity and identity != '' ">and identity = #{identity}</if>
 		</where>
 	</sql>
 	
@@ -15,7 +15,7 @@
 		<id column="id" property="id"/>
 		<result column="user_id" property="userId"/>
 		<result column="account" property="account"/>
-		<result column="password" property="password"/>
+		<!-- <result column="password" property="password"/> -->
 		<result column="nick" property="nick"/>
 		<result column="name" property="name"/>
 		<result column="sex" property="sex"/>
@@ -84,7 +84,7 @@
 		<include refid="idUserIdAccountIdentityWhere"/>
 	</select>
 	
-	<select id="listSystemUser" resultMap="systemUserAll_map" parameterType="com.data.trans.model.SystemUser">
+	<select id="listSystemUser" parameterType="com.data.trans.model.SystemUser" resultMap="systemUserAll_map">
 		select * from system_user
 		<where>
 			<if test="null != account and account != ''">and account like "%"#{account}"%",</if>
