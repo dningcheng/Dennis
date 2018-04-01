@@ -66,4 +66,33 @@ public class UserController {
 		throw new ViewException(ResponseEnum.PASS_UNMATCH,user.getAccount(),"/login");
 	}
 	
+	@RequestMapping("/main")
+	public String main(Map<String,Object> map,SystemUser user){
+		
+		/*ValueOperations<String,Object> valueOpera = redisTemplate.opsForValue();
+		
+		User loginUser = (User)valueOpera.get("user");
+		if(loginUser == null){
+			System.out.println("不存在，存储缓存："+user.getUserName());
+			valueOpera.set("user", user, 20, TimeUnit.SECONDS);
+		}else{
+			System.out.println("存在，存储获取到："+loginUser.getUserName());
+		}*/
+		
+		List<Translog> logs = translogService.getTranslogList(null);
+		
+		map.put("logs", logs);
+		
+		return "/trans";
+	}
+	
+	
+	@RequestMapping("/user/list")
+	public String userList(Map<String,Object> map,SystemUser user){
+		List<SystemUser> users = systemUserService.listSystemUser(user);
+		map.put("users", users);
+		return "/user/list";
+	}
+	
+	
 }

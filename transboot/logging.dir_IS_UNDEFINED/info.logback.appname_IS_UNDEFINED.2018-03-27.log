@@ -1,0 +1,165 @@
+10:19:40.957 [main] INFO  com.data.trans.Application - Starting Application on dningcheng with PID 15876 (C:\Users\dning\git\dennis-demo\transboot\target\classes started by dennis in C:\Users\dning\git\dennis-demo\transboot)
+10:19:40.978 [main] INFO  com.data.trans.Application - No active profile set, falling back to default profiles: default
+10:19:41.666 [main] INFO  o.s.b.c.e.AnnotationConfigEmbeddedWebApplicationContext - Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@55dfcc6: startup date [Sun Mar 25 10:19:41 CST 2018]; root of context hierarchy
+10:19:42.906 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+10:19:48.410 [main] INFO  c.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+10:19:48.779 [main] INFO  com.data.trans.config.DruidDBConfig - 数据迁移记录表 [translog] 未找到，系统已经自动创建该表！
+10:19:48.781 [main] INFO  com.data.trans.config.DruidDBConfig - druid连接池初始化完毕!
+10:19:49.772 [main] INFO  o.s.b.c.e.t.TomcatEmbeddedServletContainer - Tomcat initialized with port(s): 8080 (http)
+10:19:49.791 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+10:19:49.793 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet Engine: Apache Tomcat/8.5.23
+10:19:50.018 [localhost-startStop-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+10:19:50.021 [localhost-startStop-1] INFO  o.s.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 8355 ms
+10:19:50.565 [localhost-startStop-1] INFO  o.s.b.w.s.ServletRegistrationBean - Mapping servlet: 'dispatcherServlet' to [/]
+10:19:50.575 [localhost-startStop-1] INFO  o.s.b.w.s.FilterRegistrationBean - Mapping filter: 'characterEncodingFilter' to: [/*]
+10:19:50.576 [localhost-startStop-1] INFO  o.s.b.w.s.FilterRegistrationBean - Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+10:19:50.577 [localhost-startStop-1] INFO  o.s.b.w.s.FilterRegistrationBean - Mapping filter: 'httpPutFormContentFilter' to: [/*]
+10:19:50.578 [localhost-startStop-1] INFO  o.s.b.w.s.FilterRegistrationBean - Mapping filter: 'requestContextFilter' to: [/*]
+10:19:51.312 [main] INFO  com.data.trans.config.ElasticConfig - 开始初始化es连接池...
+10:19:57.952 [main] INFO  c.d.t.datasource.ElasticDataSource - put into espool client0
+10:19:58.177 [main] INFO  c.d.t.datasource.ElasticDataSource - put into espool client1
+10:19:58.339 [main] INFO  c.d.t.datasource.ElasticDataSource - put into espool client2
+10:19:58.706 [main] INFO  c.d.t.datasource.ElasticDataSource - put into espool client3
+10:19:59.004 [main] INFO  c.d.t.datasource.ElasticDataSource - put into espool client4
+10:20:00.825 [main] INFO  c.d.t.datasource.ElasticDataSource - put into espool client5
+10:20:00.990 [main] INFO  c.d.t.datasource.ElasticDataSource - put into espool client6
+10:20:01.225 [main] INFO  c.d.t.datasource.ElasticDataSource - put into espool client7
+10:20:02.882 [main] INFO  c.d.t.datasource.ElasticDataSource - put into espool client8
+10:20:03.095 [main] INFO  c.d.t.datasource.ElasticDataSource - put into espool client9
+10:20:03.096 [main] INFO  com.data.trans.config.ElasticConfig - 初始化es连接池结束！
+10:20:03.335 [main] INFO  o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService  'clientInboundChannelExecutor'
+10:20:03.355 [main] INFO  o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService  'clientOutboundChannelExecutor'
+10:20:03.499 [main] INFO  o.s.s.c.ThreadPoolTaskScheduler - Initializing ExecutorService  'messageBrokerTaskScheduler'
+10:20:03.630 [main] INFO  o.s.w.s.s.s.WebSocketHandlerMapping - Mapped URL path [/myCmdEndpoint/**] onto handler of type [class org.springframework.web.socket.sockjs.support.SockJsHttpRequestHandler]
+10:20:03.659 [main] INFO  o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService  'brokerChannelExecutor'
+10:20:04.221 [main] INFO  o.s.w.s.m.m.a.RequestMappingHandlerAdapter - Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@55dfcc6: startup date [Sun Mar 25 10:19:41 CST 2018]; root of context hierarchy
+10:20:04.335 [main] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/login]}" onto public java.lang.String com.data.trans.controller.ComController.login(java.util.Map<java.lang.String, java.lang.Object>,com.data.trans.model.User)
+10:20:04.340 [main] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+10:20:04.341 [main] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+10:20:04.368 [main] INFO  o.s.w.s.h.SimpleUrlHandlerMapping - Root mapping to handler of type [class org.springframework.web.servlet.mvc.ParameterizableViewController]
+10:20:04.387 [main] INFO  o.s.w.s.h.SimpleUrlHandlerMapping - Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+10:20:04.388 [main] INFO  o.s.w.s.h.SimpleUrlHandlerMapping - Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+10:20:04.463 [main] INFO  o.s.w.s.h.SimpleUrlHandlerMapping - Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+10:20:05.452 [main] WARN  o.s.b.s.r.RedisStarterDeprecationWarningAutoConfiguration - spring-boot-starter-redis is deprecated as of Spring Boot 1.4, please migrate to spring-boot-starter-data-redis
+10:20:05.682 [main] INFO  o.s.j.e.a.AnnotationMBeanExporter - Registering beans for JMX exposure on startup
+10:20:05.684 [main] INFO  o.s.j.e.a.AnnotationMBeanExporter - Bean with name 'dataSource' has been autodetected for JMX exposure
+10:20:05.691 [main] INFO  o.s.j.e.a.AnnotationMBeanExporter - Located MBean 'dataSource': registering with JMX server as MBean [com.alibaba.druid.pool:name=dataSource,type=DruidDataSource]
+10:20:05.700 [main] INFO  o.s.c.s.DefaultLifecycleProcessor - Starting beans in phase 2147483647
+10:20:05.700 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Starting...
+10:20:05.702 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [DefaultSubscriptionRegistry[cache[0 destination(s)], registry[0 sessions]]]]
+10:20:05.703 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Started.
+10:20:05.799 [main] INFO  o.s.b.c.e.t.TomcatEmbeddedServletContainer - Tomcat started on port(s): 8080 (http)
+10:20:05.808 [main] INFO  com.data.trans.Application - Started Application in 25.592 seconds (JVM running for 26.47)
+10:20:14.829 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring FrameworkServlet 'dispatcherServlet'
+10:20:14.829 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - FrameworkServlet 'dispatcherServlet': initialization started
+10:20:14.873 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - FrameworkServlet 'dispatcherServlet': initialization completed in 43 ms
+10:21:03.654 [MessageBroker-1] INFO  o.s.w.s.c.WebSocketMessageBrokerStats - WebSocketSession[1 current WS(1)-HttpStream(0)-HttpPoll(0), 2 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(2)-CONNECTED(2)-DISCONNECT(1)], stompBrokerRelay[null], inboundChannel[pool size = 8, active threads = 0, queued tasks = 0, completed tasks = 63], outboundChannelpool size = 4, active threads = 0, queued tasks = 0, completed tasks = 4], sockJsScheduler[pool size = 4, active threads = 1, queued tasks = 2, completed tasks = 11]
+10:22:34.336 [main] INFO  com.data.trans.Application - Starting Application on dningcheng with PID 1856 (C:\Users\dning\git\dennis-demo\transboot\target\classes started by dennis in C:\Users\dning\git\dennis-demo\transboot)
+10:22:34.345 [main] INFO  com.data.trans.Application - No active profile set, falling back to default profiles: default
+10:22:34.808 [main] INFO  o.s.b.c.e.AnnotationConfigEmbeddedWebApplicationContext - Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@55dfcc6: startup date [Sun Mar 25 10:22:34 CST 2018]; root of context hierarchy
+10:22:35.870 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+10:22:38.832 [main] INFO  c.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+10:22:38.919 [main] INFO  com.data.trans.config.DruidDBConfig - druid连接池初始化完毕!
+10:22:39.865 [main] INFO  o.s.b.c.e.t.TomcatEmbeddedServletContainer - Tomcat initialized with port(s): 8080 (http)
+10:22:39.878 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+10:22:39.880 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet Engine: Apache Tomcat/8.5.23
+10:22:40.096 [localhost-startStop-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+10:22:40.098 [localhost-startStop-1] INFO  o.s.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 5290 ms
+10:22:40.731 [localhost-startStop-1] INFO  o.s.b.w.s.ServletRegistrationBean - Mapping servlet: 'dispatcherServlet' to [/]
+10:22:40.742 [localhost-startStop-1] INFO  o.s.b.w.s.FilterRegistrationBean - Mapping filter: 'characterEncodingFilter' to: [/*]
+10:22:40.743 [localhost-startStop-1] INFO  o.s.b.w.s.FilterRegistrationBean - Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+10:22:40.744 [localhost-startStop-1] INFO  o.s.b.w.s.FilterRegistrationBean - Mapping filter: 'httpPutFormContentFilter' to: [/*]
+10:22:40.744 [localhost-startStop-1] INFO  o.s.b.w.s.FilterRegistrationBean - Mapping filter: 'requestContextFilter' to: [/*]
+10:22:41.490 [main] INFO  com.data.trans.config.ElasticConfig - 开始初始化es连接池...
+10:22:45.160 [main] INFO  c.d.t.datasource.ElasticDataSource - put into espool client0
+10:22:45.343 [main] INFO  c.d.t.datasource.ElasticDataSource - put into espool client1
+10:22:45.875 [main] INFO  c.d.t.datasource.ElasticDataSource - put into espool client2
+10:22:46.090 [main] INFO  c.d.t.datasource.ElasticDataSource - put into espool client3
+10:22:46.262 [main] INFO  c.d.t.datasource.ElasticDataSource - put into espool client4
+10:22:46.421 [main] INFO  c.d.t.datasource.ElasticDataSource - put into espool client5
+10:22:47.967 [main] INFO  c.d.t.datasource.ElasticDataSource - put into espool client6
+10:22:48.766 [main] INFO  c.d.t.datasource.ElasticDataSource - put into espool client7
+10:22:49.361 [main] INFO  c.d.t.datasource.ElasticDataSource - put into espool client8
+10:22:50.210 [main] INFO  c.d.t.datasource.ElasticDataSource - put into espool client9
+10:22:50.222 [main] INFO  com.data.trans.config.ElasticConfig - 初始化es连接池结束！
+10:22:50.504 [main] INFO  o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService  'clientInboundChannelExecutor'
+10:22:50.517 [main] INFO  o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService  'clientOutboundChannelExecutor'
+10:22:50.640 [main] INFO  o.s.s.c.ThreadPoolTaskScheduler - Initializing ExecutorService  'messageBrokerTaskScheduler'
+10:22:50.745 [main] INFO  o.s.w.s.s.s.WebSocketHandlerMapping - Mapped URL path [/myCmdEndpoint/**] onto handler of type [class org.springframework.web.socket.sockjs.support.SockJsHttpRequestHandler]
+10:22:50.775 [main] INFO  o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService  'brokerChannelExecutor'
+10:22:51.363 [main] INFO  o.s.w.s.m.m.a.RequestMappingHandlerAdapter - Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@55dfcc6: startup date [Sun Mar 25 10:22:34 CST 2018]; root of context hierarchy
+10:22:51.479 [main] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/login]}" onto public java.lang.String com.data.trans.controller.ComController.login(java.util.Map<java.lang.String, java.lang.Object>,com.data.trans.model.User)
+10:22:51.485 [main] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+10:22:51.487 [main] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+10:22:51.511 [main] INFO  o.s.w.s.h.SimpleUrlHandlerMapping - Root mapping to handler of type [class org.springframework.web.servlet.mvc.ParameterizableViewController]
+10:22:51.538 [main] INFO  o.s.w.s.h.SimpleUrlHandlerMapping - Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+10:22:51.540 [main] INFO  o.s.w.s.h.SimpleUrlHandlerMapping - Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+10:22:51.615 [main] INFO  o.s.w.s.h.SimpleUrlHandlerMapping - Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+10:22:52.782 [main] WARN  o.s.b.s.r.RedisStarterDeprecationWarningAutoConfiguration - spring-boot-starter-redis is deprecated as of Spring Boot 1.4, please migrate to spring-boot-starter-data-redis
+10:22:53.099 [main] INFO  o.s.j.e.a.AnnotationMBeanExporter - Registering beans for JMX exposure on startup
+10:22:53.102 [main] INFO  o.s.j.e.a.AnnotationMBeanExporter - Bean with name 'dataSource' has been autodetected for JMX exposure
+10:22:53.109 [main] INFO  o.s.j.e.a.AnnotationMBeanExporter - Located MBean 'dataSource': registering with JMX server as MBean [com.alibaba.druid.pool:name=dataSource,type=DruidDataSource]
+10:22:53.112 [main] INFO  o.s.c.s.DefaultLifecycleProcessor - Starting beans in phase 2147483647
+10:22:53.113 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Starting...
+10:22:53.114 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [DefaultSubscriptionRegistry[cache[0 destination(s)], registry[0 sessions]]]]
+10:22:53.115 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Started.
+10:22:53.235 [main] INFO  o.s.b.c.e.t.TomcatEmbeddedServletContainer - Tomcat started on port(s): 8080 (http)
+10:22:53.241 [main] INFO  com.data.trans.Application - Started Application in 19.6 seconds (JVM running for 20.435)
+10:23:01.395 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring FrameworkServlet 'dispatcherServlet'
+10:23:01.396 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - FrameworkServlet 'dispatcherServlet': initialization started
+10:23:01.450 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - FrameworkServlet 'dispatcherServlet': initialization completed in 54 ms
+10:24:08.252 [main] INFO  com.data.trans.Application - Starting Application on dningcheng with PID 6968 (C:\Users\dning\git\dennis-demo\transboot\target\classes started by dennis in C:\Users\dning\git\dennis-demo\transboot)
+10:24:08.262 [main] INFO  com.data.trans.Application - No active profile set, falling back to default profiles: default
+10:24:08.737 [main] INFO  o.s.b.c.e.AnnotationConfigEmbeddedWebApplicationContext - Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@55dfcc6: startup date [Sun Mar 25 10:24:08 CST 2018]; root of context hierarchy
+10:24:09.835 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+10:24:12.580 [main] INFO  c.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+10:24:12.922 [main] INFO  com.data.trans.config.DruidDBConfig - druid连接池初始化完毕!
+10:24:13.913 [main] INFO  o.s.b.c.e.t.TomcatEmbeddedServletContainer - Tomcat initialized with port(s): 8080 (http)
+10:24:13.925 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+10:24:13.927 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet Engine: Apache Tomcat/8.5.23
+10:24:14.140 [localhost-startStop-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+10:24:14.140 [localhost-startStop-1] INFO  o.s.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 5403 ms
+10:24:14.436 [localhost-startStop-1] INFO  o.s.b.w.s.ServletRegistrationBean - Mapping servlet: 'dispatcherServlet' to [/]
+10:24:14.443 [localhost-startStop-1] INFO  o.s.b.w.s.FilterRegistrationBean - Mapping filter: 'characterEncodingFilter' to: [/*]
+10:24:14.445 [localhost-startStop-1] INFO  o.s.b.w.s.FilterRegistrationBean - Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+10:24:14.446 [localhost-startStop-1] INFO  o.s.b.w.s.FilterRegistrationBean - Mapping filter: 'httpPutFormContentFilter' to: [/*]
+10:24:14.451 [localhost-startStop-1] INFO  o.s.b.w.s.FilterRegistrationBean - Mapping filter: 'requestContextFilter' to: [/*]
+10:24:15.009 [main] INFO  com.data.trans.config.ElasticConfig - 开始初始化es连接池...
+10:24:20.086 [main] INFO  c.d.t.datasource.ElasticDataSource - put into espool client0
+10:24:20.368 [main] INFO  c.d.t.datasource.ElasticDataSource - put into espool client1
+10:24:20.687 [main] INFO  c.d.t.datasource.ElasticDataSource - put into espool client2
+10:24:21.377 [main] INFO  c.d.t.datasource.ElasticDataSource - put into espool client3
+10:24:21.944 [main] INFO  c.d.t.datasource.ElasticDataSource - put into espool client4
+10:24:22.289 [main] INFO  c.d.t.datasource.ElasticDataSource - put into espool client5
+10:24:23.300 [main] INFO  c.d.t.datasource.ElasticDataSource - put into espool client6
+10:24:23.427 [main] INFO  c.d.t.datasource.ElasticDataSource - put into espool client7
+10:24:23.979 [main] INFO  c.d.t.datasource.ElasticDataSource - put into espool client8
+10:24:25.164 [main] INFO  c.d.t.datasource.ElasticDataSource - put into espool client9
+10:24:25.167 [main] INFO  com.data.trans.config.ElasticConfig - 初始化es连接池结束！
+10:24:25.518 [main] INFO  o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService  'clientInboundChannelExecutor'
+10:24:25.535 [main] INFO  o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService  'clientOutboundChannelExecutor'
+10:24:25.657 [main] INFO  o.s.s.c.ThreadPoolTaskScheduler - Initializing ExecutorService  'messageBrokerTaskScheduler'
+10:24:25.747 [main] INFO  o.s.w.s.s.s.WebSocketHandlerMapping - Mapped URL path [/myCmdEndpoint/**] onto handler of type [class org.springframework.web.socket.sockjs.support.SockJsHttpRequestHandler]
+10:24:25.774 [main] INFO  o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService  'brokerChannelExecutor'
+10:24:25.963 [main] INFO  o.s.w.s.m.WebSocketAnnotationMethodMessageHandler - Mapped "{[/myCmd],messageType=[MESSAGE]}" onto public com.data.trans.util.CmdUtil com.data.trans.websocket.WebSocketHandler.cmdInter(com.data.trans.util.CmdUtil) throws java.lang.Exception
+10:24:26.332 [main] INFO  o.s.w.s.m.m.a.RequestMappingHandlerAdapter - Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@55dfcc6: startup date [Sun Mar 25 10:24:08 CST 2018]; root of context hierarchy
+10:24:26.435 [main] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/login]}" onto public java.lang.String com.data.trans.controller.ComController.login(java.util.Map<java.lang.String, java.lang.Object>,com.data.trans.model.User)
+10:24:26.440 [main] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+10:24:26.442 [main] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+10:24:26.464 [main] INFO  o.s.w.s.h.SimpleUrlHandlerMapping - Root mapping to handler of type [class org.springframework.web.servlet.mvc.ParameterizableViewController]
+10:24:26.486 [main] INFO  o.s.w.s.h.SimpleUrlHandlerMapping - Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+10:24:26.487 [main] INFO  o.s.w.s.h.SimpleUrlHandlerMapping - Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+10:24:26.579 [main] INFO  o.s.w.s.h.SimpleUrlHandlerMapping - Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+10:24:27.584 [main] WARN  o.s.b.s.r.RedisStarterDeprecationWarningAutoConfiguration - spring-boot-starter-redis is deprecated as of Spring Boot 1.4, please migrate to spring-boot-starter-data-redis
+10:24:27.832 [main] INFO  o.s.j.e.a.AnnotationMBeanExporter - Registering beans for JMX exposure on startup
+10:24:27.833 [main] INFO  o.s.j.e.a.AnnotationMBeanExporter - Bean with name 'dataSource' has been autodetected for JMX exposure
+10:24:27.840 [main] INFO  o.s.j.e.a.AnnotationMBeanExporter - Located MBean 'dataSource': registering with JMX server as MBean [com.alibaba.druid.pool:name=dataSource,type=DruidDataSource]
+10:24:27.845 [main] INFO  o.s.c.s.DefaultLifecycleProcessor - Starting beans in phase 2147483647
+10:24:27.845 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Starting...
+10:24:27.846 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [DefaultSubscriptionRegistry[cache[0 destination(s)], registry[0 sessions]]]]
+10:24:27.847 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Started.
+10:24:27.921 [main] INFO  o.s.b.c.e.t.TomcatEmbeddedServletContainer - Tomcat started on port(s): 8080 (http)
+10:24:27.928 [main] INFO  com.data.trans.Application - Started Application in 20.337 seconds (JVM running for 21.193)
+10:24:36.074 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring FrameworkServlet 'dispatcherServlet'
+10:24:36.075 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - FrameworkServlet 'dispatcherServlet': initialization started
+10:24:36.117 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - FrameworkServlet 'dispatcherServlet': initialization completed in 42 ms

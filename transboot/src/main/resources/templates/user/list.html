@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>数据管理系统</title>
+<script th:src="@{{path}/js/sockjs.min.js(path=${contextPath})}"></script>
+<script th:src="@{{path}/js/stomp.min.js(path=${contextPath})}"></script>
+<script th:src="@{{path}/js/jquery-3.2.1.min.js(path=${contextPath})}"></script>
+<script th:src="@{{path}/js/bootstrap.js(path=${contextPath})}"></script>
+<link rel="stylesheet" th:href="@{{path}/css/bootstrap.min.css(path=${contextPath})}" />
+<style type="text/css">
+	body{font-size: 12px;}
+	.form-inline > .form-group > input{margin-right: 20px;}
+	.header{background-color: #CCCCCC;}
+	.pagination > li > a:hover{background-color: #CCCCCC;}
+}
+	
+</style>
+</head>
+<body>
+<div class="container-fluid">
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h3 class="panel-title">用户管理</h3>
+    </div>
+    <div class="panel-body">
+       	<form class="form-inline">
+		  <div class="form-group">
+		    <label for="name">姓名</label>
+		    <input type="text" class="form-control" id="name" placeholder="search">
+		  </div>
+		  <div class="form-group">
+		    <label for="nick">昵称</label>
+		    <input type="text" class="form-control" id="nick" placeholder="search">
+		  </div>
+		  <div class="form-group">
+		    <label for="account">账号</label>
+		    <input type="text" class="form-control" id="account" placeholder="search">
+		  </div>
+		  <div class="form-group">
+		    <label for="phone">联系方式</label>
+		    <input type="text" class="form-control" id="phone" placeholder="search">
+		  </div>
+		  <button type="submit" class="btn btn-primary">&nbsp;&nbsp;搜&nbsp;索&nbsp;&nbsp;</button>
+		</form>
+    </div>
+    <table class="table table-bordered table-hover"> 
+	    <tr class="header">
+	        <th>姓名</th>
+	        <th>昵称</th>
+	        <th>账号</th>
+	        <th>联系方式</th>
+	        <th>身份证号</th>
+	        <th>性别</th>
+	        <th>操作</th>
+	    </tr>
+		<tr th:each="user : ${users}">
+		    <td th:text="${user.name}"></td>
+		    <td th:text="${user.nick}"></td>
+		    <td th:text="${user.account}"></td>
+		    <td th:text="${user.phone}">无</td>
+		    <td th:text="${user.identity}">无</td>
+		    <td th:text="${user.sex}">男</td>
+		    <td>
+		    	<a href="#">新增</a>
+		    	<a href="#">修改</a>
+		    	<a href="#">删除</a>
+		    </td>
+		</tr>
+	</table>
+	<div class="panel-footer">
+		<ul class="pagination" style="display: inline;">
+			<li><a href="#">首页</a></li>
+		    <li><a href="#">&laquo;</a></li>
+		    <li><a href="#">1</a></li>
+		    <li><a href="#">2</a></li>
+		    <li><a href="#">3</a></li>
+		    <li><a href="#">4</a></li>
+		    <li><a href="#">5</a></li>
+		    <li><a href="#">&raquo;</a></li>
+		    <li><a href="#">尾页</a></li>
+		</ul>
+		<div class="input-group input-group-sm" style="width: 100px;">
+		  <input type="text" class="form-control" placeholder="0" >
+		  <a href="#" class="input-group-addon " id="sizing-addon3">跳转</a>
+		</div>
+	</div>
+</div>
+	
+</div>
+<!-- js脚本 -->
+<script type="text/javascript">
+$(function(){
+	/* $("#loginBtn").click(function(){
+		$.ajax({
+		   type: "POST",
+		   url: "login.ation",
+		   data: $("#loginForm").serialize(),
+		   success: function(data){
+		     	alert(data.code+" "+data.message);
+		   },
+		   err:function(data){
+			   alert("系统异常");
+		   }
+		});
+	}); */
+});
+</script>
+</body>
+</html>
