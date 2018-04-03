@@ -51,7 +51,8 @@ public class TransManager {
 	@Autowired
     private SimpMessagingTemplate socketTemplate;
 	
-	@Value("${elastic.client.import.index}")  
+	//@Value("${elastic.client.import.index}")  
+	@Value("${esIndex:wyglsystemlog}")  
 	private String index;//es数据导入索引库
 	
 	@Value("${elastic.client.import.type}")  

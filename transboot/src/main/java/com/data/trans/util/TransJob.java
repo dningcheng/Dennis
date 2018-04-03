@@ -112,8 +112,8 @@ public class TransJob implements Runnable{
 	    		log.setOpMethod(executeQuery.getString("op_method"));
 	    		log.setOpContent(executeQuery.getString("op_content"));
 	    		log.setOpResult(executeQuery.getString("op_result"));
-	    		Date date = executeQuery.getDate("op_time");
-	    		log.setOpTime(date);
+	    		Date optime = (Date)executeQuery.getObject("op_time");
+	    		log.setOpTime(optime);
 	    		log.setModuleParkPlate(executeQuery.getString("module_park_plate"));
 	    		logs.add(log);
 			}
