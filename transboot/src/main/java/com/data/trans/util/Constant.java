@@ -27,6 +27,7 @@ public interface Constant {
 	int CMD_TRANS_STOP_GLOBAL = 3;//停止转换
 	int CMD_TRANS_STOP_SUB    = 4;//停止转换
 	int CMD_GET_TRANS_RESULT  = 5;//获取处理结果数据（用于刷新报表）
+	int CMD_DELETE_TRANS_RESULT  = 6;//清空转移记录表数据
 	
 	//服务器端推命令常量
 	int CMD_PUSH_FINISHED_TRANS_TABLE_RECORDS = 100;//全局整体任务转换记录表生成结束

@@ -79,9 +79,8 @@ public class TranslogServiceImpl implements TranslogService {
 	}
 
 	@Override
-	public void clearTranslog() {
-		translogMapper.clearTranslog();
+	public int clearTranslog() {
+		return translogMapper.clearTranslog();
 	}
-	
 	
 }

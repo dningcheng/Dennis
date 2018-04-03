@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.util.StringUtils;
 
 import com.data.trans.util.ElasticDataSource;
 
@@ -14,17 +15,23 @@ public class ElasticConfig {
 	
 	private Logger logger = LoggerFactory.getLogger(ElasticConfig.class);  
     
-    //@Value("${elastic.server.host}")
-	@Value("${eshost:localhost}")
-    private String host;  
-      
-    //@Value("${elastic.server.port}")
-	@Value("${esport:9300}")
+	@Value("${esHost:000}")
+    private String host; 
+	
+	@Value("${elastic.server.host}")
+    private String defaultHost; 
+	
+	@Value("${esPort:000}")
     private Integer port;  
+	
+	@Value("${elastic.server.port}")
+    private Integer defaultPort;  
       
-    //@Value("${elastic.server.clusterName}")
-	@Value("${esclustername:elasticsearch}")
+	@Value("${esClusterName:000}")
     private String clusterName;
+	
+	@Value("${elastic.server.clusterName}")
+    private String defaultClusterName;
     
     @Value("${elastic.client.pool.initialSize}")  
     private Integer initialSize;  
@@ -44,9 +51,9 @@ public class ElasticConfig {
     	
 		ElasticDataSource dataSource = new ElasticDataSource();
 		
-    	dataSource.setHost(host);
-    	dataSource.setClusterName(clusterName);
-    	dataSource.setPort(port);
+    	dataSource.setHost("000".equals(host)?defaultHost:host);
+    	dataSource.setClusterName("000".equals(clusterName)?defaultClusterName:clusterName);
+    	dataSource.setPort(port.intValue() == 0?defaultPort:port);
     	dataSource.setInitialSize(initialSize);
     	dataSource.setMaxSize(maxSize);
     	dataSource.setMinSize(minSize);

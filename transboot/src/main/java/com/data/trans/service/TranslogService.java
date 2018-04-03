@@ -28,6 +28,6 @@ public interface TranslogService {
 
 	EchartsModel getCurTransEchartsOption();
 
-	void clearTranslog();
+	int clearTranslog();
 	
 }

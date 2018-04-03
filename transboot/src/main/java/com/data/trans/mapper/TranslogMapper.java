@@ -27,6 +27,6 @@ public interface TranslogMapper {
 	
 	List<Translog> getTranslogList(Translog log);
 
-	void clearTranslog();
+	int clearTranslog();
 	
 }

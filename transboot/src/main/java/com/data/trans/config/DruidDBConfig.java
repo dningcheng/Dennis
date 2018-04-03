@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.util.StringUtils;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.pool.DruidPooledConnection;
@@ -26,22 +27,29 @@ public class DruidDBConfig {
 	
 	private static Logger logger = LoggerFactory.getLogger(DruidDBConfig.class);  
      
-//    @Value("${spring.datasource.url}")  
-//    private String dbUrl;  //使用下面的dbhost和dbport取代
-    
-	@Value("${dbhost:localhost}")  
+	@Value("${dbHost:000}")  
 	private String dbhost;
 	
-    @Value("${dbport:3306}")  
+    @Value("${dbPort:000}")  
     private String dbport;
     
-    //@Value("${spring.datasource.username}")
-    @Value("${dbusername:root}")
-    private String username;  
+    @Value("${dbDataBase:000}")  
+    private String dbdatabase;
+    
+    @Value("${spring.datasource.url}")  
+    private String defaultDbUrl;  //同时取代以上三个参数
+    
+    @Value("${dbUserName:000}")
+    private String username;
+    
+    @Value("${spring.datasource.username}")
+    private String defaultUserName;
       
-    //@Value("${spring.datasource.password}")
-    @Value("${dbpassword:root}")
+    @Value("${dbPassWord:000}")
     private String password;  
+    
+    @Value("${spring.datasource.password}")
+    private String defaultPassWord;
       
     @Value("${spring.datasource.driverClassName}")  
     private String driverClassName;  
@@ -92,12 +100,18 @@ public class DruidDBConfig {
     @Bean(name = "dataSource",destroyMethod = "close")//声明其为Bean实例  
     public DruidDataSource dataSource() throws Exception{  
         DruidDataSource datasource = new DruidDataSource();  
-          
-        //datasource.setUrl(dbUrl);
-        datasource.setUrl("jdbc:mysql://"+dbhost+":"+dbport+"/db_unitpropertybase?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull");
         
-        datasource.setUsername(username);  
-        datasource.setPassword(password);  
+        //以传递的参数优先
+        if("000".equals(dbhost) || "000".equals(dbport) || "000".equals(dbdatabase)){
+        	datasource.setUrl(defaultDbUrl);
+        }else{
+        	datasource.setUrl("jdbc:mysql://"+dbhost+":"+dbport+"/"+dbdatabase+"?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull");
+        }
+        
+        //传递参数优先
+        datasource.setUsername(StringUtils.hasText(username)?username:defaultUserName);  
+        datasource.setPassword(StringUtils.hasText(password)?password:defaultPassWord);  
+        
         datasource.setDriverClassName(driverClassName);  
         
         //configuration  

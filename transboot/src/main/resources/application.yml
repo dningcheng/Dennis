@@ -7,9 +7,9 @@ spring:
     datasource:
         name: myDataSource
         type: com.alibaba.druid.pool.DruidDataSource  
-        url: jdbc:mysql://192.168.0.98:3306/db_unitpropertybase?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull
-        username: dev_wygl
-        password: dev_wygl
+        url: jdbc:mysql://www.seally.cn:3306/dennis?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull
+        username: root
+        password: root
         driverClassName: com.mysql.jdbc.Driver
 #---------druid连接池的配置信息 ---------
         initialSize: 50  
@@ -37,7 +37,7 @@ spring:
 #---------Elastic的配置信息-----------
 elastic:
     server:
-        host: 192.168.0.104                              #es服务器ip
+        host: localhost                             #es服务器ip
         port: 9300                                       #es服务监听端口
         clusterName: es_cluster                          #es服务集群名称
     client:

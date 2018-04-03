@@ -17,13 +17,19 @@ public class ComController {
 	TranslogService translogService;
 	
 	@RequestMapping("/login")
-	public String login(Map<String,Object> map){
+	public String login(Map<String,Object> map,String userName,String passWord){
 		
-		List<Translog> logs = translogService.getTranslogList(null);
-		
-		map.put("logs", logs);
-		
-		return "/index";
+		if("ad".equals(userName) && "min".equals(passWord)){
+			List<Translog> logs = translogService.getTranslogList(null);
+			
+			map.put("logs", logs);
+			
+			return "/index";
+			
+		}else{
+			map.put("msg", "用户名密码错误！");
+			return "/login";
+		}
 	}
 	
 }

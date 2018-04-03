@@ -51,15 +51,23 @@ public class TransManager {
 	@Autowired
     private SimpMessagingTemplate socketTemplate;
 	
-	//@Value("${elastic.client.import.index}")  
-	@Value("${esIndex:wyglsystemlog}")  
+	@Value("${esIndex:000}")  
 	private String index;//es数据导入索引库
 	
-	@Value("${elastic.client.import.type}")  
+	@Value("${elastic.client.import.index}")  
+	private String defaultIndex;//es数据导入索引库
+	
+	@Value("${esType:000}")  
 	private String type;//es数据导入类型
 	
-	@Value("${trans.datasource.table.name}")  
+	@Value("${elastic.client.import.type}")  
+	private String defaultType;//es数据导入类型
+	
+	@Value("${dbTableName:000}")  
 	private String tableName;//es数据导入数据来源表
+	
+	@Value("${trans.datasource.table.name}")  
+	private String defaultTableName;//es数据导入数据来源表
 	
 	@Value("${trans.thread.pool.size}")  
 	private Integer threads;//es数据导入批量提交每批数目
@@ -70,10 +78,10 @@ public class TransManager {
 	@Value("${trans.datasource.table.fetchSize}")  
 	private Integer fetchSize;//每次加载到内存中的表中记录数
 	
-	@Value("${idmin:0}")  
+	@Value("${idMin:0}")  
 	private Integer idmin;//id最小值
 	
-	@Value("${idmax:3714955}")  
+	@Value("${idMax:0}")  
 	private Integer idmax;//id最大值
 	
 	//线程池
@@ -83,6 +91,12 @@ public class TransManager {
 	
 	//数据迁移启动方法
 	public CmdUtil startTrans(){
+		
+		tableName = ("000".equals(tableName)?defaultTableName:tableName);
+		
+		index = ("000".equals(index)?defaultIndex:index);
+		
+		type = ("000".equals(type)?defaultType:type);
 		
 		List<Translog> logs = translogService.getTranslogList(null);
 		if((logs != null && logs.size() > 0)){
@@ -172,6 +186,13 @@ public class TransManager {
 	
 	//数据迁移启动方法
 	public CmdUtil startTrans(Integer translogId){
+		
+		tableName = ("000".equals(tableName)?defaultTableName:tableName);
+		
+		index = ("000".equals(index)?defaultIndex:index);
+		
+		type = ("000".equals(type)?defaultType:type);
+		
 		
 		if(transState == Constant.STATE_TRANS_STARTING){
 			return CmdUtil.getError("主任务正在进行中，请勿开启子任务！");

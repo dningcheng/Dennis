@@ -24,6 +24,7 @@
 	<a id="connect" href="#" onclick="connect();">手动连接</a>
 	<a id="disconnect" href="#" onclick="disconnect();">断开连接</a>
 	<a id="startTrans"  href="#" onclick="sendCmd(1,'');">启动迁移</a>
+	<a id="clear"  href="#" onclick="clearTranslog();" style="color: red;margin-left: 200px;">清空迁移记录</a>
 	<!-- <img id="con1" alt="" th:src="@{images/transing.gif}" > -->
 </div>
 <div class="row">
@@ -224,9 +225,13 @@ function useResponse(message) {
 		//disconnect();
 	}
 	//局部手动启动子任务转换完成
-	if(message.code==200 && message.cmd==102){
+	if(message.code==200 && message.cmd== 6){
 		//子任务完成推送
-		
+		alert("清理转移记录表成功！页面3秒后自动刷新！");
+		window.setTimeout(function(){
+		   	 //发送数据刷新请求
+			location.reload();
+		},3000);
 	}
 }
 
@@ -254,6 +259,12 @@ $(function(){
 	
 });
 
+//清空转移记录
+function clearTranslog(){
+	if(confirm("确定清空么。清空后转移记录将不存在，如果不同时清空es中已经转移的数据，再次启动会转移进去重复数据！")){
+		sendCmd(6,'');	
+	}
+}
 
 </script>
 </body>

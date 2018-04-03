@@ -40,6 +40,8 @@ public class CmdControlller {
 				return CmdUtil.getResponse(transManager.startTrans(Integer.valueOf(message.getData().toString())),message.getCmd());
 			case Constant.CMD_GET_TRANS_RESULT:
 				return CmdUtil.getSuccess(translogService.getCurTransEchartsOption(),message.getCmd());
+			case Constant.CMD_DELETE_TRANS_RESULT:
+				return CmdUtil.getSuccess(translogService.clearTranslog(),message.getCmd());
 			default:
 				return CmdUtil.getError("命令未识别",Constant.CODE_UNKNOW,message.getCmd());
 		}
