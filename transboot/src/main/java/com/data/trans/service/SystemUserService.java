@@ -3,6 +3,7 @@ package com.data.trans.service;
 import java.util.List;
 
 import com.data.trans.model.SystemUser;
+import com.data.trans.util.ApiResponse;
 
 /**
  * @Date 2018年3月25日
@@ -18,7 +19,7 @@ public interface SystemUserService {
 	 * @param model
 	 * @return
 	 */
-	Integer addSystemUser(SystemUser model);
+	ApiResponse<String> addSystemUser(SystemUser model);
 	
 	/**
 	 * @Date 2018年3月25日
@@ -27,7 +28,7 @@ public interface SystemUserService {
 	 * @param model
 	 * @return
 	 */
-	Integer delSystemUser(SystemUser model);
+	ApiResponse<String> delSystemUser(SystemUser model);
 
 	/**
 	 * @Date 2018年3月25日
@@ -36,7 +37,7 @@ public interface SystemUserService {
 	 * @param model
 	 * @return
 	 */
-	Integer updateSystemUser(SystemUser model);
+	ApiResponse<String> updateSystemUser(SystemUser model);
 	
 	/**
 	 * @Date 2018年3月25日

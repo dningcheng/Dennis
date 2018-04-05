@@ -20,6 +20,7 @@
 		<result column="name" property="name"/>
 		<result column="sex" property="sex"/>
 		<result column="phone" property="phone"/>
+		<result column="email" property="email"/>
 		<result column="identity" property="identity"/>
 		<result column="head_img" property="headImg"/>
 		<result column="address" property="address"/>
@@ -35,7 +36,7 @@
 			sex,
 			phone,
 			identity,
-			mail,
+			email,
 			head_img,
 			address
 			)
@@ -48,7 +49,7 @@
 			#{sex},
 			#{phone},
 			#{identity},
-			#{mail},
+			#{email},
 			#{headImg},
 			#{address}
 			)
@@ -63,12 +64,12 @@
 		<set>
 			<if test="null != account and account != ''">account=#{account},</if>
 			<if test="null != nick and nick != ''">nick=#{nick},</if>
-			<if test="null != name and name != ''">sex=#{name},</if>
+			<if test="null != name and name != ''">name=#{name},</if>
 			<if test="null != sex and sex != ''">sex=#{sex},</if>
-			<if test="null != phone and phone != ''">phone=#{phone}</if>
-			<if test="null != identity and identity != ''">identity=#{identity}</if>
-			<if test="null != mail and mail != ''">mail=#{mail}</if>
-			<if test="null != headImg and headImg != ''">head_img=#{headImg}</if>
+			<if test="null != phone and phone != ''">phone=#{phone},</if>
+			<if test="null != identity and identity != ''">identity=#{identity},</if>
+			<if test="null != email and email != ''">email=#{email},</if>
+			<if test="null != headImg and headImg != ''">head_img=#{headImg},</if>
 			<if test="null != address and address != ''">address=#{address}</if>
 		</set>
 	</sql>
@@ -93,7 +94,7 @@
 			<if test="null != sex and sex != ''">sex = #{sex},</if>
 			<if test="null != phone and phone != ''">phone like "%"#{phone}"%",</if>
 			<if test="null != identity and identity != ''">identity like "%"#{identity}"%",</if>
-			<if test="null != mail and mail != ''">mail like "%"#{mail}"%",</if>
+			<if test="null != email and email != ''">email like "%"#{email}"%",</if>
 			<if test="null != address and address != ''">address like "%"#{address}"%",</if>
 		</where>
 	</select>

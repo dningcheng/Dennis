@@ -5,13 +5,14 @@ package com.data.trans.util;
  * @Description 系统统一消息码值枚举
  */
 public enum ResponseEnum {
-	SUCCESS(200,"OK"),
-	ERROR(500,"系统异常"),
-	NOT_FIND(404,"未能识别"),
-	PARAM_ERR(600,"参数错误"),
-	AUTH_ERR(601,"无权操作"),
-	USER_UNKNOW(602,"用户不存在"),
-	PASS_UNMATCH(603,"密码错误"),
+	SUCCESS(200,"操作成功!"),
+	ERROR(500,"系统异常!"),
+	FAILED(501,"操作失败!"),
+	NOT_FIND(404,"未能识别!"),
+	PARAM_ERR(600,"参数错误!"),
+	AUTH_ERR(601,"无权操作!"),
+	USER_UNKNOW(602,"用户不存在!"),
+	PASS_UNMATCH(603,"密码错误!"),
 	;
 	private int code;
 	private String message;

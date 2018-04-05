@@ -18,7 +18,7 @@ public class SystemUser implements Serializable{
 	private String name; //用户名
 	private Integer sex; //性别
 	private String phone;//联系方式
-	private String mail; //邮箱
+	private String email; //邮箱
 	private String headImg;//头像
 	private String address;//住址
 	private String identity;//身份证号
@@ -71,11 +71,11 @@ public class SystemUser implements Serializable{
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	public String getMail() {
-		return mail;
+	public String getEmail() {
+		return email;
 	}
-	public void setMail(String mail) {
-		this.mail = mail;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	public String getHeadImg() {
 		return headImg;

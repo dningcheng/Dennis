@@ -10,6 +10,7 @@ import com.data.trans.exception.AjaxException;
 import com.data.trans.mapper.SystemUserMapper;
 import com.data.trans.model.SystemUser;
 import com.data.trans.service.SystemUserService;
+import com.data.trans.util.ApiResponse;
 import com.data.trans.util.EncryptUtil;
 import com.data.trans.util.ResponseEnum;
 import com.data.trans.util.UUidUtil;
@@ -26,7 +27,7 @@ public class SystemUserServiceImpl implements SystemUserService {
 	private SystemUserMapper systemUserMapper;
 	
 	@Override
-	public Integer addSystemUser(SystemUser model) {
+	public ApiResponse<String> addSystemUser(SystemUser model) {
 		
 		String account = model.getAccount();
 		String password = model.getPassword();
@@ -41,24 +42,24 @@ public class SystemUserServiceImpl implements SystemUserService {
 		//uuid生成用户唯一标识
 		model.setUserId(UUidUtil.generateUUid());
 		
-		return systemUserMapper.addSystemUser(model);
+		return systemUserMapper.addSystemUser(model)==1?ApiResponse.success():ApiResponse.response(ResponseEnum.FAILED);
 	}
 
 	@Override
-	public Integer delSystemUser(SystemUser model) {
+	public ApiResponse<String> delSystemUser(SystemUser model) {
 		//没有传递唯一身份标识抛异常，防止账号全删操作
 		checkSafeOpt(model);
 		
-		return systemUserMapper.delSystemUser(model);
+		return systemUserMapper.delSystemUser(model)==1?ApiResponse.success():ApiResponse.response(ResponseEnum.FAILED);
 	}
 
 	@Override
-	public Integer updateSystemUser(SystemUser model) {
+	public ApiResponse<String> updateSystemUser(SystemUser model) {
 		
 		//没有传递唯一身份标识抛异常，防止账号全改操作
 		checkSafeOpt(model);
 		
-		return systemUserMapper.updateSystemUser(model);
+		return systemUserMapper.updateSystemUser(model)==1?ApiResponse.success():ApiResponse.response(ResponseEnum.FAILED);
 	}
 
 	@Override

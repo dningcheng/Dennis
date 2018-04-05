@@ -42,13 +42,20 @@ spring:
         # 合并多个DruidDataSource的监控数据  
         #useGlobalDataSourceStat: true 
 #-------模板引擎thymeleaf配置-----------
-    thymeleaf: 
-        cache: false
-        prefix: classpath:/templates
-        suffix: .html
-        encoding: UTF-8
-        content-type: text/html
-        mode: html
+#    thymeleaf: 
+#        cache: false
+#        prefix: classpath:/templates
+# #       suffix: .html
+#        encoding: UTF-8
+#        content-type: text/html
+#        mode: html
+
+#-------模板引擎jsp配置-----------
+    mvc: 
+        view: 
+            prefix: /WEB-INF/page/ #页面默认前缀目录
+            suffix: .jsp #响应页面默认后缀
+#去除jsp缓存
 
 #-------Redis配置-----------
     redis:
