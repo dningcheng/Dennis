@@ -148,7 +148,7 @@
 <div class="footer-left" >
    <ul id="main-nav" class="nav nav-tabs nav-stacked">
         <li class="active">
-            <a target="content-iframe" href="main.action"><i class="glyphicon glyphicon-th-large"></i>首页</a>
+            <a target="content-iframe" href="#"><i class="glyphicon glyphicon-th-large"></i>首页</a>
         </li>
         <li>
         	 <!-- 使用boostrap的data-target或是a标签特有的href设置一个id选择器如"#menu_1" 然后加上data-toggle="collapse" 接下来用一个ul块设定其id对应为之前的选择器，就可以达到点击展开折叠效果-->
@@ -194,7 +194,7 @@
 <!-- 左侧菜单-end -->
 <!-- 右侧工作区-begin -->
 <div class="footer-right" >
-	<iframe id="content-iframe" style="border: 0px;" name="content-iframe" src="main.action" ></iframe>
+	<iframe id="content-iframe" style="border: 0px;" name="content-iframe" src="#" ></iframe>
 </div>
 <!-- 右侧工作区-end-->
 </footer>

@@ -37,10 +37,6 @@ import org.elasticsearch.search.Scroll;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.sort.SortOrder;
 import org.elasticsearch.transport.client.PreBuiltTransportClient;
-import org.junit.BeforeClass;
-import org.junit.runner.RunWith;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.data.trans.annotation.EsDocument;
 import com.data.trans.annotation.EsField;
@@ -50,75 +46,12 @@ import com.data.trans.annotation.EsField;
  * @author dnc
  * @Description Elastic相关工具类
  */
-@RunWith(SpringJUnit4ClassRunner.class) // SpringJUnit支持，由此引入Spring-Test框架支持！ 
-@SpringBootTest(classes=ElasticUtil.class)
 public class ElasticUtil {
 	
 	private static Client client = null;
 	
 	public static int searchMaxNum = 10000;//es常规查询最大能够查询的条数，超过后会抛出异常
 	
-	/*public static void main(String[] args) {
-		//initClient();
-		
-		//排序参数
-		Map<String,Integer> sortMap = new HashMap<>();
-		sortMap.put("id", 0);
-		long total =0;
-		String scrollId = null;
-		List<Object> list = new ArrayList<>();
-		SearchResponse resp = null;
-		
-		//滚动查询演示
-		int size = 5;
-		resp = multiMatchScrollSearch(client,"logindex5","systemlog",size,60L,sortMap,"wanke",new String[]{"userAccount","unitName","unitName.kw","opMethod","apiCode","opContent"});
-		list = ElasticUtil.getDataListByHits(resp.getHits().getHits(), SystemLog.class);
-		total = resp.getHits().getTotalHits();
-		System.out.println("总数："+total+"  当前获取"+list.size()+":"+JSON.toJSONString(list));
-		//首次建立查询并返回结果之后使用游标翻页查询
-		scrollId = resp.getScrollId();
-		do{
-			resp = scrollSearch(client,scrollId,null);
-			total = resp.getHits().getTotalHits();
-			list = ElasticUtil.getDataListByHits(resp.getHits().getHits(), SystemLog.class);
-			System.out.println("总数："+total+"  当前获取"+list.size()+":"+JSON.toJSONString(list));
-		}while(list!= null && list.size()!=0);
-		
-		//常规分页查询
-		int from = 0,size=5;
-		do{
-			resp = multiMatchSearch(client,"logindex5","systemlog",from,size,sortMap,"wanke",new String[]{"userAccount","unitName","unitName.kw","opMethod","apiCode","opContent"});
-			list = ElasticUtil.getDataListByHits(resp.getHits().getHits(), SystemLog.class);
-			total = resp.getHits().getTotalHits();
-			list = ElasticUtil.getDataListByHits(resp.getHits().getHits(), SystemLog.class);
-			System.out.println("总数："+total+"  当前获取"+list.size()+":"+JSON.toJSONString(list));
-			from+=size;
-		}while(list!= null && list.size()!=0);
-		
-		//修改文档
-		Map<String,Object> queryMap = new HashMap<>();
-		queryMap.put("id",1);
-		SearchResponse termSearch = termSearch(client, "logindex5","systemlog", 0, 20, sortMap, queryMap);
-		System.out.println(termSearch.getHits().getHits()[0].getSourceAsString());
-		
-		Map<String,Object> updateData = new HashMap<>();
-		List<List<String>> testList = new ArrayList<>();
-		List<String> subLestList = new ArrayList<>();
-		subLestList.add("Test1");
-		subLestList.add("Test3");
-		subLestList.add("Test2");
-		testList.add(subLestList);
-		updateData.put("apiCode", testList);
-		
-		updateData.put("unitId", "2019-01-17T12:07:57.832Z");//1431619200000
-		
-		updateDocument(client, "logindex5","systemlog", "AWD96KOk-ulqxJ1pAwi2", updateData);
-		
-		
-		System.out.println(termSearch(client, "logindex5","systemlog", 0, 20, sortMap, queryMap).getHits().getHits()[0].getSourceAsString());
-	}*/
-	
-	@BeforeClass
 	public static void initClient(){
 		// 设置集群名字
     	Settings settings = Settings.builder()

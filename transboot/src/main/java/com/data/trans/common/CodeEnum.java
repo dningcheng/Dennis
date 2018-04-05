@@ -30,10 +30,4 @@ public enum CodeEnum {
 		this.code = code;
 	}
 
-	public static void main(String[] args) {
-		System.out.println(CodeEnum.ERR.getCode()+
-				CodeEnum.ERR.getMessage()+
-				CodeEnum.ERR.name()+
-				CodeEnum.ERR.ordinal());
-	}
 }

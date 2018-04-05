@@ -1421,3 +1421,400 @@ org.apache.jasper.JasperException: /WEB-INF/page/user/edit.jsp (line: [33], colu
 02:39:36.745 [restartedMain] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Started.
 02:39:36.780 [restartedMain] INFO  o.s.b.c.e.t.TomcatEmbeddedServletContainer - Tomcat started on port(s): 8080 (http)
 02:39:36.783 [restartedMain] INFO  com.data.trans.Application - Started Application in 5.459 seconds (JVM running for 889.796)
+04:51:41.607 [restartedMain] INFO  com.data.trans.Application - Starting Application on dningcheng with PID 9712 (C:\Users\dning\gitNew\dennis-demo\transboot\target\classes started by dennis in C:\Users\dning\gitNew\dennis-demo\transboot)
+04:51:41.609 [restartedMain] INFO  com.data.trans.Application - No active profile set, falling back to default profiles: default
+04:51:41.701 [restartedMain] INFO  o.s.b.c.e.AnnotationConfigEmbeddedWebApplicationContext - Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@3ccc0f74: startup date [Fri Apr 06 04:51:41 CST 2018]; root of context hierarchy
+04:51:43.512 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+04:51:45.691 [restartedMain] INFO  c.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+04:51:45.759 [restartedMain] INFO  com.data.trans.config.DruidDBConfig - druid连接池初始化完毕!
+04:51:46.704 [restartedMain] INFO  o.s.b.c.e.t.TomcatEmbeddedServletContainer - Tomcat initialized with port(s): 8080 (http)
+04:51:46.721 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+04:51:46.724 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet Engine: Apache Tomcat/8.5.23
+04:51:47.090 [localhost-startStop-1] INFO  org.apache.jasper.servlet.TldScanner - At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+04:51:47.100 [localhost-startStop-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+04:51:47.100 [localhost-startStop-1] INFO  o.s.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 5399 ms
+04:51:47.521 [localhost-startStop-1] INFO  o.s.b.w.s.ServletRegistrationBean - Mapping servlet: 'dispatcherServlet' to [/]
+04:51:47.529 [localhost-startStop-1] INFO  o.s.b.w.s.FilterRegistrationBean - Mapping filter: 'characterEncodingFilter' to: [/*]
+04:51:47.530 [localhost-startStop-1] INFO  o.s.b.w.s.FilterRegistrationBean - Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+04:51:47.531 [localhost-startStop-1] INFO  o.s.b.w.s.FilterRegistrationBean - Mapping filter: 'httpPutFormContentFilter' to: [/*]
+04:51:47.532 [localhost-startStop-1] INFO  o.s.b.w.s.FilterRegistrationBean - Mapping filter: 'requestContextFilter' to: [/*]
+04:51:48.235 [restartedMain] INFO  com.data.trans.config.ElasticConfig - 开始初始化es连接池...
+04:51:50.866 [restartedMain] INFO  c.d.t.datasource.ElasticDataSource - put into espool client0
+04:51:51.017 [restartedMain] INFO  c.d.t.datasource.ElasticDataSource - put into espool client1
+04:51:51.166 [restartedMain] INFO  c.d.t.datasource.ElasticDataSource - put into espool client2
+04:51:51.316 [restartedMain] INFO  c.d.t.datasource.ElasticDataSource - put into espool client3
+04:51:51.443 [restartedMain] INFO  c.d.t.datasource.ElasticDataSource - put into espool client4
+04:51:51.578 [restartedMain] INFO  c.d.t.datasource.ElasticDataSource - put into espool client5
+04:51:51.704 [restartedMain] INFO  c.d.t.datasource.ElasticDataSource - put into espool client6
+04:51:51.838 [restartedMain] INFO  c.d.t.datasource.ElasticDataSource - put into espool client7
+04:51:51.963 [restartedMain] INFO  c.d.t.datasource.ElasticDataSource - put into espool client8
+04:51:52.268 [restartedMain] INFO  c.d.t.datasource.ElasticDataSource - put into espool client9
+04:51:52.269 [restartedMain] INFO  com.data.trans.config.ElasticConfig - 初始化es连接池结束！
+04:51:52.535 [restartedMain] INFO  o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService  'clientInboundChannelExecutor'
+04:51:52.549 [restartedMain] INFO  o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService  'clientOutboundChannelExecutor'
+04:51:52.677 [restartedMain] INFO  o.s.s.c.ThreadPoolTaskScheduler - Initializing ExecutorService  'messageBrokerTaskScheduler'
+04:51:52.761 [restartedMain] INFO  o.s.w.s.s.s.WebSocketHandlerMapping - Mapped URL path [/myCmdEndpoint/**] onto handler of type [class org.springframework.web.socket.sockjs.support.SockJsHttpRequestHandler]
+04:51:52.789 [restartedMain] INFO  o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService  'brokerChannelExecutor'
+04:51:52.956 [restartedMain] INFO  o.s.w.s.m.WebSocketAnnotationMethodMessageHandler - Mapped "{[/myCmd],messageType=[MESSAGE]}" onto public com.data.trans.util.CmdUtil com.data.trans.websocket.WebSocketController.cmdInter(com.data.trans.util.CmdUtil) throws java.lang.Exception
+04:51:53.297 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerAdapter - Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@3ccc0f74: startup date [Fri Apr 06 04:51:41 CST 2018]; root of context hierarchy
+04:51:53.392 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/user/main]}" onto public java.lang.String com.data.trans.controller.UserController.main(java.util.Map<java.lang.String, java.lang.Object>,com.data.trans.model.SystemUser)
+04:51:53.393 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/user/delete]}" onto public com.data.trans.util.ApiResponse<java.lang.String> com.data.trans.controller.UserController.userDelete(com.data.trans.model.SystemUser)
+04:51:53.395 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/user/save]}" onto public com.data.trans.util.ApiResponse<java.lang.String> com.data.trans.controller.UserController.userSave(com.data.trans.model.SystemUser)
+04:51:53.396 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/user/edit]}" onto public java.lang.String com.data.trans.controller.UserController.userEdit(java.util.Map<java.lang.String, java.lang.Object>,com.data.trans.model.SystemUser)
+04:51:53.398 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/user/list]}" onto public java.lang.String com.data.trans.controller.UserController.userList(java.util.Map<java.lang.String, java.lang.Object>,com.data.trans.model.SystemUser)
+04:51:53.399 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/user/login]}" onto public java.lang.String com.data.trans.controller.UserController.login(java.util.Map<java.lang.String, java.lang.Object>,com.data.trans.model.SystemUser)
+04:51:53.405 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+04:51:53.406 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+04:51:53.429 [restartedMain] INFO  o.s.w.s.h.SimpleUrlHandlerMapping - Root mapping to handler of type [class org.springframework.web.servlet.mvc.ParameterizableViewController]
+04:51:53.449 [restartedMain] INFO  o.s.w.s.h.SimpleUrlHandlerMapping - Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+04:51:53.450 [restartedMain] INFO  o.s.w.s.h.SimpleUrlHandlerMapping - Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+04:51:53.494 [restartedMain] INFO  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Detected @ExceptionHandler methods in globalExceptionHandler
+04:51:53.567 [restartedMain] INFO  o.s.w.s.h.SimpleUrlHandlerMapping - Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+04:51:54.390 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+04:51:54.412 [restartedMain] WARN  o.s.b.s.r.RedisStarterDeprecationWarningAutoConfiguration - spring-boot-starter-redis is deprecated as of Spring Boot 1.4, please migrate to spring-boot-starter-data-redis
+04:51:54.773 [restartedMain] INFO  o.s.j.e.a.AnnotationMBeanExporter - Registering beans for JMX exposure on startup
+04:51:54.775 [restartedMain] INFO  o.s.j.e.a.AnnotationMBeanExporter - Bean with name 'dataSource' has been autodetected for JMX exposure
+04:51:54.782 [restartedMain] INFO  o.s.j.e.a.AnnotationMBeanExporter - Located MBean 'dataSource': registering with JMX server as MBean [com.alibaba.druid.pool:name=dataSource,type=DruidDataSource]
+04:51:54.787 [restartedMain] INFO  o.s.c.s.DefaultLifecycleProcessor - Starting beans in phase 2147483647
+04:51:54.789 [restartedMain] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Starting...
+04:51:54.790 [restartedMain] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [DefaultSubscriptionRegistry[cache[0 destination(s)], registry[0 sessions]]]]
+04:51:54.792 [restartedMain] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Started.
+04:51:54.954 [restartedMain] INFO  o.s.b.c.e.t.TomcatEmbeddedServletContainer - Tomcat started on port(s): 8080 (http)
+04:51:54.971 [restartedMain] INFO  com.data.trans.Application - Started Application in 14.019 seconds (JVM running for 14.699)
+04:52:00.634 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring FrameworkServlet 'dispatcherServlet'
+04:52:00.634 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - FrameworkServlet 'dispatcherServlet': initialization started
+04:52:00.721 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - FrameworkServlet 'dispatcherServlet': initialization completed in 86 ms
+04:52:52.785 [MessageBroker-1] INFO  o.s.w.s.c.WebSocketMessageBrokerStats - WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannelpool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 1, active threads = 1, queued tasks = 0, completed tasks = 0]
+04:58:39.918 [Thread-8] INFO  o.s.b.c.e.AnnotationConfigEmbeddedWebApplicationContext - Closing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@3ccc0f74: startup date [Fri Apr 06 04:51:41 CST 2018]; root of context hierarchy
+04:58:39.923 [Thread-8] INFO  o.s.c.s.DefaultLifecycleProcessor - Stopping beans in phase 2147483647
+04:58:39.926 [Thread-8] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopping...
+04:58:39.926 [Thread-8] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [DefaultSubscriptionRegistry[cache[0 destination(s)], registry[0 sessions]]]]
+04:58:39.927 [Thread-8] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopped.
+04:58:39.928 [Thread-8] WARN  o.s.b.f.s.DisposableBeanAdapter - Invocation of destroy method failed on bean with name 'classPathFileSystemWatcher': java.lang.NullPointerException
+04:58:39.941 [Thread-8] INFO  o.s.j.e.a.AnnotationMBeanExporter - Unregistering JMX-exposed beans on shutdown
+04:58:39.943 [Thread-8] INFO  o.s.j.e.a.AnnotationMBeanExporter - Unregistering JMX-exposed beans
+04:58:39.944 [Thread-8] INFO  o.s.s.c.ThreadPoolTaskExecutor - Shutting down ExecutorService 'brokerChannelExecutor'
+04:58:39.945 [Thread-8] INFO  o.s.s.c.ThreadPoolTaskScheduler - Shutting down ExecutorService 'messageBrokerTaskScheduler'
+04:58:39.945 [Thread-8] INFO  o.s.s.c.ThreadPoolTaskExecutor - Shutting down ExecutorService 'clientOutboundChannelExecutor'
+04:58:39.945 [Thread-8] INFO  o.s.s.c.ThreadPoolTaskExecutor - Shutting down ExecutorService 'clientInboundChannelExecutor'
+04:58:42.104 [restartedMain] INFO  com.data.trans.Application - Starting Application on dningcheng with PID 6828 (C:\Users\dning\gitNew\dennis-demo\transboot\target\classes started by dennis in C:\Users\dning\gitNew\dennis-demo\transboot)
+04:58:42.106 [restartedMain] INFO  com.data.trans.Application - No active profile set, falling back to default profiles: default
+04:58:42.220 [restartedMain] INFO  o.s.b.c.e.AnnotationConfigEmbeddedWebApplicationContext - Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@35465774: startup date [Fri Apr 06 04:58:42 CST 2018]; root of context hierarchy
+04:58:44.397 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+04:58:47.240 [restartedMain] INFO  c.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+04:58:47.302 [restartedMain] INFO  com.data.trans.config.DruidDBConfig - druid连接池初始化完毕!
+04:58:48.619 [restartedMain] INFO  o.s.b.c.e.t.TomcatEmbeddedServletContainer - Tomcat initialized with port(s): 8080 (http)
+04:58:48.640 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+04:58:48.642 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet Engine: Apache Tomcat/8.5.23
+04:58:49.181 [localhost-startStop-1] INFO  org.apache.jasper.servlet.TldScanner - At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+04:58:49.193 [localhost-startStop-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+04:58:49.193 [localhost-startStop-1] INFO  o.s.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 6973 ms
+04:58:49.693 [localhost-startStop-1] INFO  o.s.b.w.s.ServletRegistrationBean - Mapping servlet: 'dispatcherServlet' to [/]
+04:58:49.701 [localhost-startStop-1] INFO  o.s.b.w.s.FilterRegistrationBean - Mapping filter: 'characterEncodingFilter' to: [/*]
+04:58:49.702 [localhost-startStop-1] INFO  o.s.b.w.s.FilterRegistrationBean - Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+04:58:49.702 [localhost-startStop-1] INFO  o.s.b.w.s.FilterRegistrationBean - Mapping filter: 'httpPutFormContentFilter' to: [/*]
+04:58:49.703 [localhost-startStop-1] INFO  o.s.b.w.s.FilterRegistrationBean - Mapping filter: 'requestContextFilter' to: [/*]
+04:58:51.171 [restartedMain] INFO  com.data.trans.config.ElasticConfig - 开始初始化es连接池...
+04:58:54.055 [restartedMain] INFO  c.d.t.datasource.ElasticDataSource - put into espool client0
+04:58:54.215 [restartedMain] INFO  c.d.t.datasource.ElasticDataSource - put into espool client1
+04:58:54.356 [restartedMain] INFO  c.d.t.datasource.ElasticDataSource - put into espool client2
+04:58:54.490 [restartedMain] INFO  c.d.t.datasource.ElasticDataSource - put into espool client3
+04:58:54.786 [restartedMain] INFO  c.d.t.datasource.ElasticDataSource - put into espool client4
+04:58:54.917 [restartedMain] INFO  c.d.t.datasource.ElasticDataSource - put into espool client5
+04:58:55.052 [restartedMain] INFO  c.d.t.datasource.ElasticDataSource - put into espool client6
+04:58:55.189 [restartedMain] INFO  c.d.t.datasource.ElasticDataSource - put into espool client7
+04:58:55.304 [restartedMain] INFO  c.d.t.datasource.ElasticDataSource - put into espool client8
+04:58:55.410 [restartedMain] INFO  c.d.t.datasource.ElasticDataSource - put into espool client9
+04:58:55.411 [restartedMain] INFO  com.data.trans.config.ElasticConfig - 初始化es连接池结束！
+04:58:55.854 [restartedMain] INFO  o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService  'clientInboundChannelExecutor'
+04:58:55.889 [restartedMain] INFO  o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService  'clientOutboundChannelExecutor'
+04:58:56.028 [restartedMain] INFO  o.s.s.c.ThreadPoolTaskScheduler - Initializing ExecutorService  'messageBrokerTaskScheduler'
+04:58:56.109 [restartedMain] INFO  o.s.w.s.s.s.WebSocketHandlerMapping - Mapped URL path [/myCmdEndpoint/**] onto handler of type [class org.springframework.web.socket.sockjs.support.SockJsHttpRequestHandler]
+04:58:56.136 [restartedMain] INFO  o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService  'brokerChannelExecutor'
+04:58:56.331 [restartedMain] INFO  o.s.w.s.m.WebSocketAnnotationMethodMessageHandler - Mapped "{[/myCmd],messageType=[MESSAGE]}" onto public com.data.trans.util.CmdUtil com.data.trans.websocket.WebSocketController.cmdInter(com.data.trans.util.CmdUtil) throws java.lang.Exception
+04:58:56.685 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerAdapter - Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@35465774: startup date [Fri Apr 06 04:58:42 CST 2018]; root of context hierarchy
+04:58:56.772 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/user/main]}" onto public java.lang.String com.data.trans.controller.UserController.main(java.util.Map<java.lang.String, java.lang.Object>,com.data.trans.model.SystemUser)
+04:58:56.774 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/user/login]}" onto public java.lang.String com.data.trans.controller.UserController.login(java.util.Map<java.lang.String, java.lang.Object>,com.data.trans.model.SystemUser)
+04:58:56.775 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/user/save]}" onto public com.data.trans.util.ApiResponse<java.lang.String> com.data.trans.controller.UserController.userSave(com.data.trans.model.SystemUser)
+04:58:56.776 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/user/edit]}" onto public java.lang.String com.data.trans.controller.UserController.userEdit(java.util.Map<java.lang.String, java.lang.Object>,com.data.trans.model.SystemUser)
+04:58:56.777 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/user/delete]}" onto public com.data.trans.util.ApiResponse<java.lang.String> com.data.trans.controller.UserController.userDelete(com.data.trans.model.SystemUser)
+04:58:56.777 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/user/list]}" onto public java.lang.String com.data.trans.controller.UserController.userList(java.util.Map<java.lang.String, java.lang.Object>,com.data.trans.model.SystemUser)
+04:58:56.780 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+04:58:56.780 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+04:58:56.803 [restartedMain] INFO  o.s.w.s.h.SimpleUrlHandlerMapping - Root mapping to handler of type [class org.springframework.web.servlet.mvc.ParameterizableViewController]
+04:58:56.825 [restartedMain] INFO  o.s.w.s.h.SimpleUrlHandlerMapping - Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+04:58:56.826 [restartedMain] INFO  o.s.w.s.h.SimpleUrlHandlerMapping - Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+04:58:56.865 [restartedMain] INFO  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Detected @ExceptionHandler methods in globalExceptionHandler
+04:58:56.921 [restartedMain] INFO  o.s.w.s.h.SimpleUrlHandlerMapping - Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+04:58:57.653 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+04:58:57.670 [restartedMain] WARN  o.s.b.s.r.RedisStarterDeprecationWarningAutoConfiguration - spring-boot-starter-redis is deprecated as of Spring Boot 1.4, please migrate to spring-boot-starter-data-redis
+04:58:58.008 [restartedMain] INFO  o.s.j.e.a.AnnotationMBeanExporter - Registering beans for JMX exposure on startup
+04:58:58.010 [restartedMain] INFO  o.s.j.e.a.AnnotationMBeanExporter - Bean with name 'dataSource' has been autodetected for JMX exposure
+04:58:58.017 [restartedMain] INFO  o.s.j.e.a.AnnotationMBeanExporter - Located MBean 'dataSource': registering with JMX server as MBean [com.alibaba.druid.pool:name=dataSource,type=DruidDataSource]
+04:58:58.022 [restartedMain] INFO  o.s.c.s.DefaultLifecycleProcessor - Starting beans in phase 2147483647
+04:58:58.023 [restartedMain] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Starting...
+04:58:58.024 [restartedMain] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [DefaultSubscriptionRegistry[cache[0 destination(s)], registry[0 sessions]]]]
+04:58:58.026 [restartedMain] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Started.
+04:58:58.208 [restartedMain] INFO  o.s.b.c.e.t.TomcatEmbeddedServletContainer - Tomcat started on port(s): 8080 (http)
+04:58:58.224 [restartedMain] INFO  com.data.trans.Application - Started Application in 16.903 seconds (JVM running for 17.766)
+04:59:56.128 [MessageBroker-1] INFO  o.s.w.s.c.WebSocketMessageBrokerStats - WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannelpool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 1, active threads = 1, queued tasks = 0, completed tasks = 0]
+04:59:59.150 [http-nio-8080-exec-10] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring FrameworkServlet 'dispatcherServlet'
+04:59:59.150 [http-nio-8080-exec-10] INFO  o.s.web.servlet.DispatcherServlet - FrameworkServlet 'dispatcherServlet': initialization started
+04:59:59.212 [http-nio-8080-exec-10] INFO  o.s.web.servlet.DispatcherServlet - FrameworkServlet 'dispatcherServlet': initialization completed in 62 ms
+05:12:58.495 [restartedMain] INFO  com.data.trans.Application - Starting Application on dningcheng with PID 12604 (C:\Users\dning\gitNew\dennis-demo\transboot\target\classes started by dennis in C:\Users\dning\gitNew\dennis-demo\transboot)
+05:12:58.497 [restartedMain] INFO  com.data.trans.Application - No active profile set, falling back to default profiles: default
+05:12:58.584 [restartedMain] INFO  o.s.b.c.e.AnnotationConfigEmbeddedWebApplicationContext - Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@15975e1a: startup date [Fri Apr 06 05:12:58 CST 2018]; root of context hierarchy
+05:13:00.363 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+05:13:02.379 [restartedMain] INFO  c.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+05:13:02.440 [restartedMain] INFO  com.data.trans.config.DruidDBConfig - druid连接池初始化完毕!
+05:13:03.397 [restartedMain] INFO  o.s.b.c.e.t.TomcatEmbeddedServletContainer - Tomcat initialized with port(s): 8080 (http)
+05:13:03.416 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+05:13:03.419 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet Engine: Apache Tomcat/8.5.23
+05:13:03.828 [localhost-startStop-1] INFO  org.apache.jasper.servlet.TldScanner - At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+05:13:03.839 [localhost-startStop-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+05:13:03.840 [localhost-startStop-1] INFO  o.s.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 5256 ms
+05:13:04.180 [localhost-startStop-1] INFO  o.s.b.w.s.ServletRegistrationBean - Mapping servlet: 'dispatcherServlet' to [/]
+05:13:04.187 [localhost-startStop-1] INFO  o.s.b.w.s.FilterRegistrationBean - Mapping filter: 'characterEncodingFilter' to: [/*]
+05:13:04.188 [localhost-startStop-1] INFO  o.s.b.w.s.FilterRegistrationBean - Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+05:13:04.188 [localhost-startStop-1] INFO  o.s.b.w.s.FilterRegistrationBean - Mapping filter: 'httpPutFormContentFilter' to: [/*]
+05:13:04.189 [localhost-startStop-1] INFO  o.s.b.w.s.FilterRegistrationBean - Mapping filter: 'requestContextFilter' to: [/*]
+05:13:04.718 [restartedMain] INFO  com.data.trans.config.ElasticConfig - 开始初始化es连接池...
+05:13:07.063 [restartedMain] INFO  c.d.t.datasource.ElasticDataSource - put into espool client0
+05:13:07.210 [restartedMain] INFO  c.d.t.datasource.ElasticDataSource - put into espool client1
+05:13:07.363 [restartedMain] INFO  c.d.t.datasource.ElasticDataSource - put into espool client2
+05:13:07.489 [restartedMain] INFO  c.d.t.datasource.ElasticDataSource - put into espool client3
+05:13:07.617 [restartedMain] INFO  c.d.t.datasource.ElasticDataSource - put into espool client4
+05:13:07.895 [restartedMain] INFO  c.d.t.datasource.ElasticDataSource - put into espool client5
+05:13:08.018 [restartedMain] INFO  c.d.t.datasource.ElasticDataSource - put into espool client6
+05:13:08.131 [restartedMain] INFO  c.d.t.datasource.ElasticDataSource - put into espool client7
+05:13:08.254 [restartedMain] INFO  c.d.t.datasource.ElasticDataSource - put into espool client8
+05:13:08.384 [restartedMain] INFO  c.d.t.datasource.ElasticDataSource - put into espool client9
+05:13:08.385 [restartedMain] INFO  com.data.trans.config.ElasticConfig - 初始化es连接池结束！
+05:13:08.593 [restartedMain] INFO  o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService  'clientInboundChannelExecutor'
+05:13:08.607 [restartedMain] INFO  o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService  'clientOutboundChannelExecutor'
+05:13:08.685 [restartedMain] INFO  o.s.s.c.ThreadPoolTaskScheduler - Initializing ExecutorService  'messageBrokerTaskScheduler'
+05:13:08.740 [restartedMain] INFO  o.s.w.s.s.s.WebSocketHandlerMapping - Mapped URL path [/myCmdEndpoint/**] onto handler of type [class org.springframework.web.socket.sockjs.support.SockJsHttpRequestHandler]
+05:13:08.759 [restartedMain] INFO  o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService  'brokerChannelExecutor'
+05:13:08.917 [restartedMain] INFO  o.s.w.s.m.WebSocketAnnotationMethodMessageHandler - Mapped "{[/myCmd],messageType=[MESSAGE]}" onto public com.data.trans.util.CmdUtil com.data.trans.websocket.WebSocketController.cmdInter(com.data.trans.util.CmdUtil) throws java.lang.Exception
+05:13:09.165 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerAdapter - Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@15975e1a: startup date [Fri Apr 06 05:12:58 CST 2018]; root of context hierarchy
+05:13:09.244 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/user/main]}" onto public java.lang.String com.data.trans.controller.UserController.main(java.util.Map<java.lang.String, java.lang.Object>,com.data.trans.model.SystemUser)
+05:13:09.246 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/user/delete]}" onto public com.data.trans.util.ApiResponse<java.lang.String> com.data.trans.controller.UserController.userDelete(com.data.trans.model.SystemUser)
+05:13:09.246 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/user/list]}" onto public java.lang.String com.data.trans.controller.UserController.userList(java.util.Map<java.lang.String, java.lang.Object>,com.data.trans.model.SystemUser)
+05:13:09.247 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/user/login]}" onto public java.lang.String com.data.trans.controller.UserController.login(java.util.Map<java.lang.String, java.lang.Object>,com.data.trans.model.SystemUser)
+05:13:09.248 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/user/edit]}" onto public java.lang.String com.data.trans.controller.UserController.userEdit(java.util.Map<java.lang.String, java.lang.Object>,com.data.trans.model.SystemUser)
+05:13:09.248 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/user/save]}" onto public com.data.trans.util.ApiResponse<java.lang.String> com.data.trans.controller.UserController.userSave(com.data.trans.model.SystemUser)
+05:13:09.250 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+05:13:09.250 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+05:13:09.266 [restartedMain] INFO  o.s.w.s.h.SimpleUrlHandlerMapping - Root mapping to handler of type [class org.springframework.web.servlet.mvc.ParameterizableViewController]
+05:13:09.282 [restartedMain] INFO  o.s.w.s.h.SimpleUrlHandlerMapping - Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+05:13:09.283 [restartedMain] INFO  o.s.w.s.h.SimpleUrlHandlerMapping - Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+05:13:09.309 [restartedMain] INFO  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Detected @ExceptionHandler methods in globalExceptionHandler
+05:13:09.344 [restartedMain] INFO  o.s.w.s.h.SimpleUrlHandlerMapping - Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+05:13:09.899 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+05:13:09.907 [restartedMain] WARN  o.s.b.s.r.RedisStarterDeprecationWarningAutoConfiguration - spring-boot-starter-redis is deprecated as of Spring Boot 1.4, please migrate to spring-boot-starter-data-redis
+05:13:09.962 [restartedMain] INFO  o.s.j.e.a.AnnotationMBeanExporter - Registering beans for JMX exposure on startup
+05:13:09.963 [restartedMain] INFO  o.s.j.e.a.AnnotationMBeanExporter - Bean with name 'dataSource' has been autodetected for JMX exposure
+05:13:09.968 [restartedMain] INFO  o.s.j.e.a.AnnotationMBeanExporter - Located MBean 'dataSource': registering with JMX server as MBean [com.alibaba.druid.pool:name=dataSource,type=DruidDataSource]
+05:13:09.972 [restartedMain] INFO  o.s.c.s.DefaultLifecycleProcessor - Starting beans in phase 2147483647
+05:13:09.973 [restartedMain] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Starting...
+05:13:09.973 [restartedMain] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [DefaultSubscriptionRegistry[cache[0 destination(s)], registry[0 sessions]]]]
+05:13:09.974 [restartedMain] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Started.
+05:13:10.057 [restartedMain] INFO  o.s.b.c.e.t.TomcatEmbeddedServletContainer - Tomcat started on port(s): 8080 (http)
+05:13:10.068 [restartedMain] INFO  com.data.trans.Application - Started Application in 12.172 seconds (JVM running for 13.006)
+05:13:13.373 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring FrameworkServlet 'dispatcherServlet'
+05:13:13.374 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - FrameworkServlet 'dispatcherServlet': initialization started
+05:13:13.437 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - FrameworkServlet 'dispatcherServlet': initialization completed in 62 ms
+05:15:59.884 [restartedMain] INFO  com.data.trans.Application - Starting Application on dningcheng with PID 3832 (C:\Users\dning\gitNew\dennis-demo\transboot\target\classes started by dennis in C:\Users\dning\gitNew\dennis-demo\transboot)
+05:15:59.887 [restartedMain] INFO  com.data.trans.Application - No active profile set, falling back to default profiles: default
+05:16:00.097 [restartedMain] INFO  o.s.b.c.e.AnnotationConfigEmbeddedWebApplicationContext - Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@2a1e7cec: startup date [Fri Apr 06 05:16:00 CST 2018]; root of context hierarchy
+05:16:02.236 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+05:16:04.420 [restartedMain] INFO  c.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+05:16:04.520 [restartedMain] INFO  com.data.trans.config.DruidDBConfig - druid连接池初始化完毕!
+05:16:05.450 [restartedMain] INFO  o.s.b.c.e.t.TomcatEmbeddedServletContainer - Tomcat initialized with port(s): 8080 (http)
+05:16:05.466 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+05:16:05.469 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet Engine: Apache Tomcat/8.5.23
+05:16:05.886 [localhost-startStop-1] INFO  org.apache.jasper.servlet.TldScanner - At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+05:16:05.894 [localhost-startStop-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+05:16:05.895 [localhost-startStop-1] INFO  o.s.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 5798 ms
+05:16:06.252 [localhost-startStop-1] INFO  o.s.b.w.s.ServletRegistrationBean - Mapping servlet: 'dispatcherServlet' to [/]
+05:16:06.260 [localhost-startStop-1] INFO  o.s.b.w.s.FilterRegistrationBean - Mapping filter: 'characterEncodingFilter' to: [/*]
+05:16:06.261 [localhost-startStop-1] INFO  o.s.b.w.s.FilterRegistrationBean - Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+05:16:06.261 [localhost-startStop-1] INFO  o.s.b.w.s.FilterRegistrationBean - Mapping filter: 'httpPutFormContentFilter' to: [/*]
+05:16:06.262 [localhost-startStop-1] INFO  o.s.b.w.s.FilterRegistrationBean - Mapping filter: 'requestContextFilter' to: [/*]
+05:16:06.950 [restartedMain] INFO  com.data.trans.config.ElasticConfig - 开始初始化es连接池...
+05:16:09.468 [restartedMain] INFO  c.d.t.datasource.ElasticDataSource - put into espool client0
+05:16:09.612 [restartedMain] INFO  c.d.t.datasource.ElasticDataSource - put into espool client1
+05:16:09.779 [restartedMain] INFO  c.d.t.datasource.ElasticDataSource - put into espool client2
+05:16:09.920 [restartedMain] INFO  c.d.t.datasource.ElasticDataSource - put into espool client3
+05:16:10.047 [restartedMain] INFO  c.d.t.datasource.ElasticDataSource - put into espool client4
+05:16:10.194 [restartedMain] INFO  c.d.t.datasource.ElasticDataSource - put into espool client5
+05:16:10.507 [restartedMain] INFO  c.d.t.datasource.ElasticDataSource - put into espool client6
+05:16:10.637 [restartedMain] INFO  c.d.t.datasource.ElasticDataSource - put into espool client7
+05:16:10.742 [restartedMain] INFO  c.d.t.datasource.ElasticDataSource - put into espool client8
+05:16:10.867 [restartedMain] INFO  c.d.t.datasource.ElasticDataSource - put into espool client9
+05:16:10.868 [restartedMain] INFO  com.data.trans.config.ElasticConfig - 初始化es连接池结束！
+05:16:11.199 [restartedMain] INFO  o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService  'clientInboundChannelExecutor'
+05:16:11.216 [restartedMain] INFO  o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService  'clientOutboundChannelExecutor'
+05:16:11.360 [restartedMain] INFO  o.s.s.c.ThreadPoolTaskScheduler - Initializing ExecutorService  'messageBrokerTaskScheduler'
+05:16:11.454 [restartedMain] INFO  o.s.w.s.s.s.WebSocketHandlerMapping - Mapped URL path [/myCmdEndpoint/**] onto handler of type [class org.springframework.web.socket.sockjs.support.SockJsHttpRequestHandler]
+05:16:11.476 [restartedMain] INFO  o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService  'brokerChannelExecutor'
+05:16:11.702 [restartedMain] INFO  o.s.w.s.m.WebSocketAnnotationMethodMessageHandler - Mapped "{[/myCmd],messageType=[MESSAGE]}" onto public com.data.trans.util.CmdUtil com.data.trans.websocket.WebSocketController.cmdInter(com.data.trans.util.CmdUtil) throws java.lang.Exception
+05:16:12.049 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerAdapter - Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@2a1e7cec: startup date [Fri Apr 06 05:16:00 CST 2018]; root of context hierarchy
+05:16:12.132 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/user/main]}" onto public java.lang.String com.data.trans.controller.UserController.main(java.util.Map<java.lang.String, java.lang.Object>,com.data.trans.model.SystemUser)
+05:16:12.134 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/user/list]}" onto public java.lang.String com.data.trans.controller.UserController.userList(java.util.Map<java.lang.String, java.lang.Object>,com.data.trans.model.SystemUser)
+05:16:12.135 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/user/edit]}" onto public java.lang.String com.data.trans.controller.UserController.userEdit(java.util.Map<java.lang.String, java.lang.Object>,com.data.trans.model.SystemUser)
+05:16:12.135 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/user/login]}" onto public java.lang.String com.data.trans.controller.UserController.login(java.util.Map<java.lang.String, java.lang.Object>,com.data.trans.model.SystemUser)
+05:16:12.136 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/user/delete]}" onto public com.data.trans.util.ApiResponse<java.lang.String> com.data.trans.controller.UserController.userDelete(com.data.trans.model.SystemUser)
+05:16:12.137 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/user/save]}" onto public com.data.trans.util.ApiResponse<java.lang.String> com.data.trans.controller.UserController.userSave(com.data.trans.model.SystemUser)
+05:16:12.140 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+05:16:12.141 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+05:16:12.167 [restartedMain] INFO  o.s.w.s.h.SimpleUrlHandlerMapping - Root mapping to handler of type [class org.springframework.web.servlet.mvc.ParameterizableViewController]
+05:16:12.188 [restartedMain] INFO  o.s.w.s.h.SimpleUrlHandlerMapping - Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+05:16:12.189 [restartedMain] INFO  o.s.w.s.h.SimpleUrlHandlerMapping - Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+05:16:12.221 [restartedMain] INFO  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Detected @ExceptionHandler methods in globalExceptionHandler
+05:16:12.274 [restartedMain] INFO  o.s.w.s.h.SimpleUrlHandlerMapping - Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+05:16:13.006 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+05:16:13.023 [restartedMain] WARN  o.s.b.s.r.RedisStarterDeprecationWarningAutoConfiguration - spring-boot-starter-redis is deprecated as of Spring Boot 1.4, please migrate to spring-boot-starter-data-redis
+05:16:13.242 [restartedMain] INFO  o.s.j.e.a.AnnotationMBeanExporter - Registering beans for JMX exposure on startup
+05:16:13.243 [restartedMain] INFO  o.s.j.e.a.AnnotationMBeanExporter - Bean with name 'dataSource' has been autodetected for JMX exposure
+05:16:13.249 [restartedMain] INFO  o.s.j.e.a.AnnotationMBeanExporter - Located MBean 'dataSource': registering with JMX server as MBean [com.alibaba.druid.pool:name=dataSource,type=DruidDataSource]
+05:16:13.254 [restartedMain] INFO  o.s.c.s.DefaultLifecycleProcessor - Starting beans in phase 2147483647
+05:16:13.255 [restartedMain] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Starting...
+05:16:13.256 [restartedMain] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [DefaultSubscriptionRegistry[cache[0 destination(s)], registry[0 sessions]]]]
+05:16:13.258 [restartedMain] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Started.
+05:16:13.382 [restartedMain] INFO  o.s.b.c.e.t.TomcatEmbeddedServletContainer - Tomcat started on port(s): 8080 (http)
+05:16:13.393 [restartedMain] INFO  com.data.trans.Application - Started Application in 14.573 seconds (JVM running for 15.864)
+05:16:18.271 [http-nio-8080-exec-2] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring FrameworkServlet 'dispatcherServlet'
+05:16:18.271 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - FrameworkServlet 'dispatcherServlet': initialization started
+05:16:18.323 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - FrameworkServlet 'dispatcherServlet': initialization completed in 51 ms
+05:17:11.477 [MessageBroker-1] INFO  o.s.w.s.c.WebSocketMessageBrokerStats - WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannelpool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 1, active threads = 1, queued tasks = 0, completed tasks = 0]
+05:18:53.569 [restartedMain] INFO  com.data.trans.Application - Starting Application on dningcheng with PID 1220 (C:\Users\dning\gitNew\dennis-demo\transboot\target\classes started by dennis in C:\Users\dning\gitNew\dennis-demo\transboot)
+05:18:53.569 [restartedMain] INFO  com.data.trans.Application - No active profile set, falling back to default profiles: default
+05:18:53.663 [restartedMain] INFO  o.s.b.c.e.AnnotationConfigEmbeddedWebApplicationContext - Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@4458c182: startup date [Fri Apr 06 05:18:53 CST 2018]; root of context hierarchy
+05:18:55.398 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+05:18:57.706 [restartedMain] INFO  c.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+05:18:57.772 [restartedMain] INFO  com.data.trans.config.DruidDBConfig - druid连接池初始化完毕!
+05:18:58.757 [restartedMain] INFO  o.s.b.c.e.t.TomcatEmbeddedServletContainer - Tomcat initialized with port(s): 8080 (http)
+05:18:58.764 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+05:18:58.780 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet Engine: Apache Tomcat/8.5.23
+05:18:59.172 [localhost-startStop-1] INFO  org.apache.jasper.servlet.TldScanner - At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+05:18:59.172 [localhost-startStop-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+05:18:59.172 [localhost-startStop-1] INFO  o.s.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 5509 ms
+05:18:59.501 [localhost-startStop-1] INFO  o.s.b.w.s.ServletRegistrationBean - Mapping servlet: 'dispatcherServlet' to [/]
+05:18:59.517 [localhost-startStop-1] INFO  o.s.b.w.s.FilterRegistrationBean - Mapping filter: 'characterEncodingFilter' to: [/*]
+05:18:59.517 [localhost-startStop-1] INFO  o.s.b.w.s.FilterRegistrationBean - Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+05:18:59.517 [localhost-startStop-1] INFO  o.s.b.w.s.FilterRegistrationBean - Mapping filter: 'httpPutFormContentFilter' to: [/*]
+05:18:59.517 [localhost-startStop-1] INFO  o.s.b.w.s.FilterRegistrationBean - Mapping filter: 'requestContextFilter' to: [/*]
+05:19:00.577 [restartedMain] INFO  com.data.trans.config.ElasticConfig - 开始初始化es连接池...
+05:19:03.116 [restartedMain] INFO  c.d.t.datasource.ElasticDataSource - put into espool client0
+05:19:03.305 [restartedMain] INFO  c.d.t.datasource.ElasticDataSource - put into espool client1
+05:19:03.483 [restartedMain] INFO  c.d.t.datasource.ElasticDataSource - put into espool client2
+05:19:03.624 [restartedMain] INFO  c.d.t.datasource.ElasticDataSource - put into espool client3
+05:19:03.889 [restartedMain] INFO  c.d.t.datasource.ElasticDataSource - put into espool client4
+05:19:04.030 [restartedMain] INFO  c.d.t.datasource.ElasticDataSource - put into espool client5
+05:19:04.169 [restartedMain] INFO  c.d.t.datasource.ElasticDataSource - put into espool client6
+05:19:04.307 [restartedMain] INFO  c.d.t.datasource.ElasticDataSource - put into espool client7
+05:19:04.437 [restartedMain] INFO  c.d.t.datasource.ElasticDataSource - put into espool client8
+05:19:04.562 [restartedMain] INFO  c.d.t.datasource.ElasticDataSource - put into espool client9
+05:19:04.562 [restartedMain] INFO  com.data.trans.config.ElasticConfig - 初始化es连接池结束！
+05:19:04.859 [restartedMain] INFO  o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService  'clientInboundChannelExecutor'
+05:19:04.890 [restartedMain] INFO  o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService  'clientOutboundChannelExecutor'
+05:19:05.015 [restartedMain] INFO  o.s.s.c.ThreadPoolTaskScheduler - Initializing ExecutorService  'messageBrokerTaskScheduler'
+05:19:05.115 [restartedMain] INFO  o.s.w.s.s.s.WebSocketHandlerMapping - Mapped URL path [/myCmdEndpoint/**] onto handler of type [class org.springframework.web.socket.sockjs.support.SockJsHttpRequestHandler]
+05:19:05.146 [restartedMain] INFO  o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService  'brokerChannelExecutor'
+05:19:05.349 [restartedMain] INFO  o.s.w.s.m.WebSocketAnnotationMethodMessageHandler - Mapped "{[/myCmd],messageType=[MESSAGE]}" onto public com.data.trans.util.CmdUtil com.data.trans.websocket.WebSocketController.cmdInter(com.data.trans.util.CmdUtil) throws java.lang.Exception
+05:19:05.644 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerAdapter - Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@4458c182: startup date [Fri Apr 06 05:18:53 CST 2018]; root of context hierarchy
+05:19:05.722 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/user/main]}" onto public java.lang.String com.data.trans.controller.UserController.main(java.util.Map<java.lang.String, java.lang.Object>,com.data.trans.model.SystemUser)
+05:19:05.738 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/user/login]}" onto public java.lang.String com.data.trans.controller.UserController.login(java.util.Map<java.lang.String, java.lang.Object>,com.data.trans.model.SystemUser)
+05:19:05.738 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/user/list]}" onto public java.lang.String com.data.trans.controller.UserController.userList(java.util.Map<java.lang.String, java.lang.Object>,com.data.trans.model.SystemUser)
+05:19:05.738 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/user/save]}" onto public com.data.trans.util.ApiResponse<java.lang.String> com.data.trans.controller.UserController.userSave(com.data.trans.model.SystemUser)
+05:19:05.738 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/user/edit]}" onto public java.lang.String com.data.trans.controller.UserController.userEdit(java.util.Map<java.lang.String, java.lang.Object>,com.data.trans.model.SystemUser)
+05:19:05.738 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/user/delete]}" onto public com.data.trans.util.ApiResponse<java.lang.String> com.data.trans.controller.UserController.userDelete(com.data.trans.model.SystemUser)
+05:19:05.738 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+05:19:05.738 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+05:19:05.769 [restartedMain] INFO  o.s.w.s.h.SimpleUrlHandlerMapping - Root mapping to handler of type [class org.springframework.web.servlet.mvc.ParameterizableViewController]
+05:19:05.785 [restartedMain] INFO  o.s.w.s.h.SimpleUrlHandlerMapping - Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+05:19:05.785 [restartedMain] INFO  o.s.w.s.h.SimpleUrlHandlerMapping - Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+05:19:05.816 [restartedMain] INFO  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Detected @ExceptionHandler methods in globalExceptionHandler
+05:19:05.878 [restartedMain] INFO  o.s.w.s.h.SimpleUrlHandlerMapping - Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+05:19:06.628 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+05:19:06.655 [restartedMain] WARN  o.s.b.s.r.RedisStarterDeprecationWarningAutoConfiguration - spring-boot-starter-redis is deprecated as of Spring Boot 1.4, please migrate to spring-boot-starter-data-redis
+05:19:06.983 [restartedMain] INFO  o.s.j.e.a.AnnotationMBeanExporter - Registering beans for JMX exposure on startup
+05:19:06.983 [restartedMain] INFO  o.s.j.e.a.AnnotationMBeanExporter - Bean with name 'dataSource' has been autodetected for JMX exposure
+05:19:06.999 [restartedMain] INFO  o.s.j.e.a.AnnotationMBeanExporter - Located MBean 'dataSource': registering with JMX server as MBean [com.alibaba.druid.pool:name=dataSource,type=DruidDataSource]
+05:19:06.999 [restartedMain] INFO  o.s.c.s.DefaultLifecycleProcessor - Starting beans in phase 2147483647
+05:19:06.999 [restartedMain] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Starting...
+05:19:06.999 [restartedMain] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [DefaultSubscriptionRegistry[cache[0 destination(s)], registry[0 sessions]]]]
+05:19:06.999 [restartedMain] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Started.
+05:19:07.316 [restartedMain] INFO  o.s.b.c.e.t.TomcatEmbeddedServletContainer - Tomcat started on port(s): 8080 (http)
+05:19:07.410 [restartedMain] INFO  com.data.trans.Application - Started Application in 14.489 seconds (JVM running for 15.349)
+05:19:29.683 [http-nio-8080-exec-10] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring FrameworkServlet 'dispatcherServlet'
+05:19:29.696 [http-nio-8080-exec-10] INFO  o.s.web.servlet.DispatcherServlet - FrameworkServlet 'dispatcherServlet': initialization started
+05:19:29.744 [http-nio-8080-exec-10] INFO  o.s.web.servlet.DispatcherServlet - FrameworkServlet 'dispatcherServlet': initialization completed in 48 ms
+05:19:47.542 [http-nio-8080-exec-8] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved exception caused by Handler execution: com.data.trans.exception.ViewException: 用户不存在!
+05:20:05.162 [MessageBroker-1] INFO  o.s.w.s.c.WebSocketMessageBrokerStats - WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannelpool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 1, active threads = 1, queued tasks = 0, completed tasks = 0]
+05:20:34.589 [http-nio-8080-exec-5] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved exception caused by Handler execution: com.data.trans.exception.ViewException: 用户不存在!
+05:26:42.070 [restartedMain] INFO  com.data.trans.Application - Starting Application on dningcheng with PID 7020 (C:\Users\dning\gitNew\dennis-demo\transboot\target\classes started by dennis in C:\Users\dning\gitNew\dennis-demo\transboot)
+05:26:42.071 [restartedMain] INFO  com.data.trans.Application - No active profile set, falling back to default profiles: default
+05:26:42.200 [restartedMain] INFO  o.s.b.c.e.AnnotationConfigEmbeddedWebApplicationContext - Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@4bb1ffce: startup date [Fri Apr 06 05:26:42 CST 2018]; root of context hierarchy
+05:26:44.225 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+05:26:46.520 [restartedMain] INFO  c.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+05:26:46.595 [restartedMain] INFO  com.data.trans.config.DruidDBConfig - druid连接池初始化完毕!
+05:26:47.593 [restartedMain] INFO  o.s.b.c.e.t.TomcatEmbeddedServletContainer - Tomcat initialized with port(s): 8080 (http)
+05:26:47.600 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+05:26:47.616 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet Engine: Apache Tomcat/8.5.23
+05:26:47.991 [localhost-startStop-1] INFO  org.apache.jasper.servlet.TldScanner - At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+05:26:47.991 [localhost-startStop-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+05:26:47.991 [localhost-startStop-1] INFO  o.s.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 5791 ms
+05:26:48.374 [localhost-startStop-1] INFO  o.s.b.w.s.ServletRegistrationBean - Mapping servlet: 'dispatcherServlet' to [/]
+05:26:48.374 [localhost-startStop-1] INFO  o.s.b.w.s.FilterRegistrationBean - Mapping filter: 'characterEncodingFilter' to: [/*]
+05:26:48.374 [localhost-startStop-1] INFO  o.s.b.w.s.FilterRegistrationBean - Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+05:26:48.374 [localhost-startStop-1] INFO  o.s.b.w.s.FilterRegistrationBean - Mapping filter: 'httpPutFormContentFilter' to: [/*]
+05:26:48.374 [localhost-startStop-1] INFO  o.s.b.w.s.FilterRegistrationBean - Mapping filter: 'requestContextFilter' to: [/*]
+05:26:49.090 [restartedMain] INFO  com.data.trans.config.ElasticConfig - 开始初始化es连接池...
+05:26:51.665 [restartedMain] INFO  c.d.t.datasource.ElasticDataSource - put into espool client0
+05:26:51.819 [restartedMain] INFO  c.d.t.datasource.ElasticDataSource - put into espool client1
+05:26:51.979 [restartedMain] INFO  c.d.t.datasource.ElasticDataSource - put into espool client2
+05:26:52.115 [restartedMain] INFO  c.d.t.datasource.ElasticDataSource - put into espool client3
+05:26:52.240 [restartedMain] INFO  c.d.t.datasource.ElasticDataSource - put into espool client4
+05:26:52.391 [restartedMain] INFO  c.d.t.datasource.ElasticDataSource - put into espool client5
+05:26:52.479 [restartedMain] INFO  c.d.t.datasource.ElasticDataSource - put into espool client6
+05:26:52.619 [restartedMain] INFO  c.d.t.datasource.ElasticDataSource - put into espool client7
+05:26:52.729 [restartedMain] INFO  c.d.t.datasource.ElasticDataSource - put into espool client8
+05:26:52.870 [restartedMain] INFO  c.d.t.datasource.ElasticDataSource - put into espool client9
+05:26:52.870 [restartedMain] INFO  com.data.trans.config.ElasticConfig - 初始化es连接池结束！
+05:26:53.309 [restartedMain] INFO  o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService  'clientInboundChannelExecutor'
+05:26:53.325 [restartedMain] INFO  o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService  'clientOutboundChannelExecutor'
+05:26:53.499 [restartedMain] INFO  o.s.s.c.ThreadPoolTaskScheduler - Initializing ExecutorService  'messageBrokerTaskScheduler'
+05:26:53.609 [restartedMain] INFO  o.s.w.s.s.s.WebSocketHandlerMapping - Mapped URL path [/myCmdEndpoint/**] onto handler of type [class org.springframework.web.socket.sockjs.support.SockJsHttpRequestHandler]
+05:26:53.640 [restartedMain] INFO  o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService  'brokerChannelExecutor'
+05:26:54.252 [restartedMain] INFO  o.s.w.s.m.WebSocketAnnotationMethodMessageHandler - Mapped "{[/myCmd],messageType=[MESSAGE]}" onto public com.data.trans.util.CmdUtil com.data.trans.websocket.WebSocketController.cmdInter(com.data.trans.util.CmdUtil) throws java.lang.Exception
+05:26:54.645 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerAdapter - Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@4bb1ffce: startup date [Fri Apr 06 05:26:42 CST 2018]; root of context hierarchy
+05:26:54.801 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/user/main]}" onto public java.lang.String com.data.trans.controller.UserController.main(java.util.Map<java.lang.String, java.lang.Object>,com.data.trans.model.SystemUser)
+05:26:54.801 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/user/login]}" onto public java.lang.String com.data.trans.controller.UserController.login(java.util.Map<java.lang.String, java.lang.Object>,com.data.trans.model.SystemUser)
+05:26:54.801 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/user/delete]}" onto public com.data.trans.util.ApiResponse<java.lang.String> com.data.trans.controller.UserController.userDelete(com.data.trans.model.SystemUser)
+05:26:54.801 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/user/save]}" onto public com.data.trans.util.ApiResponse<java.lang.String> com.data.trans.controller.UserController.userSave(com.data.trans.model.SystemUser)
+05:26:54.801 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/user/list]}" onto public java.lang.String com.data.trans.controller.UserController.userList(java.util.Map<java.lang.String, java.lang.Object>,com.data.trans.model.SystemUser)
+05:26:54.801 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/user/edit]}" onto public java.lang.String com.data.trans.controller.UserController.userEdit(java.util.Map<java.lang.String, java.lang.Object>,com.data.trans.model.SystemUser)
+05:26:54.817 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+05:26:54.817 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+05:26:54.848 [restartedMain] INFO  o.s.w.s.h.SimpleUrlHandlerMapping - Root mapping to handler of type [class org.springframework.web.servlet.mvc.ParameterizableViewController]
+05:26:54.880 [restartedMain] INFO  o.s.w.s.h.SimpleUrlHandlerMapping - Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+05:26:54.880 [restartedMain] INFO  o.s.w.s.h.SimpleUrlHandlerMapping - Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+05:26:54.926 [restartedMain] INFO  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Detected @ExceptionHandler methods in globalExceptionHandler
+05:26:54.989 [restartedMain] INFO  o.s.w.s.h.SimpleUrlHandlerMapping - Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+05:26:55.974 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+05:26:56.043 [restartedMain] WARN  o.s.b.s.r.RedisStarterDeprecationWarningAutoConfiguration - spring-boot-starter-redis is deprecated as of Spring Boot 1.4, please migrate to spring-boot-starter-data-redis
+05:26:56.429 [restartedMain] INFO  o.s.j.e.a.AnnotationMBeanExporter - Registering beans for JMX exposure on startup
+05:26:56.444 [restartedMain] INFO  o.s.j.e.a.AnnotationMBeanExporter - Bean with name 'dataSource' has been autodetected for JMX exposure
+05:26:56.460 [restartedMain] INFO  o.s.j.e.a.AnnotationMBeanExporter - Located MBean 'dataSource': registering with JMX server as MBean [com.alibaba.druid.pool:name=dataSource,type=DruidDataSource]
+05:26:56.460 [restartedMain] INFO  o.s.c.s.DefaultLifecycleProcessor - Starting beans in phase 2147483647
+05:26:56.475 [restartedMain] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Starting...
+05:26:56.475 [restartedMain] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [DefaultSubscriptionRegistry[cache[0 destination(s)], registry[0 sessions]]]]
+05:26:56.475 [restartedMain] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Started.
+05:26:56.689 [restartedMain] INFO  o.s.b.c.e.t.TomcatEmbeddedServletContainer - Tomcat started on port(s): 8080 (http)
+05:26:56.702 [restartedMain] INFO  com.data.trans.Application - Started Application in 15.357 seconds (JVM running for 16.183)
+05:27:03.136 [http-nio-8080-exec-10] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring FrameworkServlet 'dispatcherServlet'
+05:27:03.137 [http-nio-8080-exec-10] INFO  o.s.web.servlet.DispatcherServlet - FrameworkServlet 'dispatcherServlet': initialization started
+05:27:03.208 [http-nio-8080-exec-10] INFO  o.s.web.servlet.DispatcherServlet - FrameworkServlet 'dispatcherServlet': initialization completed in 71 ms
+05:27:08.068 [http-nio-8080-exec-4] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved exception caused by Handler execution: com.data.trans.exception.ViewException: 用户不存在!
