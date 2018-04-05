@@ -41,11 +41,11 @@ spring:
         connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000  
         # 合并多个DruidDataSource的监控数据  
         #useGlobalDataSourceStat: true 
-#-------模板引擎thymeleaf配置-----------
+#-------模板引擎thymeleaf配置，不方便-----------
 #    thymeleaf: 
 #        cache: false
 #        prefix: classpath:/templates
-# #       suffix: .html
+#        suffix: .html
 #        encoding: UTF-8
 #        content-type: text/html
 #        mode: html

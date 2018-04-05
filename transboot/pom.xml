@@ -66,7 +66,7 @@
 		</dependency>
 		<!-- 视图使用jsp整合end -->
 
-		<!-- 开启jsp热部署begin -->
+		<!-- 开启jsp热部署begin，开启后不重启修改jsp页面才能生效 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
@@ -158,29 +158,6 @@
 				<version>1.4.2.RELEASE</version>
 				<configuration>
 					<mainClass>com.data.trans.Application</mainClass>
-				</configuration>
-				<executions>
-					<execution>
-						<goals>
-							<goal>repackage</goal>
-						</goals>
-					</execution>
-				</executions>
-				<dependencies>
-					<!-- spring热部署 -->
-					<dependency>
-						<groupId>org.springframework</groupId>
-						<artifactId>springloaded</artifactId>
-						<version>1.2.6.RELEASE</version>
-					</dependency>
-				</dependencies>
-			</plugin>
-			<!-- 忽略无web.xml警告 -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-war-plugin</artifactId>
-				<configuration>
-					<failOnMissingWebXml>false</failOnMissingWebXml>
 				</configuration>
 			</plugin>
 		</plugins>
