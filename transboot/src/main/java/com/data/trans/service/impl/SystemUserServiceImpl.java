@@ -26,9 +26,15 @@ public class SystemUserServiceImpl implements SystemUserService {
 	@Autowired
 	private SystemUserMapper systemUserMapper;
 	
+	/**
+	 * @Date 2018年3月25日
+	 * @author dnc
+	 * @Description 添加用户 userId account password 必填
+	 * @param model
+	 * @return
+	 */
 	@Override
-	public ApiResponse<String> addSystemUser(SystemUser model) {
-		
+	public ApiResponse<String> save(SystemUser model) {
 		String account = model.getAccount();
 		String password = model.getPassword();
 		
@@ -42,38 +48,64 @@ public class SystemUserServiceImpl implements SystemUserService {
 		//uuid生成用户唯一标识
 		model.setUserId(UUidUtil.generateUUid());
 		
-		return systemUserMapper.addSystemUser(model)==1?ApiResponse.success():ApiResponse.response(ResponseEnum.FAILED);
+		return systemUserMapper.save(model)==1?ApiResponse.success():ApiResponse.response(ResponseEnum.FAILED);
 	}
-
+	
+	/**
+	 * @Date 2018年3月25日
+	 * @author dnc
+	 * @Description 根据 id userId account identity 四个属性之一删除用户
+	 * @param model
+	 * @return
+	 */
 	@Override
-	public ApiResponse<String> delSystemUser(SystemUser model) {
+	public ApiResponse<String> delete(SystemUser model) {
 		//没有传递唯一身份标识抛异常，防止账号全删操作
 		checkSafeOpt(model);
 		
-		return systemUserMapper.delSystemUser(model)==1?ApiResponse.success():ApiResponse.response(ResponseEnum.FAILED);
+		return systemUserMapper.delete(model)==1?ApiResponse.success():ApiResponse.response(ResponseEnum.FAILED);
 	}
-
+	
+	/**
+	 * @Date 2018年3月25日
+	 * @author dnc
+	 * @Description 根据 id userId account identity 四个属性之一更新用户
+	 * @param model
+	 * @return
+	 */
 	@Override
-	public ApiResponse<String> updateSystemUser(SystemUser model) {
-		
+	public ApiResponse<String> update(SystemUser model) {
 		//没有传递唯一身份标识抛异常，防止账号全改操作
 		checkSafeOpt(model);
 		
-		return systemUserMapper.updateSystemUser(model)==1?ApiResponse.success():ApiResponse.response(ResponseEnum.FAILED);
+		return systemUserMapper.update(model)==1?ApiResponse.success():ApiResponse.response(ResponseEnum.FAILED);
 	}
-
+	
+	/**
+	 * @Date 2018年3月25日
+	 * @author dnc
+	 * @Description 根据 id userId account identity 四个属性之一查找用户
+	 * @param id
+	 * @return
+	 */
 	@Override
-	public SystemUser getSystemUser(SystemUser model) {
+	public SystemUser findOne(SystemUser model) {
 		//没有传递唯一身份标识抛异常，防止查出多个账号
 		checkSafeOpt(model);
-		SystemUser user = systemUserMapper.getSystemUser(model);
+		SystemUser user = systemUserMapper.findOne(model);
 		return user;
 	}
-
+	
+	/**
+	 * @Date 2018年3月25日
+	 * @author dnc
+	 * @Description 根据任何用户属性查询用户列表
+	 * @param model
+	 * @return
+	 */
 	@Override
-	public List<SystemUser> listSystemUser(SystemUser model) {
-		
-		return systemUserMapper.listSystemUser(model);
+	public List<SystemUser> findList(SystemUser model) {
+		return systemUserMapper.findList(model);
 	}
 	
 	private void checkSafeOpt(SystemUser model){

@@ -26,7 +26,7 @@
 		<result column="address" property="address"/>
 	</resultMap>
 	
-	<insert id="addSystemUser" parameterType="com.data.trans.model.SystemUser" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+	<insert id="save" parameterType="com.data.trans.model.SystemUser" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
 		insert into system_user
 			(user_id,
 			account,
@@ -55,7 +55,7 @@
 			)
 	</insert>
 	
-	<delete id="delSystemUser" parameterType="com.data.trans.model.SystemUser">
+	<delete id="delete" parameterType="com.data.trans.model.SystemUser">
 		delete from system_user
 		<include refid="idUserIdAccountIdentityWhere"/>
 	</delete>
@@ -74,18 +74,18 @@
 		</set>
 	</sql>
 	
-	<update id="updateSystemUser" parameterType="com.data.trans.model.SystemUser">
+	<update id="update" parameterType="com.data.trans.model.SystemUser">
 		update system_user
 		<include refid="update_systemUser_body"/>
 		<include refid="idUserIdAccountIdentityWhere"/>
 	</update>
 	
-	<select id="getSystemUser" parameterType="com.data.trans.model.SystemUser" resultMap="systemUserAll_map">
+	<select id="findOne" parameterType="com.data.trans.model.SystemUser" resultMap="systemUserAll_map">
 		select * from system_user
 		<include refid="idUserIdAccountIdentityWhere"/>
 	</select>
 	
-	<select id="listSystemUser" parameterType="com.data.trans.model.SystemUser" resultMap="systemUserAll_map">
+	<select id="findList" parameterType="com.data.trans.model.SystemUser" resultMap="systemUserAll_map">
 		select * from system_user
 		<where>
 			<if test="null != account and account != ''">and account like "%"#{account}"%",</if>

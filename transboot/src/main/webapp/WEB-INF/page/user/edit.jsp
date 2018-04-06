@@ -66,7 +66,7 @@
 	    <label for="sex" class="col-sm-2 control-label">性别</label>
 	     <div class="col-sm-6">
 	      <label class="radio-inline">
-			<input type="radio" name="sex" id="sex1" value="1" <c:if test="${user.sex eq 1}">checked</c:if> >男
+			<input type="radio" name="sex" id="sex1" value="1" <c:if test="${user.sex ne 2}">checked</c:if> >男
 		  </label>
 		  <label class="radio-inline">
 			<input type="radio" name="sex" id="sex2" value="2" <c:if test="${user.sex eq 2}">checked</c:if> >女

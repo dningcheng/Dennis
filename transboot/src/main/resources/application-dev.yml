@@ -1,10 +1,7 @@
 #一下关于数据库和es的相关配置已经修改为使用jar包启动时传入，打包该项目为jar后使用命令启动：java -jar xxx.jar --dbhost=192.168.0.98   --dbport=3306  --dbusername=dev_wygl   --dbpassword=dev_wygl   --eshost=192.168.0.104   --esport=9300  --esclustername=es_cluster
 #---------springboot配置信息---------
 server: 
-    port: 8080 #端口
-    session: 
-        timeout: 30 #session过期时间
-#    context-path: transboot #项目默认访问路径，默认为/   此项配置报错：
+    port: 8080
       
 #---------自定义日志配置文件的名称和位置
 logging: 
@@ -58,10 +55,9 @@ spring:
         view: 
             prefix: /WEB-INF/page/ #页面默认前缀目录
             suffix: .jsp #响应页面默认后缀
-            
-#-------指定当前环境的生效配置文件，当然也可以在命令行启动时以入参指定如：java -jar xxx.jar --spring.profiles.active=dev
     profiles: 
-        active: dev #表示当前是由哪个环境的配置文件，active的值对应application-xxx.yml 中的xxx
+        active: dev
+#去除jsp缓存
 
 #-------Redis配置-----------
     redis:

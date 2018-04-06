@@ -34,6 +34,8 @@
 			</dependency> -->
 		<!-- <dependency> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-starter-data-mongodb</artifactId> 
 			</dependency> -->
+		
+		<!-- 集成spring-jdbc依赖，集成后可使用JdbcTemplate访问数据库，此方式与集成mybatis二选一即可，模板方法可查看 https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/jdbc/core/JdbcTemplate.html-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-jdbc</artifactId>
@@ -66,13 +68,13 @@
 		</dependency>
 		<!-- 视图使用jsp整合end -->
 
-		<!-- 开启jsp热部署begin，开启后不重启修改jsp页面才能生效 -->
+		<!-- 开启热部署begin，开启后不重启修改jsp页面才能生效 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
 			<scope>runtime</scope>
 		</dependency>
-		<!-- 开启jsp热部署begin -->
+		<!-- 开热部署end -->
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -101,7 +103,7 @@
 			<version>1.0.25</version>
 		</dependency>
 
-		<!-- 集成mybatis -->
+		<!-- 集成mybatis，与集成spring-jdbc可二选一 -->
 		<dependency>
 			<groupId>org.mybatis.spring.boot</groupId>
 			<artifactId>mybatis-spring-boot-starter</artifactId>

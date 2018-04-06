@@ -37,7 +37,7 @@ public class UserController {
 	private SystemUserService systemUserService;
 	
 	@RequestMapping("login")
-	public String login(Map<String,Object> map,SystemUser user){
+	public String login(Map<String,Object> map,SystemUser user,HttpServletRequest request){
 		
 		/*ValueOperations<String,Object> valueOpera = redisTemplate.opsForValue();
 		
@@ -53,7 +53,7 @@ public class UserController {
 			throw new ViewException(ResponseEnum.USER_UNKNOW,user.getAccount(),"/login");
 		}
 		
-		SystemUser loginUser = systemUserService.getSystemUser(user);
+		SystemUser loginUser = systemUserService.findOne(user);
 		if(loginUser == null ){
 			throw new ViewException(ResponseEnum.USER_UNKNOW,user.getAccount(),"/login");
 		}
@@ -63,7 +63,7 @@ public class UserController {
 			List<Translog> logs = translogService.getTranslogList(null);
 			
 			map.put("logs", logs);
-			
+			request.getSession().setAttribute("loginUser",loginUser);
 			return "index";
 		}
 		throw new ViewException(ResponseEnum.PASS_UNMATCH,user.getAccount(),"login");
@@ -92,7 +92,7 @@ public class UserController {
 	
 	@RequestMapping("list")
 	public String userList(Map<String,Object> map,SystemUser user){
-		List<SystemUser> users = systemUserService.listSystemUser(user);
+		List<SystemUser> users = systemUserService.findList(user);
 		map.put("users", users);
 		return "user/list";
 	}
@@ -100,7 +100,7 @@ public class UserController {
 	@RequestMapping("edit")
 	public String userEdit(Map<String,Object> map,SystemUser user){
 		if(user.getId() != null){
-			user = systemUserService.getSystemUser(user);
+			user = systemUserService.findOne(user);
 			map.put("user", user);
 		}
 		return "user/edit";
@@ -110,16 +110,16 @@ public class UserController {
 	@RequestMapping("save")
 	public ApiResponse<String> userSave(SystemUser user){
 		if(user.getId() != null){//修改
-			return systemUserService.updateSystemUser(user);
+			return systemUserService.update(user);
 		}else{//新增
-			return systemUserService.addSystemUser(user);
+			return systemUserService.save(user);
 		}
 	}
 	
 	@ResponseBody
 	@RequestMapping("delete")
 	public ApiResponse<String> userDelete(SystemUser user){
-		return systemUserService.delSystemUser(user);
+		return systemUserService.delete(user);
 	}
 	
 }
