@@ -7,7 +7,7 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/stomp.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.2.1.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/aa.js?V=1.0"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/aa.js"></script>
 <%-- <script type="text/javascript" src="${pageContext.request.contextPath}/js/SHA256.js"></script> --%>
 <link type="text/css" href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet"/>
 

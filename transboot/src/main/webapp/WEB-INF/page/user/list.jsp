@@ -43,14 +43,14 @@
     <aa:zone name="myzone"> 
 	    <table class="table table-bordered table-hover"> 
 		    <tr class="header">
-		    	<th>序号</th>
-		        <th>姓名</th>
-		        <th>昵称</th>
-		        <th>账号</th>
-		        <th>联系方式</th>
-		        <th>身份证号</th>
-		        <th>性别</th>
-		        <th>操作</th>
+		    	<th width="5%">序号</th>
+		        <th width="10%">姓名</th>
+		        <th width="10%">昵称</th>
+		        <th width="15%">账号</th>
+		        <th width="10%">联系方式</th>
+		        <th width="15%">身份证号</th>
+		        <th width="5%">性别</th>
+		        <th width="*%">操作</th>
 		    </tr>
 		    <!--user为集合中循环去除的对象，iterStat为迭代变量，名字必须为iterStat，有  -->
 			<c:forEach items="${users }" var="user">

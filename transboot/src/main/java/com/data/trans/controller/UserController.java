@@ -7,6 +7,7 @@ import java.util.concurrent.TimeUnit;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.ListOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Controller;
@@ -23,6 +24,10 @@ import com.data.trans.util.ApiResponse;
 import com.data.trans.util.EncryptUtil;
 import com.data.trans.util.ResponseEnum;
 
+import ch.qos.logback.core.net.SyslogOutputStream;
+import redis.clients.jedis.JedisPool;
+import redis.clients.jedis.JedisPoolConfig;
+
 @Controller
 @RequestMapping("user/")
 public class UserController {
@@ -38,17 +43,28 @@ public class UserController {
 	
 	@RequestMapping("login")
 	public String login(Map<String,Object> map,SystemUser user,HttpServletRequest request){
+		/*ListOperations<String,Integer> listOpera = redisTemplate.opsForList();*/
+		//ValueOperations<String,Object> valueOpera = redisTemplate.opsForValue();
 		
-		/*ValueOperations<String,Object> valueOpera = redisTemplate.opsForValue();
+		/*JedisPool jedisPool = new JedisPool(new JedisPoolConfig(),"www.seally.cn",6379,2000);  
 		
-		User loginUser = (User)valueOpera.get("user");
+		System.out.println(jedisPool.getResource().getDB());;*/
+		
+		/*SystemUser loginUser = (SystemUser)valueOpera.get("user");
 		if(loginUser == null){
-			System.out.println("不存在，存储缓存："+user.getUserName());
-			valueOpera.set("user", user, 20, TimeUnit.SECONDS);
+			System.out.println("不存在，存储缓存："+user.getName());
+			valueOpera.set("user", loginUser, 20, TimeUnit.SECONDS);
 		}else{
-			System.out.println("存在，存储获取到："+loginUser.getUserName());
+			System.out.println("存在，存储获取到："+loginUser.getName());
 		}*/
+		/*long begin = System.currentTimeMillis();
+		for(int i=50000000;i<50010000;i++){
+			listOpera.leftPush("testKey", i);
+		}
+		System.out.println("存储10000消耗时间："+(System.currentTimeMillis() - begin) +"ms");
 		
+		System.out.println("testKey[size]："+listOpera.size("testKey"));
+		*/
 		if(StringUtils.isEmpty(user.getAccount()) && StringUtils.isEmpty(user.getPassword())){
 			throw new ViewException(ResponseEnum.USER_UNKNOW,user.getAccount(),"/login");
 		}

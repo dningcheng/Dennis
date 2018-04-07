@@ -89,7 +89,7 @@
 		select * from system_user
 		<where>
 			<if test="null != account and account != ''">and account like "%"${account}"%"</if>
-			<if test="null != nick and nick != ''">and nick like "%"${nick}"%"</if>
+			<if test="null != nick and nick != ''">and nick LOCATE(#{nick}, `nick`)>0 </if>
 			<if test="null != name and name != ''">and `name` = #{name}</if>
 			<if test="null != sex and sex != ''">and sex = #{sex}</if>
 			<if test="null != phone and phone != ''">and phone like "%"${phone}"%"</if>

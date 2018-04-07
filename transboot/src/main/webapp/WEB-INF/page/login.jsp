@@ -5,8 +5,13 @@
 <head>
 <title>系统登录</title>
 <style type="text/css">
-	body{margin: 0px;padding: 0px;background: #FFFFFF;}
 	.container{width: 500px;height: 300px;border: solid 2px white;border-radius: 2px;margin-top: 100px;padding-top:70px;opacity: 0.8;color: #ECCD5D;}
+	body{
+		margin: 0px;padding: 0px;
+	    width: 100%;height:auto;
+	    background:url("${pageContext.request.contextPath}/images/login.png") no-repeat;
+	    background-size: 100%;
+	}
 </style>
 
 <script type="text/javascript">
@@ -31,31 +36,17 @@
 		  
 		  <div class="form-group">
 		  <li class="divider"></li>
-		    <div class="col-sm-offset-2 col-sm-10">
+		  <div class="col-sm-offset-2 col-sm-10">
 		      <button type="submit" class="btn btn-info" id ="loginBtn">&nbsp;&nbsp;登&nbsp;录&nbsp;&nbsp;</button>
 		      <span style="color: red;">${message}</span>
-		    </div>
+		  </div>
 		    
 		  </div>
 		</form>
 	</div>
 <!-- 脚本 -->
 <script type="text/javascript">
-$(function(){
-	/* $("#loginBtn").click(function(){
-		$.ajax({
-		   type: "POST",
-		   url: "login.ation",
-		   data: $("#loginForm").serialize(),
-		   success: function(data){
-		     	alert(data.code+" "+data.message);
-		   },
-		   err:function(data){
-			   alert("系统异常");
-		   }
-		});
-	}); */
-});
+
 
 </script>
 </body>

@@ -121,7 +121,7 @@
    </div>
    <div class="panel-footer">
 		<a class="btn btn-default col-sm-1 col-sm-offset-4" href="${pageContext.request.contextPath}/user/list.action">返&nbsp;回</a>
-		<button class="btn btn-primary col-sm-1" onclick="save();">保&nbsp;存</button>
+		<button class="btn btn-primary col-sm-1 margin-left-10" onclick="save();">保&nbsp;存</button>
    </div>
 
 <!-- js脚本 -->

@@ -44,7 +44,7 @@
     #main-nav.nav-tabs.nav-stacked > li.active > a, #main-nav.nav-tabs.nav-stacked > li > a:hover > span {color: #FFF;}
     #main-nav.nav-tabs.nav-stacked > li {margin-bottom: 4px;}
     
-    .navbar-brand{width: 160px;}
+    .navbar-brand{width: 160px;color: white;}
 	/*控制菜单箭头*/
 	.nav-header.collapsed > span.glyphicon-chevron-toggle:before {content: "\e114";}
 	.nav-header > span.glyphicon-chevron-toggle:before {content: "\e113";}
@@ -168,7 +168,7 @@
             	<span class="pull-right glyphicon glyphicon-chevron-toggle"></span>
             </a>
             <ul id="menu_2" class="nav nav-list collapse secondmenu">
-                <li><a target="content-iframe" href="#"><i class="glyphicon glyphicon-user"></i>用户管理</a></li>
+                <li><a target="content-iframe" href="#"><i class="glyphicon glyphicon-user"></i>新建任务</a></li>
                 <li><a target="content-iframe" href="#"><i class="glyphicon glyphicon-th-list"></i>菜单管理</a></li>
                 <li><a target="content-iframe" href="#"><i class="glyphicon glyphicon-asterisk"></i>角色管理</a></li>
                 <li><a target="content-iframe" href="#"><i class="glyphicon glyphicon-edit"></i>修改密码</a></li>
