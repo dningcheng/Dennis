@@ -55,10 +55,9 @@ public class DefaultViewConfig extends WebMvcConfigurerAdapter {
     /**
      * @Date 2018年4月7日
      * @author dnc
-     * @Description springboot 注入自己过滤器的方式，每一个都以一个FilterRegistrationBean包装注入
-     * 
-     * 由ajaxAnywhere的执行原理可知，它处理的时渲染过后的页面，因此设置器过滤规则为.jsp后缀的所有请求。同时设置器过滤顺序在最后保证其过滤在springmvc渲染结束该页面返回时执行
-     * 
+     * @Description springboot整合ajaxAnywhere服务端（除开配置pom依赖外）的唯一配置
+     * springboot 注入自己过滤器的方式：每一个都以一个FilterRegistrationBean包装注入
+     * 由ajaxAnywhere的执行原理可知，它处理的时渲染过后的页面，因此注入ajaxAnywhere过滤器，过滤规则为.jsp后缀的所有请求。
      * @return
      */
     @Bean
