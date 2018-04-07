@@ -43,7 +43,7 @@ public class ElasticDataSource {
 				checkHealth=true;
 				client.admin().cluster().prepareClusterStats().execute().get().getStatus();
 			}
-			logger.info("put into espool client"+index);
+			//logger.info("put into espool client"+index);
 			ElasticDataSource.pool.add(client);
 		}
 	}
