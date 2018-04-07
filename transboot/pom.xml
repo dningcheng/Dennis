@@ -67,7 +67,17 @@
 			<scope>provided</scope>
 		</dependency>
 		<!-- 视图使用jsp整合end -->
-
+	
+		<!-- 集成ajaxanywhere局部页面组件begin -->
+		<!-- https://mvnrepository.com/artifact/org.ajaxanywhere/ajaxanywhere -->
+		<dependency>
+		    <groupId>org.ajaxanywhere</groupId>
+		    <artifactId>ajaxanywhere</artifactId>
+		    <version>1.2-rc2</version>
+		</dependency>
+		<!-- 集成ajaxanywhere局部页面组件end -->
+		
+		
 		<!-- 开启热部署begin，开启后不重启修改jsp页面才能生效 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

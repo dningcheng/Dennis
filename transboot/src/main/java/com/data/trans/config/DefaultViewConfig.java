@@ -1,5 +1,8 @@
 package com.data.trans.config;
 
+import org.ajaxanywhere.AAFilter;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -48,4 +51,23 @@ public class DefaultViewConfig extends WebMvcConfigurerAdapter {
         //registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/**").excludePathPatterns("/login");
         super.addInterceptors(registry);
     }
+    
+    /**
+     * @Date 2018年4月7日
+     * @author dnc
+     * @Description springboot 注入自己过滤器的方式，每一个都以一个FilterRegistrationBean包装注入
+     * 
+     * 由ajaxAnywhere的执行原理可知，它处理的时渲染过后的页面，因此设置器过滤规则为.jsp后缀的所有请求。同时设置器过滤顺序在最后保证其过滤在springmvc渲染结束该页面返回时执行
+     * 
+     * @return
+     */
+    @Bean
+    public FilterRegistrationBean someFilterRegistration() {
+        FilterRegistrationBean registration = new FilterRegistrationBean();
+        registration.setFilter(new AAFilter()); //注入一个ajaxAnywhere过滤器
+        registration.addUrlPatterns("*.jsp"); //设置该过滤器过滤的文件类型
+        //registration.setOrder(Integer.MAX_VALUE); //设置该过滤器的执行顺序，可以省略，因为指定了处理文件为.jsp后缀的请求，因此能够保证在请求被springmvc渲染结束后被该过滤器拦截到
+        return registration;
+    }
+    
 }

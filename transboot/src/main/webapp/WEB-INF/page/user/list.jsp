@@ -19,90 +19,92 @@
         <h3 class="panel-title">用户管理</h3>
     </div>
     <div class="panel-body">
-       	<form class="form-inline">
+       	<form class="form-inline" action="${pageContext.request.contextPath}/user/list.action" name="myform" method="post">
 		  <div class="form-group">
 		    <label for="name">姓名</label>
-		    <input type="text" class="form-control" id="name" placeholder="search">
+		    <input type="text" class="form-control" id="name" name="name" placeholder="name...">
 		  </div>
 		  <div class="form-group">
 		    <label for="nick">昵称</label>
-		    <input type="text" class="form-control" id="nick" placeholder="search">
+		    <input type="text" class="form-control" id="nick" name="nick" placeholder="nick...">
 		  </div>
 		  <div class="form-group">
 		    <label for="account">账号</label>
-		    <input type="text" class="form-control" id="account" placeholder="search">
+		    <input type="text" class="form-control" id="account" name="account" placeholder="account...">
 		  </div>
 		  <div class="form-group">
 		    <label for="phone">联系方式</label>
-		    <input type="text" class="form-control" id="phone" placeholder="search">
+		    <input type="text" class="form-control" id="phone" name="phone" placeholder="phone...">
 		  </div>
-		  <button type="submit" class="btn btn-primary">&nbsp;&nbsp;搜&nbsp;索&nbsp;&nbsp;</button>
-		  <a class="btn btn-primary" href="${pageContext.request.contextPath}/user/edit.action">新增</a>
+		  <button type="button" class="btn btn-primary padding-lr-20" onclick="CommonUtil.ajaxFresh();">搜&nbsp;索</button>
+		  <a class="btn btn-primary padding-lr-20" href="${pageContext.request.contextPath}/user/edit.action">新&nbsp;增</a>
 		</form>
     </div>
-    <table class="table table-bordered table-hover"> 
-	    <tr class="header">
-	    	<th>序号</th>
-	        <th>姓名</th>
-	        <th>昵称</th>
-	        <th>账号</th>
-	        <th>联系方式</th>
-	        <th>身份证号</th>
-	        <th>性别</th>
-	        <th>操作</th>
-	    </tr>
-	    <!--user为集合中循环去除的对象，iterStat为迭代变量，名字必须为iterStat，有  -->
-		<c:forEach items="${users }" var="user">
-		<tr>
-			<td>${iterStat.count}</td>
-		    <td>${user.name}</td>
-		    <td>${user.nick}</td>
-		    <td>${user.account}</td>
-		    <td>${user.phone}</td>
-		    <td>${user.identity}</td>
-		    <td>
-		    	<c:choose>
-		    	<c:when test="${user.sex eq 1}">男</c:when>
-		    	<c:otherwise>女</c:otherwise>
-		    	</c:choose>
-		    </td>
-		    <td>
-		    	<a href="${pageContext.request.contextPath}/user/edit.action?id=${user.id}">修改</a>
-		    	<a href="#" onclick="CommonUtil.showConfirm({title:'删除用户',msg:'删除后无法恢复，确认删除出么？',doFunc:delUser,param:{'userId':${user.id}}});">删除</a>
-		    </td>
-		</tr>
-		</c:forEach>
-		
-	</table>
-	<div class="panel-footer">
-		<ul class="pagination" style="display: inline;">
-			<li><a href="#">首页</a></li>
-		    <li><a href="#">&laquo;</a></li>
-		    <li><a href="#">1</a></li>
-		    <li><a href="#">2</a></li>
-		    <li><a href="#">3</a></li>
-		    <li><a href="#">4</a></li>
-		    <li><a href="#">5</a></li>
-		    <li><a href="#">&raquo;</a></li>
-		    <li><a href="#">尾页</a></li>
-		</ul>
-		<div class="input-group input-group-sm" style="width: 100px;">
-		  <input type="text" class="form-control" placeholder="0" >
-		  <a href="#" class="input-group-addon " id="sizing-addon3">跳转</a>
+    <aa:zone name="myzone"> 
+	    <table class="table table-bordered table-hover"> 
+		    <tr class="header">
+		    	<th>序号</th>
+		        <th>姓名</th>
+		        <th>昵称</th>
+		        <th>账号</th>
+		        <th>联系方式</th>
+		        <th>身份证号</th>
+		        <th>性别</th>
+		        <th>操作</th>
+		    </tr>
+		    <!--user为集合中循环去除的对象，iterStat为迭代变量，名字必须为iterStat，有  -->
+			<c:forEach items="${users }" var="user">
+			<tr>
+				<td>${iterStat.count}</td>
+			    <td>${user.name}</td>
+			    <td>${user.nick}</td>
+			    <td>${user.account}</td>
+			    <td>${user.phone}</td>
+			    <td>${user.identity}</td>
+			    <td>
+			    	<c:choose>
+			    	<c:when test="${user.sex eq 1}">男</c:when>
+			    	<c:otherwise>女</c:otherwise>
+			    	</c:choose>
+			    </td>
+			    <td>
+			    	<a href="${pageContext.request.contextPath}/user/edit.action?id=${user.id}">修改</a>
+			    	<a href="#" onclick="CommonUtil.showConfirm({title:'删除用户',msg:'删除后无法恢复，确认删除出么？',doFunc:delUser,param:{'userId':${user.id}}});">删除</a>
+			    </td>
+			</tr>
+			</c:forEach>
+		</table>
+		<div class="panel-footer">
+			<ul class="pagination" style="display: inline;">
+				<li><a href="${pageContext.request.contextPath}/user/edit.action?id=${user.id}">首页</a></li>
+			    <li><a href="${pageContext.request.contextPath}/user/edit.action?id=${user.id}">&laquo;</a></li>
+			    <li><a href="${pageContext.request.contextPath}/user/edit.action?id=${user.id}">1</a></li>
+			    <li><a href="${pageContext.request.contextPath}/user/edit.action?id=${user.id}">2</a></li>
+			    <li><a href="${pageContext.request.contextPath}/user/edit.action?id=${user.id}">3</a></li>
+			    <li><a href="${pageContext.request.contextPath}/user/edit.action?id=${user.id}">4</a></li>
+			    <li><a href="${pageContext.request.contextPath}/user/edit.action?id=${user.id}">5</a></li>
+			    <li><a href="#">&raquo;</a></li>
+			    <li><a href="#">尾页</a></li>
+			</ul>
+			<div class="input-group input-group-sm" style="width: 100px;">
+			  <input type="text" class="form-control" placeholder="0" >
+			  <a href="#" class="input-group-addon " id="sizing-addon3">跳转</a>
+			</div>
 		</div>
-	</div>
+	</aa:zone>
 </div>
 
 </div>
 <!-- js脚本 -->
 <script type="text/javascript">
 
-function delUser(userId){
+function delUser(){
 	$.ajax({
 	   type: "POST",
 	   url: "${pageContext.request.contextPath}/user/delete.ation?id="+CommonUtil.param.userId,
 	   data: {},
 	   success: function(data){
+		   CommonUtil.ajaxFresh();
 		   CommonUtil.showSuccess({message:data.message});
 	   },
 	   err:function(data){
@@ -111,8 +113,6 @@ function delUser(userId){
 	});
 }
 
-$(function(){
-});
 </script>
 </body>
 </html>

@@ -88,14 +88,14 @@
 	<select id="findList" parameterType="com.data.trans.model.SystemUser" resultMap="systemUserAll_map">
 		select * from system_user
 		<where>
-			<if test="null != account and account != ''">and account like "%"#{account}"%",</if>
-			<if test="null != nick and nick != ''">and nick like "%"#{nick}"%",</if>
-			<if test="null != name and name != ''">and name like "%"#{name}"%",</if>
-			<if test="null != sex and sex != ''">sex = #{sex},</if>
-			<if test="null != phone and phone != ''">phone like "%"#{phone}"%",</if>
-			<if test="null != identity and identity != ''">identity like "%"#{identity}"%",</if>
-			<if test="null != email and email != ''">email like "%"#{email}"%",</if>
-			<if test="null != address and address != ''">address like "%"#{address}"%",</if>
+			<if test="null != account and account != ''">and account like "%"${account}"%"</if>
+			<if test="null != nick and nick != ''">and nick like "%"${nick}"%"</if>
+			<if test="null != name and name != ''">and `name` = #{name}</if>
+			<if test="null != sex and sex != ''">and sex = #{sex}</if>
+			<if test="null != phone and phone != ''">and phone like "%"${phone}"%"</if>
+			<if test="null != identity and identity != ''">and identity like "%"${identity}"%"</if>
+			<if test="null != email and email != ''">and email like "%"${email}"%"</if>
+			<if test="null != address and address != ''">and address like "%"${address}"%"</if>
 		</where>
 	</select>
 	

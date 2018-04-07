@@ -18,7 +18,7 @@
         <h3 class="panel-title">用户管理</h3>
    </div>
    <div class="panel-body">
-      	<form class="form-horizontal" id="searchForm" role="form">
+      	<form class="form-horizontal" id="myform" name="myform" role="form">
       	  <input type="hidden" name="id" value="${user.id }">
 	  <div class="form-group">
 	    <label for="lastname" class="col-sm-2 control-label">账号</label>
@@ -120,8 +120,8 @@
 	</form>
    </div>
    <div class="panel-footer">
-		<a class="btn btn-default" href="${pageContext.request.contextPath}/user/list.action"">返回</a>
-		<button class="btn btn-primary" onclick="CommonUtil.showConfirm({title:'新增用户',message:'确认保存用户信息？',doFunc:save});">保存</button>
+		<a class="btn btn-default col-sm-1 col-sm-offset-4" href="${pageContext.request.contextPath}/user/list.action">返&nbsp;回</a>
+		<button class="btn btn-primary col-sm-1" onclick="save();">保&nbsp;存</button>
    </div>
 
 <!-- js脚本 -->
@@ -131,7 +131,7 @@ function save(){
 	   type: "POST",
 	   async: false, //ajax同步提交
 	   url: "${pageContext.request.contextPath}/user/save.ation",
-	   data: $("#searchForm").serialize(),
+	   data: $("#myform").serialize(),
 	   success: function(data){
 	     	if(data.code == 200){
 	     		CommonUtil.showSuccess({message:data.message});
@@ -145,9 +145,6 @@ function save(){
 	});
 }
 
-$(function(){
-	
-});
 </script>
 </body>
 </html>
