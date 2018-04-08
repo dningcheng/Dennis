@@ -6,7 +6,7 @@
 <title>系统登录</title>
 <style type="text/css">
 	body{font-size: 12px;}
-	.form-inline > .form-group > input{margin-right: 20px;}
+	.search-input{margin-right: 10px;max-width: 140px;}
 	.header{background-color: #CCCCCC;}
 	.pagination > li > a:hover{background-color: #CCCCCC;}
 </style>
@@ -20,21 +20,23 @@
     </div>
     <div class="panel-body">
        	<form class="form-inline" action="${pageContext.request.contextPath}/user/list.action" name="myform" method="post">
+		  <div class="col-sm-12 col-md-10">
 		  <div class="form-group">
 		    <label for="name">姓名</label>
-		    <input type="text" class="form-control" id="name" name="name" placeholder="name...">
+		    <input type="text" class="form-control search-input" id="name" name="name" placeholder="name...">
 		  </div>
 		  <div class="form-group">
 		    <label for="nick">昵称</label>
-		    <input type="text" class="form-control" id="nick" name="nick" placeholder="nick...">
+		    <input type="text" class="form-control search-input" id="nick" name="nick" placeholder="nick...">
 		  </div>
 		  <div class="form-group">
 		    <label for="account">账号</label>
-		    <input type="text" class="form-control" id="account" name="account" placeholder="account...">
+		    <input type="text" class="form-control search-input" id="account" name="account" placeholder="account...">
 		  </div>
 		  <div class="form-group">
 		    <label for="phone">联系方式</label>
-		    <input type="text" class="form-control" id="phone" name="phone" placeholder="phone...">
+		    <input type="text" class="form-control search-input" id="phone" name="phone" placeholder="phone...">
+		  </div>
 		  </div>
 		  <button type="button" class="btn btn-primary padding-lr-20" onclick="CommonUtil.ajaxFresh();">搜&nbsp;索</button>
 		  <a class="btn btn-primary padding-lr-20" href="${pageContext.request.contextPath}/user/edit.action">新&nbsp;增</a>
