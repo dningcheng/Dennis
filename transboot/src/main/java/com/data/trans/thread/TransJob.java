@@ -12,6 +12,7 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import org.elasticsearch.action.bulk.BulkRequestBuilder;
+import org.elasticsearch.action.support.WriteRequest.RefreshPolicy;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.common.xcontent.XContentType;
 import org.slf4j.Logger;
@@ -137,7 +138,7 @@ public class TransJob implements Runnable{
     	int count = 0;//计数器
     	try{
     		Client client = esSource.getClient();
-        	BulkRequestBuilder bulkRequest = client.prepareBulk();
+        	BulkRequestBuilder bulkRequest = client.prepareBulk().setRefreshPolicy(RefreshPolicy.IMMEDIATE);
         	for (int i = 1; i < logs.size(); i++) {
         		count++;
         	    bulkRequest.add(client.prepareIndex(index, type).setSource(JSON.toJSONString(logs.get(i)), XContentType.JSON));

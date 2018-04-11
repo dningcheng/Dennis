@@ -21,6 +21,7 @@ import org.elasticsearch.action.search.ClearScrollRequest;
 import org.elasticsearch.action.search.SearchRequestBuilder;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.search.SearchScrollRequestBuilder;
+import org.elasticsearch.action.support.WriteRequest.RefreshPolicy;
 import org.elasticsearch.action.update.UpdateRequest;
 import org.elasticsearch.action.update.UpdateResponse;
 import org.elasticsearch.client.Client;
@@ -108,7 +109,7 @@ public class ElasticUtil {
 	 * @return
 	 */
 	public static boolean insertDocument(Client client,String index,String type,Map<String,Object> mapDocument){
-		IndexResponse response = client.prepareIndex(index, type)
+		IndexResponse response = client.prepareIndex(index, type).setRefreshPolicy(RefreshPolicy.IMMEDIATE)
 		        .setSource(mapDocument)
 		        .get();
 		return response==null?false:response.status().getStatus()==201;
@@ -125,7 +126,7 @@ public class ElasticUtil {
 	 * @return
 	 */
 	public static boolean insertDocument(Client client,String index,String type,String jsonDocument){
-		IndexResponse response = client.prepareIndex(index, type)
+		IndexResponse response = client.prepareIndex(index, type).setRefreshPolicy(RefreshPolicy.IMMEDIATE)
 		        .setSource(jsonDocument,XContentType.JSON)
 		        .get();
 		return response==null?false:response.status().getStatus()==201;
@@ -208,7 +209,7 @@ public class ElasticUtil {
 	 * @return
 	 */
 	public static boolean delDocumentById(Client client,String index,String type,String id){
-		DeleteResponse response = client.prepareDelete(index, type, id)
+		DeleteResponse response = client.prepareDelete(index, type, id).setRefreshPolicy(RefreshPolicy.IMMEDIATE)
 				.get();
 		return response==null?false:response.status().getStatus()==200;
 	}
@@ -228,7 +229,7 @@ public class ElasticUtil {
 		
 		UpdateResponse updateResponse=null;
 		try {
-			UpdateRequest updateRequest = new UpdateRequest()
+			UpdateRequest updateRequest = new UpdateRequest().setRefreshPolicy(RefreshPolicy.IMMEDIATE)
 					.index(index)
 					.type(type)
 					.id(id)
@@ -253,7 +254,7 @@ public class ElasticUtil {
 	 */
 	public static UpdateResponse updateOrInsertDocument(Client client,String index,String type,String id,Map<String,Object> mapDocument){
 		UpdateResponse updateResponse =null;
-		IndexRequest indexRequest = new IndexRequest(index, type, id).source(mapDocument);
+		IndexRequest indexRequest = new IndexRequest(index, type, id).source(mapDocument).setRefreshPolicy(RefreshPolicy.IMMEDIATE);
 		UpdateRequest updateRequest = new UpdateRequest(index, type, id).doc(mapDocument)
 		        .upsert(indexRequest);              
 		try {
