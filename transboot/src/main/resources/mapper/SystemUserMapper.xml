@@ -2,12 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.data.trans.mapper.SystemUserMapper">
 	
-	<sql id="idUserIdAccountIdentityWhere">
+	<sql id="idUserIdAccountWhere">
 		<where>
-		<if test="null != id and id != '' ">and id = #{id}</if>
-		<if test="null != userId and userId != '' ">and user_id = #{userId}</if>
-		<if test="null != account and account != '' ">and account = #{account}</if>
-		<if test="null != identity and identity != '' ">and identity = #{identity}</if>
+		<if test="null != id and id != '' ">or id = #{id}</if>
+		<if test="null != userId and userId != '' ">or user_id = #{userId}</if>
+		<if test="null != account and account != '' ">or account = #{account}</if>
 		</where>
 	</sql>
 	
@@ -57,7 +56,7 @@
 	
 	<delete id="delete" parameterType="com.data.trans.model.SystemUser">
 		delete from system_user
-		<include refid="idUserIdAccountIdentityWhere"/>
+		<include refid="idUserIdAccountWhere"/>
 	</delete>
 	
 	<sql id="update_systemUser_body">
@@ -77,26 +76,35 @@
 	<update id="update" parameterType="com.data.trans.model.SystemUser">
 		update system_user
 		<include refid="update_systemUser_body"/>
-		<include refid="idUserIdAccountIdentityWhere"/>
+		<include refid="idUserIdAccountWhere"/>
 	</update>
 	
 	<select id="findOne" parameterType="com.data.trans.model.SystemUser" resultMap="systemUserAll_map">
 		select * from system_user
-		<include refid="idUserIdAccountIdentityWhere"/>
+		<include refid="idUserIdAccountWhere"/>
 	</select>
+	
+	<sql id="listUserSqlIf">
+		<where>
+			<if test="null != account and account != ''">and account like "%"#{account}"%"</if>
+			<if test="null != nick and nick != ''">and nick like "%"#{nick}"%"</if>
+			<if test="null != name and name != ''">and `name` like "%"#{name}"%"</if>
+			<if test="null != sex and sex != ''">and sex = #{sex}</if>
+			<if test="null != phone and phone != ''">and phone like "%"#{phone}"%"</if>
+			<if test="null != identity and identity != ''">and identity like "%"#{identity}"%"</if>
+			<if test="null != email and email != ''">and email like "%"#{email}"%"</if>
+			<if test="null != address and address != ''">and address like "%"#{address}"%"</if>
+		</where>
+	</sql>
 	
 	<select id="findList" parameterType="com.data.trans.model.SystemUser" resultMap="systemUserAll_map">
 		select * from system_user
-		<where>
-			<if test="null != account and account != ''">and account like "%"${account}"%"</if>
-			<if test="null != nick and nick != ''">and nick LOCATE(#{nick}, `nick`)>0 </if>
-			<if test="null != name and name != ''">and `name` = #{name}</if>
-			<if test="null != sex and sex != ''">and sex = #{sex}</if>
-			<if test="null != phone and phone != ''">and phone like "%"${phone}"%"</if>
-			<if test="null != identity and identity != ''">and identity like "%"${identity}"%"</if>
-			<if test="null != email and email != ''">and email like "%"${email}"%"</if>
-			<if test="null != address and address != ''">and address like "%"${address}"%"</if>
-		</where>
+		<include refid="listUserSqlIf"/>
+		limit #{curIndex},#{pageSize}
+	</select>
+	
+	<select id="findListNum" parameterType="com.data.trans.model.SystemUser" resultType="int">
+		select count(1) from system_user <include refid="listUserSqlIf"/>
 	</select>
 	
 </mapper>

@@ -54,43 +54,39 @@
 		        <th width="5%">性别</th>
 		        <th width="*%">操作</th>
 		    </tr>
-		    <!--user为集合中循环去除的对象，iterStat为迭代变量，名字必须为iterStat，有  -->
-			<c:forEach items="${users }" var="user">
+		    <!--user为集合中循环取出的对象，iterStat为迭代变量，名字必须为iterStat  -->
+			<c:forEach items="${user.data }" var="model" varStatus="status" >
 			<tr>
-				<td>${iterStat.count}</td>
-			    <td>${user.name}</td>
-			    <td>${user.nick}</td>
-			    <td>${user.account}</td>
-			    <td>${user.phone}</td>
-			    <td>${user.identity}</td>
+				<td>${(user.curPage-1) * user.pageSize + status.count}</td>
+			    <td>${model.name}</td>
+			    <td>${model.nick}</td>
+			    <td>${model.account}</td>
+			    <td>${model.phone}</td>
+			    <td>${model.identity}</td>
 			    <td>
 			    	<c:choose>
-			    	<c:when test="${user.sex eq 1}">男</c:when>
+			    	<c:when test="${model.sex eq 1}">男</c:when>
 			    	<c:otherwise>女</c:otherwise>
 			    	</c:choose>
 			    </td>
 			    <td>
-			    	<a href="${pageContext.request.contextPath}/user/edit.action?id=${user.id}">修改</a>
-			    	<a href="#" onclick="CommonUtil.showConfirm({title:'删除用户',msg:'删除后无法恢复，确认删除出么？',doFunc:delUser,param:{'userId':${user.id}}});">删除</a>
+			    	<a href="${pageContext.request.contextPath}/user/edit.action?id=${model.id}">修改</a>
+			    	<a href="#" onclick="CommonUtil.showConfirm({title:'删除用户',msg:'删除后无法恢复，确认删除出么？',doFunc:delUser,param:{'userId':${model.id}}});">删除</a>
 			    </td>
 			</tr>
 			</c:forEach>
 		</table>
 		<div class="panel-footer">
 			<ul class="pagination" style="display: inline;">
-				<li><a href="${pageContext.request.contextPath}/user/edit.action?id=${user.id}">首页</a></li>
-			    <li><a href="${pageContext.request.contextPath}/user/edit.action?id=${user.id}">&laquo;</a></li>
-			    <li><a href="${pageContext.request.contextPath}/user/edit.action?id=${user.id}">1</a></li>
-			    <li><a href="${pageContext.request.contextPath}/user/edit.action?id=${user.id}">2</a></li>
-			    <li><a href="${pageContext.request.contextPath}/user/edit.action?id=${user.id}">3</a></li>
-			    <li><a href="${pageContext.request.contextPath}/user/edit.action?id=${user.id}">4</a></li>
-			    <li><a href="${pageContext.request.contextPath}/user/edit.action?id=${user.id}">5</a></li>
-			    <li><a href="#">&raquo;</a></li>
-			    <li><a href="#">尾页</a></li>
+				<li <c:if test="${user.curPage eq user.topPage}">class="disabled"</c:if> ><a onclick="CommonUtil.ajaxFresh({url:'${pageContext.request.contextPath}/user/list.action?curPage=${user.topPage}'});" href="#">首页</a></li>
+			    <li <c:if test="${user.curPage eq user.topPage}">class="disabled"</c:if> ><a onclick="CommonUtil.ajaxFresh({url:'${pageContext.request.contextPath}/user/list.action?curPage=${user.prePage}'});" href="#">上一页</a></li>
+			    <li <c:if test="${user.curPage eq user.bottomPage}">class="disabled"</c:if> ><a onclick="CommonUtil.ajaxFresh({url:'${pageContext.request.contextPath}/user/list.action?curPage=${user.nextPage}'});" href="#">下一页</a></li>
+			    <li <c:if test="${user.curPage eq user.bottomPage}">class="disabled"</c:if> ><a onclick="CommonUtil.ajaxFresh({url:'${pageContext.request.contextPath}/user/list.action?curPage=${user.bottomPage}'});" href="#">尾页</a></li>
+				<li class="disabled"><a href="#">当前第&nbsp;${user.curPage}&nbsp;页&nbsp;共<span color='red'>&nbsp;${user.bottomPage}&nbsp;页&nbsp;&nbsp;</span>${user.total}&nbsp;条</a></li>
 			</ul>
 			<div class="input-group input-group-sm" style="width: 100px;">
-			  <input type="text" class="form-control" placeholder="0" >
-			  <a href="#" class="input-group-addon " id="sizing-addon3">跳转</a>
+			  <input type="text" id="skipPage" value="${user.curPage}" class="form-control" >
+			  <a onclick="skipToPage(${user.bottomPage});" href="#" class="input-group-addon">跳转</a>
 			</div>
 		</div>
 	</aa:zone>
@@ -100,6 +96,7 @@
 <!-- js脚本 -->
 <script type="text/javascript">
 
+//删除用户
 function delUser(){
 	$.ajax({
 	   type: "POST",
@@ -113,6 +110,20 @@ function delUser(){
 		   CommonUtil.showError({message:data.message});
 	   }
 	});
+}
+
+//跳转页面
+function skipToPage(bottomPage){
+	var toPage = $("#skipPage").val();
+	var reg = /^[0-9]*$/;//检验只能为数字
+	if(reg.test(toPage)){
+		if(parseInt(toPage)>parseInt(bottomPage)){
+			toPage = bottomPage;
+		}
+		CommonUtil.ajaxFresh({url:"${pageContext.request.contextPath}/user/list.action?curPage="+toPage});
+	}else{
+		$("#skipPage").select();
+	}
 }
 
 </script>

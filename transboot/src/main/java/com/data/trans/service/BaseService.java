@@ -2,7 +2,7 @@ package com.data.trans.service;
 
 import java.util.List;
 
-import com.data.trans.util.ApiResponse;
+import com.data.trans.common.ApiResponse;
 
 /**
  * @Date 2018年4月6日
@@ -19,6 +19,6 @@ public interface BaseService<T> {
     
     T findOne(T model);
 
-    List<T> findList(T model);
+    T findList(T model);
     
 }

@@ -1,4 +1,5 @@
-package com.data.trans.util;
+package com.data.trans.common;
+
 /**
  * @Date 2018年3月25日
  * @author dnc
@@ -34,8 +35,8 @@ public class ApiResponse<T> {
 		return new ApiResponse<String>(ResponseEnum.ERROR.getCode(),message,null);
 	}
 	
-	public static ApiResponse<String> response(ResponseEnum resp) {
-		return new ApiResponse<String>(resp.getCode(),resp.getMessage(),null);
+	public static <T> ApiResponse<T> response(ResponseEnum resp) {
+		return new ApiResponse<T>(resp.getCode(),resp.getMessage(),null);
 	}
 	
 	public Integer getCode() {

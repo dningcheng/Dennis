@@ -6,13 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import com.data.trans.common.ApiResponse;
+import com.data.trans.common.ResponseEnum;
 import com.data.trans.exception.AjaxException;
 import com.data.trans.mapper.SystemUserMapper;
 import com.data.trans.model.SystemUser;
 import com.data.trans.service.SystemUserService;
-import com.data.trans.util.ApiResponse;
 import com.data.trans.util.EncryptUtil;
-import com.data.trans.util.ResponseEnum;
 import com.data.trans.util.UUidUtil;
 
 /**
@@ -104,8 +104,15 @@ public class SystemUserServiceImpl implements SystemUserService {
 	 * @return
 	 */
 	@Override
-	public List<SystemUser> findList(SystemUser model) {
-		return systemUserMapper.findList(model);
+	public SystemUser findList(SystemUser model) {
+		
+		Integer total = systemUserMapper.findListNum(model);
+		if(total != null && total.intValue() != 0){
+			List<SystemUser> data = systemUserMapper.findList(model);
+			model.setTotal(total);
+			model.setData(data);
+		}
+		return model;
 	}
 	
 	private void checkSafeOpt(SystemUser model){
@@ -116,5 +123,19 @@ public class SystemUserServiceImpl implements SystemUserService {
 				StringUtils.isEmpty(model.getIdentity())){
 			throw new AjaxException(ResponseEnum.PARAM_ERR);
 		}
+	}
+
+	@Override
+	public ApiResponse<String> repeat(SystemUser model) {
+		Integer id = model.getId();
+		model.setId(null);
+		SystemUser user = systemUserMapper.findOne(model);
+		if(null == user){
+			return ApiResponse.success();
+		}
+		if(id != null && id.intValue() == user.getId().intValue()){
+			return ApiResponse.success();
+		}
+		return ApiResponse.error("此账号已被占用！");
 	}
 }

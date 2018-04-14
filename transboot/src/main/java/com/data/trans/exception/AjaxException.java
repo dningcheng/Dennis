@@ -1,6 +1,6 @@
 package com.data.trans.exception;
 
-import com.data.trans.util.ResponseEnum;
+import com.data.trans.common.ResponseEnum;
 
 /**
  * @Date 2018年3月25日

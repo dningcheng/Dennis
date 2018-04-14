@@ -6,7 +6,6 @@
 <title>系统登录</title>
 <style type="text/css">
 	body{margin: 0px;padding: 0px;background: #FFFFFF;}
-	.container{width: 500px;height: 300px;border: solid 2px white;border-radius: 2px;margin-top: 100px;padding-top:70px;opacity: 0.8;color: #ECCD5D;}
 </style>
 
 <script type="text/javascript">
@@ -19,47 +18,39 @@
    </div>
    <div class="panel-body">
       	<form class="form-horizontal" id="myform" name="myform" role="form">
-      	  <input type="hidden" name="id" value="${user.id }">
+      	  <input type="hidden" id="id" name="id" value="${user.id }">
 	  <div class="form-group">
 	    <label for="lastname" class="col-sm-2 control-label">账号</label>
 	    <div class="col-sm-6">
-	      <input type="text" class="form-control" id="account" name="account" value="${user.account}" placeholder="请输入姓">
+	      <input type="text" class="form-control" id="account" name="account" value="${user.account}" placeholder="请输入账号！" datatype="account" errormsg="账号格式为4-16位数字/字母！" nullmsg="请输入账号！">
 	    </div>
-	    <div class="col-sm-4">
-	      	输入不合法
-	    </div>
+	    <div class="col-sm-4"></div>
 	  </div>
 	  
 	  <c:if test="${empty user.id}">
 	  <div class="form-group">
 	    <label for="lastname" class="col-sm-2 control-label">密码</label>
 	    <div class="col-sm-6">
-	      <input type="text" class="form-control" id="password" name="password" placeholder="请输入姓">
+	      <input type="text" class="form-control" id="password" name="password" placeholder="请输入密码！" datatype="s6-12" errormsg="密码格式为6-12位字符！" nullmsg="请输入密码！">
 	    </div>
-	    <div class="col-sm-4">
-	      	输入不合法
-	    </div>
+	    <div class="col-sm-4"></div>
 	  </div>
 	  </c:if>
 	  
 	  <div class="form-group">
 	    <label for="firstname" class="col-sm-2 control-label">姓名</label>
 	    <div class="col-sm-6">
-	      <input type="text" class="form-control" id="name" name="name" value="${user.name }" placeholder="请输入名字">
+	      <input type="text" class="form-control" id="name" name="name" value="${user.name }" placeholder="请输入姓名！" datatype="s" ignore="ignore" errormsg="您输入的姓名不对！" nullmsg="请输入姓名！" >
 	    </div>
-	    <div class="col-sm-4">
-	      	输入不合法
-	    </div>
+	    <div class="col-sm-4"></div>
 	  </div>
 	  
 	  <div class="form-group">
 	    <label for="lastname" class="col-sm-2 control-label">昵称</label>
 	    <div class="col-sm-6">
-	      <input type="text" class="form-control" id="nick" name="nick" value="${user.nick }" placeholder="请输入姓">
+	      <input type="text" class="form-control" id="nick" name="nick" value="${user.nick }" placeholder="请输入昵称！" datatype="s" ignore="ignore" errormsg="您输入的昵称不对！" nullmsg="请输入昵称！">
 	    </div>
-	    <div class="col-sm-4">
-	      	输入不合法
-	    </div>
+	    <div class="col-sm-4"></div>
 	  </div>
 	  
 	  <div class="form-group">
@@ -81,41 +72,33 @@
 	  <div class="form-group">
 	    <label for="phone" class="col-sm-2 control-label">电话</label>
 	    <div class="col-sm-6">
-	      <input type="text" class="form-control" id="phone" name="phone" value="${phone }" placeholder="请输入电话">
+	      <input type="text" class="form-control" id="phone" name="phone" value="${phone }" placeholder="请输入电话！" datatype="n11-11" ignore="ignore" errormsg="您填写的电话不对！">
 	    </div>
-	    <div class="col-sm-4">
-	      	输入不合法
-	    </div>
+	    <div class="col-sm-4"></div>
 	  </div>
 	  
 	  <div class="form-group">
 	    <label for="identity" class="col-sm-2 control-label">身份证</label>
 	    <div class="col-sm-6">
-	      <input type="text" class="form-control" id="identity" name="identity" value="${user.identity }" placeholder="请输入身份证！">
+	      <input type="text" class="form-control" id="identity" name="identity" value="${user.identity }" placeholder="请输入身份证！" datatype="idcard" ignore="ignore" errormsg="您填写的身份证号码不对！"  >
 	    </div>
-	    <div class="col-sm-4">
-	      	输入不合法
-	    </div>
+	    <div class="col-sm-4"></div>
 	  </div>
 	  
 	  <div class="form-group">
 	    <label for="email" class="col-sm-2 control-label">邮箱</label>
 	    <div class="col-sm-6">
-	      <input type="text" class="form-control" id="email" name="email" value="${user.email }" placeholder="请输入邮箱！">
+	      <input type="text" class="form-control" id="email" name="email" value="${user.email }" placeholder="请输入邮箱！" datatype="e" ignore="ignore" errormsg="您输入的邮箱不对！" nullmsg="请输入邮箱！">
 	    </div>
-	    <div class="col-sm-4">
-	      	输入不合法
-	    </div>
+	    <div class="col-sm-4"></div>
 	  </div>
 	  
 	  <div class="form-group">
 	    <label for="address" class="col-sm-2 control-label">住址</label>
 	    <div class="col-sm-6">
-	      <input type="text" class="form-control" id="address" name="address" value="${user.address }" placeholder="请输入邮箱">
+	      <input type="text" class="form-control" id="address" name="address" value="${user.address }" placeholder="请输入住址！">
 	    </div>
-	    <div class="col-sm-4">
-	      	输入不合法
-	    </div>
+	    <div class="col-sm-4"></div>
 	  </div>
 	</form>
    </div>
@@ -126,7 +109,15 @@
 
 <!-- js脚本 -->
 <script type="text/javascript">
+
+//全局属性，表单验证
+var validform = null;
+
+//保存
 function save(){
+	
+	//验证不同过,不提交表单
+	if(!validform.check(false)) return;
 	$.ajax({
 	   type: "POST",
 	   async: false, //ajax同步提交
@@ -136,7 +127,7 @@ function save(){
 	     	if(data.code == 200){
 	     		CommonUtil.showSuccess({message:data.message});
 	     	}else{
-	     		 CommonUtil.showError({message:data.message});
+	     		CommonUtil.showError({message:data.message});
 	     	}
 	   },
 	   err:function(data){
@@ -144,6 +135,57 @@ function save(){
 	   }
 	});
 }
+
+//格式验证
+$(function(){
+	//初始化表单验证
+	validform = $("#myform").Validform({
+		
+		//防止重复提交
+		postonce:true,
+		
+		//A:自定义验证信息提示样式,所有验证的表单元素共用此验证信息提示样式
+		tiptype:function(msg,o,cssctl){
+			CommonUtil.showValidformTip(msg,o,cssctl);//将此方法体定义到common.jsp中便于其它页面重用
+		},
+		
+		//B:注册自定义datatype类型:规则名称:正则表达式/function,定义好之后可以在表单元素中的datatype属性直接使用
+		datatype:{
+			"idcard":function(gets,obj,curform,regxp){//验证合法身份证
+				return CommonUtil.validIdentity(gets,obj,curform,regxp);//将此方法体定义到common.jsp中便于其它页面重用
+			},
+			"account":function(gets,obj,curform,regxp){//验证只能由数字字母组成,中间不能由空格
+				//gets是获取到的表单元素值，
+		        //obj为当前表单元素，
+		        //curform为当前验证的表单，
+		        //regxp为内置的一些正则表达式的引用。
+		        //return false或者其它字符串(字符串会被用于错误提示)表示验证出错，没有return或者return true表示验证通过。
+		        var reg = /^[a-zA-Z0-9]{4,16}$/g;
+				if(reg.test(gets)){//格式通过还需要继续检测是否重复
+					var valid = false;
+					$.ajax({
+					   type: "POST",
+					   async: false, //ajax同步提交
+					   url: "${pageContext.request.contextPath}/user/validRepeat.ation",
+					   data: {"account":gets.trim(),"id":$("#id").val()},
+					   success: function(data){
+					     	if(data.code == 200){
+					     		valid = true;
+					     	}else{
+					     		valid = data.message;
+					     	}
+					   },
+					   err:function(data){}
+					});
+					return valid;
+				}else{
+			        return false;
+				}
+			}
+		}
+	});
+})
+
 
 </script>
 </body>

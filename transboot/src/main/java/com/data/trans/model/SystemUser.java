@@ -2,12 +2,14 @@ package com.data.trans.model;
 
 import java.io.Serializable;
 
+import com.data.trans.util.PagerUtil;
+
 /**
  * @Date 2018年3月22日
  * @author dnc
  * @Description 系统账号模型
  */
-public class SystemUser implements Serializable{
+public class SystemUser extends PagerUtil<SystemUser> implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	private Integer id; //主键

@@ -19,4 +19,6 @@ public interface BaseMapper<T> {
 
     List<T> findList(T model);
     
+    Integer findListNum(T model);
+    
 }

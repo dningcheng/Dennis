@@ -16,13 +16,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.data.trans.model.Translog;
+import com.data.trans.common.ApiResponse;
+import com.data.trans.common.ResponseEnum;
 import com.data.trans.exception.ViewException;
 import com.data.trans.model.SystemUser;
 import com.data.trans.service.SystemUserService;
 import com.data.trans.service.TranslogService;
-import com.data.trans.util.ApiResponse;
 import com.data.trans.util.EncryptUtil;
-import com.data.trans.util.ResponseEnum;
 
 import ch.qos.logback.core.net.SyslogOutputStream;
 import redis.clients.jedis.JedisPool;
@@ -108,8 +108,8 @@ public class UserController {
 	
 	@RequestMapping("list")
 	public String userList(Map<String,Object> map,SystemUser user){
-		List<SystemUser> users = systemUserService.findList(user);
-		map.put("users", users);
+		systemUserService.findList(user);
+		map.put("user", user);
 		return "user/list";
 	}
 	
@@ -138,4 +138,10 @@ public class UserController {
 		return systemUserService.delete(user);
 	}
 	
+	
+	@ResponseBody
+	@RequestMapping("validRepeat")
+	public ApiResponse<String> repeat(SystemUser user){
+		return systemUserService.repeat(user);
+	}
 }

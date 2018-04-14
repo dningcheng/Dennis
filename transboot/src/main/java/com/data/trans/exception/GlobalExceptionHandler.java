@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.data.trans.util.ApiResponse;
+import com.data.trans.common.ApiResponse;
 
 /**
  * @Date 2018年3月25日

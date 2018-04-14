@@ -8,8 +8,9 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.2.1.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/aa.js"></script>
-<%-- <script type="text/javascript" src="${pageContext.request.contextPath}/js/SHA256.js"></script> --%>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/Validform_v5.3.2_min.js"></script>
 <link type="text/css" href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet"/>
+<link type="text/css" href="${pageContext.request.contextPath}/css/Validform_v5.3.2_min.css?v=1.0" rel="stylesheet"/>
 
 <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -95,8 +96,107 @@ var CommonUtil = {
 			$("form[name='"+ajaxAnywhere.formName+"']").attr("action",url);
 			ajaxAnywhere.submitAJAX();
 		}catch(e){console.log("ajaxAnywhere执行异常")}
+	},
+	//关于Validform_v5.3.2验证信息提示方式的公用方法
+	showValidformTip : function(msg,o,cssctl){
+		//msg：提示信息;
+		//o:{obj:*,type:*,curform:*}, obj指向的是当前验证的表单元素（或表单对象），type指示提示的状态，值为1、2、3、4， 1：正在检测/提交数据，2：通过验证，3：验证失败，4：提示ignore状态, curform为当前form对象;
+		//cssctl:内置的提示信息样式控制函数，该函数需传入两个参数：显示提示信息的对象 和 当前提示的状态（既形参o中的type）;
+		if(!o.obj.is("form")){//验证表单元素时o.obj为该表单元素，全部验证通过提交表单时o.obj为该表单对象;
+			var $curObj = $(o.obj);
+			var $id = $curObj.attr("id");
+			var $position = $curObj.offset();
+			var $width = $curObj.css("width");
+			var $height = $curObj.css("height");
+			var tipLeft = parseFloat($position.left)+parseFloat($width)+10;
+			var tipTop =  $position.top;
+			var tipHeight = $height;
+			try{
+				var tipObj = $("#tip_"+$id);
+				if(tipObj.length == 0){//提示框不存在，创建一个
+					tipObj = $("<span id='tip_"+$id+"' class='valid-tip'></span>").appendTo("body");
+					//tipObj = $("<span id='tip_"+$id+"' class='valid-tip' style='height:"+tipHeight+";display:inline-block;line-height:34px;position:absolute;left:"+tipLeft+";top:"+tipTop+"'></span>").appendTo("body");
+					tipObj.css({ 
+						"height":tipHeight,
+						"display":"inline-block",
+						"line-height":tipHeight,
+						"position":"absolute",
+						"left":tipLeft,
+						"top":tipTop,
+						"border-radius":6
+					});
+				}
+				tipObj.hide();
+				if(o.type==2){//验证通过
+					tipObj.removeClass("Validform_wrong Validform_loading");
+					tipObj.addClass("Validform_right");
+					tipObj.show();
+				}else if(o.type==3){//验证失败或其它
+					tipObj.removeClass("Validform_right Validform_loading");
+					tipObj.addClass("Validform_wrong");
+					tipObj.show();
+					//$curObj.select();
+				}else if(o.type==1){
+					tipObj.addClass("Validform_loading");
+					tipObj.removeClass("Validform_right Validform_wrong");
+				}else{
+					tipObj.removeClass("Validform_right Validform_wrong Validform_loading");
+				}
+				tipObj.text(msg);
+			}catch(e){console.log("提示信息异常:"+e)}
+		}	
+	},
+	//关于Validform_v5.3.2的几个公用验证类型方法
+	validIdentity : function(gets,obj,curform,regxp){//验证合法身份证
+		var Wi = [ 7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2, 1 ];// 加权因子;
+		var ValideCode = [ 1, 0, 10, 9, 8, 7, 6, 5, 4, 3, 2 ];// 身份证验证位值，10代表X;
+		if (gets.length == 15) {   
+			return isValidityBrithBy15IdCard(gets);   
+		}else if (gets.length == 18){   
+			var a_idCard = gets.split("");// 得到身份证数组   
+			if (isValidityBrithBy18IdCard(gets)&&isTrueValidateCodeBy18IdCard(a_idCard)) {   
+				return true;   
+			}   
+			return false;
+		}
+		return false;
+		function isTrueValidateCodeBy18IdCard(a_idCard) {   
+			var sum = 0; // 声明加权求和变量   
+			if (a_idCard[17].toLowerCase() == 'x') {   
+				a_idCard[17] = 10;// 将最后位为x的验证码替换为10方便后续操作   
+			}   
+			for ( var i = 0; i < 17; i++) {   
+				sum += Wi[i] * a_idCard[i];// 加权求和   
+			}   
+			valCodePosition = sum % 11;// 得到验证码所位置   
+			if (a_idCard[17] == ValideCode[valCodePosition]) {   
+				return true;   
+			}
+			return false;   
+		}
+		function isValidityBrithBy18IdCard(idCard18){   
+			var year = idCard18.substring(6,10);   
+			var month = idCard18.substring(10,12);   
+			var day = idCard18.substring(12,14);   
+			var temp_date = new Date(year,parseFloat(month)-1,parseFloat(day));   
+			// 这里用getFullYear()获取年份，避免千年虫问题   
+			if(temp_date.getFullYear()!=parseFloat(year) || temp_date.getMonth()!=parseFloat(month)-1 || temp_date.getDate()!=parseFloat(day)){   
+				return false;   
+			}
+			return true;   
+		}
+		function isValidityBrithBy15IdCard(idCard15){   
+			var year =  idCard15.substring(6,8);   
+			var month = idCard15.substring(8,10);   
+			var day = idCard15.substring(10,12);
+			var temp_date = new Date(year,parseFloat(month)-1,parseFloat(day));   
+			// 对于老身份证中的你年龄则不需考虑千年虫问题而使用getYear()方法   
+			if(temp_date.getYear()!=parseFloat(year) || temp_date.getMonth()!=parseFloat(month)-1 || temp_date.getDate()!=parseFloat(day)){   
+				return false;   
+			}
+			return true;
+		}
 	}
-	
 }
 
 //为确认框绑定确定/取消按钮点击回调
