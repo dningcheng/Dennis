@@ -82,7 +82,7 @@
 			    <li <c:if test="${user.curPage eq user.topPage}">class="disabled"</c:if> ><a onclick="CommonUtil.ajaxFresh({url:'${pageContext.request.contextPath}/user/list.action?curPage=${user.prePage}'});" href="#">上一页</a></li>
 			    <li <c:if test="${user.curPage eq user.bottomPage}">class="disabled"</c:if> ><a onclick="CommonUtil.ajaxFresh({url:'${pageContext.request.contextPath}/user/list.action?curPage=${user.nextPage}'});" href="#">下一页</a></li>
 			    <li <c:if test="${user.curPage eq user.bottomPage}">class="disabled"</c:if> ><a onclick="CommonUtil.ajaxFresh({url:'${pageContext.request.contextPath}/user/list.action?curPage=${user.bottomPage}'});" href="#">尾页</a></li>
-				<li class="disabled"><a href="#">当前第&nbsp;${user.curPage}&nbsp;页&nbsp;共<span color='red'>&nbsp;${user.bottomPage}&nbsp;页&nbsp;&nbsp;</span>${user.total}&nbsp;条</a></li>
+				<li class="disabled"><a href="#">当前第&nbsp;<font color="#337ab7">${user.curPage}</font>&nbsp;页&nbsp;共&nbsp;<font color="#337ab7">${user.bottomPage}</font>&nbsp;页&nbsp;&nbsp;<font color="#337ab7">${user.total}</font>&nbsp;条</a></li>
 			</ul>
 			<div class="input-group input-group-sm" style="width: 100px;">
 			  <input type="text" id="skipPage" value="${user.curPage}" class="form-control" >
