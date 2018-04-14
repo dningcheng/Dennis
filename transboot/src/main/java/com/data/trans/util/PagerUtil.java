@@ -13,7 +13,7 @@ public class PagerUtil<T> {
 	private Integer curPage = 1;
 	private Integer pageSize = 10;
 	private Integer total = 0;
-	private List<T> data = new ArrayList<>();
+	private List<T> dataList = new ArrayList<>();
 	
 	public Integer getCurIndex() {
 		return (getCurPage()-1)*pageSize;
@@ -51,11 +51,11 @@ public class PagerUtil<T> {
 	public void setTotal(Integer total) {
 		this.total = total;
 	}
-	public List<T> getData() {
-		return data;
+	public List<T> getDataList() {
+		return dataList;
 	}
-	public void setData(List<T> data) {
-		this.data = data;
+	public void setDataList(List<T> dataList) {
+		this.dataList = dataList;
 	}
 	
 }

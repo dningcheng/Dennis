@@ -108,9 +108,9 @@ public class SystemUserServiceImpl implements SystemUserService {
 		
 		Integer total = systemUserMapper.findListNum(model);
 		if(total != null && total.intValue() != 0){
-			List<SystemUser> data = systemUserMapper.findList(model);
+			List<SystemUser> dataList = systemUserMapper.findList(model);
 			model.setTotal(total);
-			model.setData(data);
+			model.setDataList(dataList);
 		}
 		return model;
 	}

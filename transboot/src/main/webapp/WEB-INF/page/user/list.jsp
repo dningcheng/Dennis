@@ -55,7 +55,7 @@
 		        <th width="*%">操作</th>
 		    </tr>
 		    <!--user为集合中循环取出的对象，iterStat为迭代变量，名字必须为iterStat  -->
-			<c:forEach items="${user.data }" var="model" varStatus="status" >
+			<c:forEach items="${user.dataList }" var="model" varStatus="status" >
 			<tr>
 				<td>${(user.curPage-1) * user.pageSize + status.count}</td>
 			    <td>${model.name}</td>
