@@ -5,7 +5,6 @@
 <head>
 <title>系统登录</title>
 <style type="text/css">
-	body{font-size: 12px;}
 	.search-input{margin-right: 10px;max-width: 140px;}
 	.header{background-color: #CCCCCC;}
 	.pagination > li > a:hover{background-color: #CCCCCC;}

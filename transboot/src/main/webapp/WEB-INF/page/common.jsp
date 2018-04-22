@@ -26,7 +26,8 @@
 	.padding-lr-20{padding-left:20px;padding-right:20px;}
 	.padding-lr-30{padding-left:30px;padding-right:30px;}
 	.padding-t-200{padding-top: 200px;}
-	
+	body{font-size: 12px;}
+	.header > th{font-size: 14px;}
 </style>
 <script type="text/javascript">
 
@@ -123,7 +124,7 @@ var CommonUtil = {
 						"position":"absolute",
 						"left":tipLeft,
 						"top":tipTop,
-						"border-radius":6
+						"border-radius":20
 					});
 				}
 				tipObj.hide();

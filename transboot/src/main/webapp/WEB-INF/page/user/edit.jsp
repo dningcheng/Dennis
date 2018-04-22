@@ -6,6 +6,8 @@
 <title>系统登录</title>
 <style type="text/css">
 	body{margin: 0px;padding: 0px;background: #FFFFFF;}
+	.control-label{font-size: 15px;}
+	.breadcrumb{font-size: 15px;}
 </style>
 
 <script type="text/javascript">
@@ -13,9 +15,12 @@
 </script>
 </head>
 <body>
-   <div class="panel-heading">
-        <h3 class="panel-title">用户管理</h3>
-   </div>
+<div class="container-fluid">
+<div class="panel panel-info">
+        <ol class="breadcrumb panel-heading">
+		  <li><a href="${pageContext.request.contextPath}/user/list.action">用户管理</a></li>
+		  <li class="active">编辑</li>
+		</ol>
    <div class="panel-body">
       	<form class="form-horizontal" id="myform" name="myform" role="form">
       	  <input type="hidden" id="id" name="id" value="${user.id }">
@@ -106,7 +111,8 @@
 		<a class="btn btn-default col-sm-1 col-sm-offset-4" href="${pageContext.request.contextPath}/user/list.action">返&nbsp;回</a>
 		<button class="btn btn-primary col-sm-1 margin-left-10" onclick="save();">保&nbsp;存</button>
    </div>
-
+</div>
+</div>
 <!-- js脚本 -->
 <script type="text/javascript">
 
