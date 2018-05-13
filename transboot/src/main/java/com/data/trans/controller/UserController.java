@@ -41,7 +41,7 @@ public class UserController {
 	@Autowired
 	private SystemUserService systemUserService;
 	
-	@RequestMapping("login")
+	@RequestMapping("index")
 	public String login(Map<String,Object> map,SystemUser user,HttpServletRequest request){
 		/*ListOperations<String,Integer> listOpera = redisTemplate.opsForList();*/
 		//ValueOperations<String,Object> valueOpera = redisTemplate.opsForValue();

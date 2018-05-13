@@ -1,7 +1,7 @@
 #一下关于数据库和es的相关配置已经修改为使用jar包启动时传入，打包该项目为jar后使用命令启动：java -jar xxx.jar --dbhost=192.168.0.98   --dbport=3306  --dbusername=dev_wygl   --dbpassword=dev_wygl   --eshost=192.168.0.104   --esport=9300  --esclustername=es_cluster
 #---------springboot配置信息---------
 server: 
-    port: 8080
+    port: 8090
       
 #---------自定义日志配置文件的名称和位置
 logging: 
