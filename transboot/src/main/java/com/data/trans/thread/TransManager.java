@@ -147,6 +147,7 @@ public class TransManager {
 			}
 			//任务记录表记录生成完毕
 			socketTemplate.convertAndSend("/myTopic/myCmdInter", CmdUtil.getResponse(Constant.CODE_SUCCESS, Constant.CMD_PUSH_FINISHED_TRANS_TABLE_RECORDS));
+			socketTemplate.convertAndSendToUser("ddd", destination, payload);
 			jobs.forEach(job -> futures.add(fixedThreadPool.submit(job)));
 			transState = Constant.STATE_TRANS_STARTING;//修改状态为正在执行中
 			

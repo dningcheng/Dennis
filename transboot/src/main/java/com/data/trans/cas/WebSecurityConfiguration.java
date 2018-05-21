@@ -1,4 +1,5 @@
 package com.data.trans.cas;
+
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Configuration;
 
