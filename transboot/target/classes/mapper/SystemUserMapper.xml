@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.data.trans.mapper.SystemUserMapper">
+	
+	<sql id="idUserIdAccountWhere">
+		<where>
+		<if test="null != id and id != '' ">or id = #{id}</if>
+		<if test="null != userId and userId != '' ">or user_id = #{userId}</if>
+		<if test="null != account and account != '' ">or account = #{account}</if>
+		</where>
+	</sql>
+	
+	<resultMap type="com.data.trans.model.SystemUser" id="systemUserAll_map">
+		<id column="id" property="id"/>
+		<result column="user_id" property="userId"/>
+		<result column="account" property="account"/>
+		<!-- <result column="password" property="password"/> -->
+		<result column="nick" property="nick"/>
+		<result column="name" property="name"/>
+		<result column="sex" property="sex"/>
+		<result column="phone" property="phone"/>
+		<result column="email" property="email"/>
+		<result column="identity" property="identity"/>
+		<result column="head_img" property="headImg"/>
+		<result column="address" property="address"/>
+	</resultMap>
+	
+	<insert id="save" parameterType="com.data.trans.model.SystemUser" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+		insert into system_user
+			(user_id,
+			account,
+			password,
+			nick,
+			name,
+			sex,
+			phone,
+			identity,
+			email,
+			head_img,
+			address
+			)
+		values
+			(#{userId},
+			#{account},
+			#{password},
+			#{nick},
+			#{name},
+			#{sex},
+			#{phone},
+			#{identity},
+			#{email},
+			#{headImg},
+			#{address}
+			)
+	</insert>
+	
+	<delete id="delete" parameterType="com.data.trans.model.SystemUser">
+		delete from system_user
+		<include refid="idUserIdAccountWhere"/>
+	</delete>
+	
+	<sql id="update_systemUser_body">
+		<set>
+			<if test="null != account and account != ''">account=#{account},</if>
+			<if test="null != nick and nick != ''">nick=#{nick},</if>
+			<if test="null != name and name != ''">name=#{name},</if>
+			<if test="null != sex and sex != ''">sex=#{sex},</if>
+			<if test="null != phone and phone != ''">phone=#{phone},</if>
+			<if test="null != identity and identity != ''">identity=#{identity},</if>
+			<if test="null != email and email != ''">email=#{email},</if>
+			<if test="null != headImg and headImg != ''">head_img=#{headImg},</if>
+			<if test="null != address and address != ''">address=#{address}</if>
+		</set>
+	</sql>
+	
+	<update id="update" parameterType="com.data.trans.model.SystemUser">
+		update system_user
+		<include refid="update_systemUser_body"/>
+		<include refid="idUserIdAccountWhere"/>
+	</update>
+	
+	<select id="findOne" parameterType="com.data.trans.model.SystemUser" resultMap="systemUserAll_map">
+		select * from system_user
+		<include refid="idUserIdAccountWhere"/>
+	</select>
+	
+	<sql id="listUserSqlIf">
+		<where>
+			<if test="null != account and account != ''">and account like "%"#{account}"%"</if>
+			<if test="null != nick and nick != ''">and nick like "%"#{nick}"%"</if>
+			<if test="null != name and name != ''">and `name` like "%"#{name}"%"</if>
+			<if test="null != sex and sex != ''">and sex = #{sex}</if>
+			<if test="null != phone and phone != ''">and phone like "%"#{phone}"%"</if>
+			<if test="null != identity and identity != ''">and identity like "%"#{identity}"%"</if>
+			<if test="null != email and email != ''">and email like "%"#{email}"%"</if>
+			<if test="null != address and address != ''">and address like "%"#{address}"%"</if>
+		</where>
+	</sql>
+	
+	<select id="findList" parameterType="com.data.trans.model.SystemUser" resultMap="systemUserAll_map">
+		select * from system_user
+		<include refid="listUserSqlIf"/>
+		limit #{curIndex},#{pageSize}
+	</select>
+	
+	<select id="findListNum" parameterType="com.data.trans.model.SystemUser" resultType="int">
+		select count(1) from system_user <include refid="listUserSqlIf"/>
+	</select>
+	
+</mapper>

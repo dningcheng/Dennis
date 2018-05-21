@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="10 seconds">
+	<include resource="org/springframework/boot/logging/logback/base.xml" />
+	
+	<!-- 设置上下文名称,一旦设置，不能修改,可以通过%contextName来打印日志上下文名称,用于区别不同的运用程序 -->
+	<contextName>transboot</contextName>
+	
+	<!-- 自定义变量，定义后可使用${log.path}来使用变量 -->
+	<property name="log.path" value="D:log" />
+	
+	<!-- appender用来格式化日志输出节点，有俩个属性name和class，class用来指定哪种输出策略，常用就是控制台输出策略和文件输出策略 -->
+	<!-- 日志输出到控制台 -->
+	<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+		
+		<!-- filter为系统定义的拦截器，例如我们用ThresholdFilter来过滤掉ERROR级别以下的日志不输出到文件中。如果不用记得注释掉，不然你控制台会发现没日志 -->
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+        	<level>INFO</level>
+    	</filter>
+		
+		<!-- <encoder>表示对日志进行编码 -->
+		<!-- 
+			%d{HH: mm:ss.SSS}——日志输出时间
+			%thread——输出日志的进程名字，这在Web应用以及异步任务处理中很有用
+			%-5level——日志级别，并且使用5个字符靠左对齐
+			%logger{36}——日志输出者的名字
+			%msg——日志消息
+			%n——平台的换行符
+		 -->
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<!-- 
+		为了把不同的信息打印到不同的文件中，只需要单独分开设置<appender>并用<filter>来过滤即可
+		注意多个<appender>的<fileNamePattern>标签中值不能相同
+		例如如下设置info和err级别的日志打印到不同文件中，项目运行后D:/log/目录下将会生成两个文件：
+		mylog-info.2018-04-06.log
+		mylog-err.2018-04-06.log
+	 -->
+	<!--info级别输出到文件-->
+	<appender name="info-file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+	    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${log.path}/mylog-info.%d{yyyy-MM-dd}.log</fileNamePattern>
+	        <maxHistory>30</maxHistory>
+			<totalSizeCap>1GB</totalSizeCap>
+	    </rollingPolicy>
+	    <encoder>
+	        <pattern>%d{HH:mm:ss.SSS} %contextName [%thread] %-5level %logger{36} - %msg%n</pattern>
+	    </encoder>
+	    <!-- 过滤器，只记录INFO级别的日志 -->    
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">    
+            <level>INFO</level>    
+            <onMatch>ACCEPT</onMatch>    
+            <onMismatch>DENY</onMismatch>    
+        </filter> 
+	</appender>
+	
+	<!--err级别输出到文件-->
+	<appender name="err-file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+	        <!--文件路径,定义了日志的切分方式——把每一天的日志归档到一个文件中,以防止日志填满整个磁盘空间-->
+	        <FileNamePattern>${log.path}/mylog-err.%d{yyyy-MM-dd}.log</FileNamePattern>
+	        <!--只保留最近30天的日志-->
+	        <maxHistory>30</maxHistory>
+	        <!--用来指定日志文件的上限大小，那么到了这个值，就会删除旧的日志-->
+	        <totalSizeCap>1GB</totalSizeCap>
+	    </rollingPolicy>
+		<!--日志输出编码格式化-->
+	    <encoder>
+	        <charset>UTF-8</charset>
+	        <pattern>%d{HH:mm:ss.SSS} %contextName [%thread] %-5level %logger{36} - %msg%n</pattern>
+	    </encoder>
+	    <!-- 过滤器，只记录INFO级别的日志 -->    
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">    
+            <level>ERR</level>    
+            <onMatch>ACCEPT</onMatch>    
+            <onMismatch>DENY</onMismatch>    
+        </filter>
+	</appender>
+	
+	<!--
+		<logger>标签代表子级打印节点，name配置细粒度的包名或是全类名，level配置器打印级别，additivity设置是否向上级<root>传递，<appender-ref>用于设置该节点打印的目的地也就是上面定义的<appender>,可设置多个
+		使用mybatis的时候，sql语句是debug下才会打印，而这里我们只配置了info，所以想要查看sql语句的话，有以下两种方式：
+		1、把<root level="info">改成<root level="DEBUG">这样就会打印sql，不过这样日志那边会出现很多其他消息。
+		2、就是单独给dao下目录配置debug模式，代码如下，这样配置sql语句会打印，其他还是正常info级别：
+	-->
+    <logger name="com.data.trans.mapper" level="DEBUG" additivity="false">
+        <appender-ref ref="console"/>
+    </logger>
+	
+	<!-- 
+		如果需要使用多环境日志不同输出，可以使用<springProfile name="test,dev"></springProfile> 标签指定环境后缀名称，多个以","号分割。来包裹<logger name="com.data.trans.controller" level="ERROR" />标签如下：
+	 -->
+	<springProfile name="dev,test">
+		<!-- 
+			如何不设置打印级别，则会继承他的上级的日志级别“info”
+			没有设置addtivity，默认为true，即将此logger的打印信息向上级root传递
+			没有设置appender，此logger本身不打印任何信息。
+		 -->
+		<logger name="com.data.trans.controller" level="DEBUG" />
+    </springProfile>
+    
+    <springProfile name="prod">
+	    <logger name="com.data.trans.controller" level="INFO" />
+    </springProfile>
+	
+	<!-- 
+		<root>节点是必选节点，用来指定最基础的日志输出级别，也就是终极/顶级打印节点，只有一个level属性，<appender-ref>用于设置该节点打印的目的地也就是上面定义的<appender>,可设置多个
+	 -->
+	<root level="INFO">
+		<appender-ref ref="console" />
+		<appender-ref ref="info-file" />
+		<appender-ref ref="err-file" />
+	</root>
+
+</configuration>

@@ -1,0 +1,125 @@
+#一下关于数据库和es的相关配置已经修改为使用jar包启动时传入，打包该项目为jar后使用命令启动：java -jar xxx.jar --dbhost=192.168.0.98   --dbport=3306  --dbusername=dev_wygl   --dbpassword=dev_wygl   --eshost=192.168.0.104   --esport=9300  --esclustername=es_cluster
+#---------springboot配置信息---------
+server: 
+    port: 8090 #端口
+    session: 
+        timeout: 30 #session过期时间
+#    context-path: transboot #项目默认访问路径，默认为/   此项配置报错：
+      
+#---------自定义日志配置文件的名称和位置
+logging: 
+    config: classpath:logback-spring.xml
+    dir: d://log
+#---------mysql数据库配置信息---------
+spring: 
+    datasource:
+        name: myDataSource
+        url: jdbc:mysql://www.seally.cn:3306/dennis?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull
+        username: root
+        password: root
+        driverClassName: com.mysql.jdbc.Driver
+#-------配置使用druid连接池 ---------
+        type: com.alibaba.druid.pool.DruidDataSource
+#-------下面druid连接池补充配置信息，应用到上面所有数据源中 ---------  
+        # 初始化大小，最小，最大  
+        initialSize: 5  
+        minIdle: 5  
+        maxActive: 20  
+        # 配置获取连接等待超时的时间  
+        maxWait: 60000  
+        # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒  
+        timeBetweenEvictionRunsMillis: 60000  
+        # 配置一个连接在池中最小生存的时间，单位是毫秒  
+        minEvictableIdleTimeMillis: 300000  
+        validationQuery: SELECT 1 FROM DUAL  
+        testWhileIdle: true  
+        testOnBorrow: false  
+        testOnReturn: false  
+        # 打开PSCache，并且指定每个连接上PSCache的大小  
+        poolPreparedStatements: true  
+        maxPoolPreparedStatementPerConnectionSize: 20  
+        # 配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙  
+        #filters: stat,log4j  
+        # 通过connectProperties属性来打开mergeSql功能；慢SQL记录  
+        connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000  
+        # 合并多个DruidDataSource的监控数据  
+        #useGlobalDataSourceStat: true 
+#-------模板引擎thymeleaf配置，不方便-----------
+#    thymeleaf: 
+#        cache: false
+#        prefix: classpath:/templates
+#        suffix: .html
+#        encoding: UTF-8
+#        content-type: text/html
+#        mode: html
+
+#-------模板引擎jsp配置-----------
+    mvc: 
+        view: 
+            prefix: /WEB-INF/page/ #页面默认前缀目录
+            suffix: .jsp #响应页面默认后缀
+            
+#-------指定当前环境的生效配置文件，当然也可以在命令行启动时以入参指定如：java -jar xxx.jar --spring.profiles.active=dev
+    profiles: 
+        active: dev #表示当前是由哪个环境的配置文件，active的值对应application-xxx.yml 中的xxx
+
+#-------Redis配置-----------
+    redis:
+        database: 0 #Redis数据库索引（默认为0）
+        host: www.seally.cn ##Redis服务器地址
+        port: 6379 #Redis服务器连接端口
+        password:   #Redis服务器连接密码（默认为空）
+        pool.max-active: 8 #连接池最大连接数（使用负值表示没有限制）
+        pool.max-wait: -1 #连接池最大阻塞等待时间（使用负值表示没有限制）
+        pool.max-idle: 8 #连接池中的最大空闲连接
+        pool.min-idle: 0 #连接池中的最小空闲连接
+        timeout: 3000  #连接超时时间（毫秒）
+#cas客户端配置
+#app: 
+#    service: 
+#        home: http://localhost:8090
+#        security: http://localhost:8090
+#cas: 
+#    service: 
+#        login: http://localhost:8080/cas/login
+#        logout: http://localhost:8080/cas/logout
+#    url: 
+#        prefix: http://localhost:8080
+cas:
+    server-url-prefix: http://localhost:8080/cas
+    server-login-url: http://localhost:8080/cas/login
+    client-host-url: http://localhost:8090
+    validation-type: CAS
+#-------mybatis集成配置-----------
+mybatis: 
+    mapperLocations: classpath:mapper/*.xml             #mapper.xml文件路径
+    typeAliasesPackage: com.data.trans.model            #mybatis数据模型实体包路径
+    config: mybatis-config.xml                          #mybatis配置文件的路径 
+    
+    
+#---------Elastic自定义的配置信息-----------
+elasticsearch: 
+    serverHost: www.seally.cn                              #es服务器ip
+    serverPort: 9300                                       #es服务监听端口
+    serverName: es_cluster                                  #es服务集群名称
+    clientPoolInitialSize: 10
+    clientPoolMaxSize: 20 
+    clientPoolMinSize: 8
+    clientPoolMaxWait: 6000
+    client:     
+        import: 
+            index: wyglsystemlog                        #es服务器导入目标索引库
+            type: pblog                                 #es服务器导入目标索引库类型
+            bulkSize: 2000                              #每批提交到es导入的文档数
+            
+#---------数据迁移线程池信息-----------
+#mysql数据库迁移数据表
+trans:
+    datasource:
+        table:
+            name: systemlog                              #mysql迁移目标表名
+            fetchSize: 10000                            #mysql数据库单次抓取数目  
+    thread:
+        pool:
+            size: 10                                    #数据迁移线程池容量（决定任务迁移拆分线程数据/任务数目）
+
